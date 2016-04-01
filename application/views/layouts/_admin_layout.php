@@ -33,6 +33,8 @@
     <!-- Bootstrap Core CSS -->
     <link href="<?=site_url('assets/admin_css/bootstrap.min.css')?>" rel="stylesheet">
 
+    <link href="<?=site_url('assets/admin_css/cupertino/jquery-ui.min.css')?>" rel="stylesheet">
+
     <!-- MetisMenu CSS -->
     <link href="<?=site_url('assets/admin_css/plugins/metisMenu/metisMenu.min.css')?>" rel="stylesheet">
 
@@ -167,13 +169,13 @@
                                 <a href="<?=site_url('cms_admin')?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
                             <li>
-                                <a href="<?=site_url('cms_admin/accounts')?>"><i class="fa fa-list fa-fw"></i> All Accounts &nbsp;&nbsp;<span class = "badge"><?=count($accounts)?></span> </a>
+                                <a href="<?=site_url('cms_admin/accounts')?>"><i class="fa fa-list fa-fw"></i> All Accounts &nbsp;&nbsp;<span class = "badge"><?=$accounts?></span> </a>
                             </li>
                             <li>
-                                <a href="<?=site_url('cms_admin/instructor')?>"><i class="fa fa-male fa-fw"></i> Instructors &nbsp;&nbsp;<span class = "badge"><?=count($instructors)?></span></a>
+                                <a href="<?=site_url('cms_admin/instructor')?>"><i class="fa fa-male fa-fw"></i> Instructors &nbsp;&nbsp;<span class = "badge"><?=$instructors?></span></a>
                             </li>
                             <li>
-                                <a href="<?=site_url('cms_admin/student')?>"><i class="fa fa-group fa-fw"></i> Students &nbsp;&nbsp;<span class = "badge"><?=count($students)?></span></a>
+                                <a href="<?=site_url('cms_admin/student')?>"><i class="fa fa-group fa-fw"></i> Students &nbsp;&nbsp;<span class = "badge"><?=$students?></span></a>
                             </li>
                         <?php elseif ($this->session->userdata('userType') == 'instructor'):?>
                             <li>
@@ -223,6 +225,7 @@
 
     <!-- jQuery Version 1.11.0 -->
     <script type='text/javascript' src="<?=site_url('assets/admin_js/jquery.min.js')?>"></script>
+    <script type='text/javascript' src="<?=site_url('assets/admin_js/jquery-ui.min.js')?>"></script> 
 
     <!-- Bootstrap Core JavaScript -->
     <script type='text/javascript' src="<?=site_url('assets/admin_js/bootstrap.min.js')?>"></script>
@@ -253,6 +256,25 @@
             $('#ins').toggle('slow');
             $('#show-instructor-form').toggle('slow');
         });
+
+        $('#show-calendar-form').click(function(){
+            $('#show-calendar-form').toggle('slow');
+            $('#calendar-form').toggle('slow');
+        });
+
+        $('#cancel').click(function(){
+            $('#show-calendar-form').toggle('slow');
+            $('#calendar-form').toggle('slow');
+        });
+
+        $('.show-event').click(function(){
+            $('.show-event').popover('destroy');
+            var id = $(this).attr('url');
+            $('#show_'+id).popover('toggle');
+        });
+
+        $('#date_start').datepicker({ dateFormat: 'mm/dd/yy' });
+        $('#date_end').datepicker({ dateFormat: 'mm/dd/yy' });
 
     });
     </script>

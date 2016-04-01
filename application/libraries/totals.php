@@ -19,21 +19,21 @@ class totals{
 	{
 		$CI =& get_instance();
 		$CI->load->model('M_content');
-		return $CI->M_content->get_all_accounts();
+		return $CI->M_content->record_count();
 	}
 
 	public function students()
 	{
 		$CI =& get_instance();
 		$CI->load->model('M_content');
-		return $CI->M_content->get_user_where('student');
+		return $CI->M_content->record_count('student');
 	}
 
 	public function instructors()
 	{
 		$CI =& get_instance();
 		$CI->load->model('M_content');
-		return $CI->M_content->get_user_where('instructor');
+		return $CI->M_content->record_count('instructor');
 	}
 
 }

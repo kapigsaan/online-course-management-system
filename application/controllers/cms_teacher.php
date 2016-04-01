@@ -15,6 +15,7 @@ class Cms_teacher extends MY_AdminController {
 			$this->load->model('M_content','mu');
 			$this->load->model('M_students','ms');
 			$this->load->model('M_downloads','md');
+			$this->load->model('M_forums','mf');
 		}elseif ($this->session->userdata('userType') == 'admin') {
 			redirect('cms_admin');
 		}elseif ($this->session->userdata('userType') == 'student') {
@@ -338,8 +339,95 @@ class Cms_teacher extends MY_AdminController {
 		}
 	}
 
-	public function forum()
+	public function forums($class = FALSE)
 	{
-		
+		if ($class) {
+			if ($this->input->post()) {
+				$data['topics'] = $this->input->post('topic');
+				$data['forum_desc'] = $this->input->post('forum_desc');
+				$data['class_id'] = $class;
+				$data['created_by'] = $this->session->userdata('userid');
+
+				$result = $this->mf->add_forum($data);
+
+				if ($result) {
+					$this->_msg('s','Successfully Added.','cms_teacher/forums/'.$class);
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/forums/'.$class);
+				}
+			}
+			$this->view_data['my_forum'] = $this->session->userdata('userid');
+			$this->view_data['list'] = $this->mf->get_forums_in($class);
+		}else{
+			show_404();
+		}
+	}
+
+	public function edit_forum($class = FALSE, $id = FALSE)
+	{
+		if ($id) {
+
+			if ($this->input->post('update-forumssubmit')) {
+				$data['topics'] = $this->input->post('topics');
+				$data['forum_desc'] = $this->input->post('forum_desc');
+
+				$result = $this->mf->edit_forum($data, $id);
+
+				if ($result) {
+					$this->_msg('s','Successfully Updated Topic.','cms_teacher/forums/'.$class);
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/forums/'.$class);
+				}
+			}
+
+			$this->view_data['class'] = $this->mf->get_forum($id);
+			$this->view_data['list'] = $this->mf->get_forums_in($class);
+
+		}else{
+			show_404();
+		}
+	}
+
+	public function delete_forum($class = FALSE, $id = FALSE)
+	{
+		if ($id) {
+			$res = $this->mf->delete_forum($id);
+			if ($res) {
+				$this->_msg('s','Successfully Deleted.','cms_teacher/forums/'.$class);
+			}else{
+				$this->_msg('e','Failed.','cms_teacher/forums/'.$class);
+			}	
+		}else{
+			show_404();
+		}
+	}
+
+	public function view_forum($class = FALSE, $id = FALSE)
+	{
+		if ($id) {
+			if ($this->input->post('submit-comment')) {
+				$data['comment'] = $this->input->post('comment');
+				$data['forum_id'] = $id;
+				$data['comment_by'] = $this->session->userdata('userid');
+
+				$result = $this->mf->add_comment($data);
+
+				if ($result) {
+					$this->_msg('s','Comment Submitted.','cms_teacher/view_forum/'.$class.'/'.$id);
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/view_forum/'.$class.'/'.$id);
+				}
+			}
+
+			$this->view_data['class'] = $this->mf->get_forum($id);
+			$this->view_data['list'] = $this->mf->get_comments_in($id);
+		}else{
+			show_404();
+		}
+	}
+
+	public function FunctionName($value='')
+	{
+		# code...
 	}
 }
