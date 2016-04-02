@@ -45,9 +45,9 @@ class Cms_admin extends MY_AdminController {
 			$res = $this->mu->add_user($data);
 
 			if ($res) {
-				$this->_msg('s','Successfully Added.','Cms_admin/instructor');
+				$this->_msg('s','Successfully Added.','cms_admin/instructor');
 			}else{
-				$this->_msg('e','Failed.','Cms_admin/instructor');
+				$this->_msg('e','Failed.','cms_admin/instructor');
 			}	
 
 		}
@@ -67,9 +67,9 @@ class Cms_admin extends MY_AdminController {
 				$res = $this->mu->edit_user($data, $id);
 
 				if ($res) {
-					$this->_msg('s','Successfully Updated.','Cms_admin/instructor');
+					$this->_msg('s','Successfully Updated.','cms_admin/instructor');
 				}else{
-					$this->_msg('e','Failed.','Cms_admin/instructor');
+					$this->_msg('e','Failed.','cms_admin/instructor');
 				}	
 			}
 
@@ -88,9 +88,9 @@ class Cms_admin extends MY_AdminController {
 			$res = $this->mu->delete_user($id);
 
 			if ($res) {
-				$this->_msg('s','Successfully Deleted.','Cms_admin/instructor');
+				$this->_msg('s','Successfully Deleted.','cms_admin/instructor');
 			}else{
-				$this->_msg('e','Failed.','Cms_admin/instructor');
+				$this->_msg('e','Failed.','cms_admin/instructor');
 			}	
 
 		}else{
@@ -145,12 +145,12 @@ class Cms_admin extends MY_AdminController {
 			$res = $this->mc->change_status($status, $id);
 			if ($res) {
 				if ($status == "inactive") {
-					$this->_msg('s','Account Successfully Deactivated.','Cms_admin/'.$route);	
+					$this->_msg('s','Account Successfully Deactivated.','cms_admin/'.$route);	
 				}else{
-					$this->_msg('s','Account Successfully Activated.','Cms_admin/'.$route);
+					$this->_msg('s','Account Successfully Activated.','cms_admin/'.$route);
 				}
 			}else{
-				$this->_msg('e','Failed.','Cms_admin/'.$route);
+				$this->_msg('e','Failed.','cms_admin/'.$route);
 			}				
 		}else{
 			show_404();

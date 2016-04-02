@@ -72,7 +72,7 @@
 	                        					<td><?=$v->file?></td>
 	                        					<td><?=$v->file_size?></td>
 	                        					<td>
-				                        			<a href="<?php echo assets_url('downloads/syllabus/'.$v->file); ?>" title="<?=$download->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
+				                        			<a href="<?php echo assets_url('downloads/syllabus/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
 				                        			<a href="<?=site_url('cms_teacher/delete_syllabus/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
 				                        		</td>
 	                        				</tr>

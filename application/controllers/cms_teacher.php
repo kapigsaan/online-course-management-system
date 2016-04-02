@@ -40,9 +40,9 @@ class Cms_teacher extends MY_AdminController {
 			$result = $this->mc->add_class($data);
 
 			if ($result) {
-				$this->_msg('s','Successfully Added.','Cms_teacher/classes');
+				$this->_msg('s','Successfully Added.','cms_teacher/classes');
 			}else{
-				$this->_msg('e','Failed.','Cms_teacher/classes');
+				$this->_msg('e','Failed.','cms_teacher/classes');
 			}
 		}
 
@@ -57,9 +57,9 @@ class Cms_teacher extends MY_AdminController {
 				$result = $this->mc->edit_class($data, $id);
 
 				if ($result) {
-					$this->_msg('s','Successfully Updated Class.','Cms_teacher/classes');
+					$this->_msg('s','Successfully Updated Class.','cms_teacher/classes');
 				}else{
-					$this->_msg('e','Failed.','Cms_teacher/classes');
+					$this->_msg('e','Failed.','cms_teacher/classes');
 				}
 			}
 			$this->view_data['class']=$this->mc->get_class($id);
@@ -75,9 +75,9 @@ class Cms_teacher extends MY_AdminController {
 		if ($id) {
 			$res = $this->mc->delete_class($id);
 			if ($res) {
-				$this->_msg('s','Successfully Deleted.','Cms_teacher/classes');
+				$this->_msg('s','Successfully Deleted.','cms_teacher/classes');
 			}else{
-				$this->_msg('e','Failed.','Cms_teacher/classes');
+				$this->_msg('e','Failed.','cms_teacher/classes');
 			}	
 		}else{
 			show_404();
@@ -98,9 +98,9 @@ class Cms_teacher extends MY_AdminController {
 
 				$res = $this->ms->add_student($data);
 				if ($res) {
-					$this->_msg('s','Successfully Added Student.','Cms_teacher/students/'.$id);
+					$this->_msg('s','Successfully Added Student.','cms_teacher/students/'.$id);
 				}else{
-					$this->_msg('e','Failed.','Cms_teacher/students/'.$id);
+					$this->_msg('e','Failed.','cms_teacher/students/'.$id);
 				}	
 			}
 			
@@ -125,9 +125,9 @@ class Cms_teacher extends MY_AdminController {
 
 				$res = $this->ms->edit_student($data, $id, $account_id);
 				if ($res) {
-					$this->_msg('s','Successfully Updated Student.','Cms_teacher/students/'.$class);
+					$this->_msg('s','Successfully Updated Student.','cms_teacher/students/'.$class);
 				}else{
-					$this->_msg('e','Failed.','Cms_teacher/students/'.$class);
+					$this->_msg('e','Failed.','cms_teacher/students/'.$class);
 				}	
 			}
 			
@@ -151,9 +151,9 @@ class Cms_teacher extends MY_AdminController {
 		if ($id && $account_id) {
 			$res = $this->ms->delete_student($id, $account_id);
 			if ($res) {
-					$this->_msg('s','Successfully Deleted Student.','Cms_teacher/students/'.$class);
+					$this->_msg('s','Successfully Deleted Student.','cms_teacher/students/'.$class);
 				}else{
-					$this->_msg('e','Failed.','Cms_teacher/students/'.$class);
+					$this->_msg('e','Failed.','cms_teacher/students/'.$class);
 				}
 		}else{
 			show_404();
@@ -166,12 +166,12 @@ class Cms_teacher extends MY_AdminController {
 			$res = $this->mu->change_status($status, $id);
 			if ($res) {
 				if ($status == "inactive") {
-					$this->_msg('s','Account Successfully Deactivated.','Cms_teacher/students/'.$class);	
+					$this->_msg('s','Account Successfully Deactivated.','cms_teacher/students/'.$class);	
 				}else{
-					$this->_msg('s','Account Successfully Activated.','Cms_teacher/students/'.$class);
+					$this->_msg('s','Account Successfully Activated.','cms_teacher/students/'.$class);
 				}
 			}else{
-				$this->_msg('e','Failed.','Cms_admin/'.$route);
+				$this->_msg('e','Failed.','cms_teacher/students/'.$class);
 			}				
 		}else{
 			show_404();
@@ -205,9 +205,9 @@ class Cms_teacher extends MY_AdminController {
 
 				$res = $this->md->upload_syllabus($data);
 				if ($res) {
-					$this->_msg('s','Successfully Added Syllabus.','Cms_teacher/materials/'.$class);
+					$this->_msg('s','Successfully Added Syllabus.','cms_teacher/materials/'.$class);
 				}else{
-					$this->_msg('e','Failed.','Cms_teacher/materials/'.$class);
+					$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
 				}	
 			}elseif ($this->input->post('submit-content')) {
 				$config['upload_path'] = './assets/downloads/content/';
@@ -233,9 +233,9 @@ class Cms_teacher extends MY_AdminController {
 
 				$res = $this->md->upload_content($data);
 				if ($res) {
-					$this->_msg('s','Successfully Added Course Content.','Cms_teacher/materials/'.$class);
+					$this->_msg('s','Successfully Added Course Content.','cms_teacher/materials/'.$class);
 				}else{
-					$this->_msg('e','Failed.','Cms_teacher/materials/'.$class);
+					$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
 				}	
 			}elseif ($this->input->post('submit-outline')) {
 				$config['upload_path'] = './assets/downloads/outline/';
@@ -261,9 +261,9 @@ class Cms_teacher extends MY_AdminController {
 
 				$res = $this->md->upload_outline($data);
 				if ($res) {
-					$this->_msg('s','Successfully Added Course Outline.','Cms_teacher/materials/'.$class);
+					$this->_msg('s','Successfully Added Course Outline.','cms_teacher/materials/'.$class);
 				}else{
-					$this->_msg('e','Failed.','Cms_teacher/materials/'.$class);
+					$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
 				}	
 			}
 			$this->view_data['list'] = $this->md->get_syllabus_in($class);
@@ -284,12 +284,12 @@ class Cms_teacher extends MY_AdminController {
 				unlink($path); // DELETE RECENT IMAGE IF EXIST / UNLINK
 		        $res = $this->md->delete_syllabus($id);
 				if ($res) {
-					$this->_msg('s','Successfully Delted Syllabus.','Cms_teacher/materials/'.$class);
+					$this->_msg('s','Successfully Delted Syllabus.','cms_teacher/materials/'.$class);
 				}else{
-					$this->_msg('e','Failed.','Cms_teacher/materials/'.$class);
+					$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
 				}	
 	        }else{
-	          $this->_msg('e','File Not Deleted.','Cms_teacher/materials/'.$class);
+	          $this->_msg('e','File Not Deleted.','cms_teacher/materials/'.$class);
 	        }
 		}else{
 			show_404();
@@ -326,12 +326,12 @@ class Cms_teacher extends MY_AdminController {
 				unlink($path); // DELETE RECENT IMAGE IF EXIST / UNLINK
 		        $res = $this->md->delete_outline($id);
 				if ($res) {
-					$this->_msg('s','Successfully Delted Course Outline.','Cms_teacher/materials/'.$class);
+					$this->_msg('s','Successfully Delted Course Outline.','cms_teacher/materials/'.$class);
 				}else{
-					$this->_msg('e','Failed.','Cms_teacher/materials/'.$class);
+					$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
 				}	
 	        }else{
-	          $this->_msg('e','File Not Deleted.','Cms_teacher/materials/'.$class);
+	          $this->_msg('e','File Not Deleted.','cms_teacher/materials/'.$class);
 	        }
 		}else{
 			show_404();
