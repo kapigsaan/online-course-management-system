@@ -1,0 +1,46 @@
+#---LOGS AND DB---#
+###################
+*.log
+*.sql
+
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+
+#development configs#
+#####################
+
+application/config/database.php
+*/config/database.php
+*/logs/log-*.php
+*/logs/!index.html
+*/cache/*
+*/cache/!index.html
+*/cache/!.htaccessa
+*/captcha/*.jpg
+*/uploads/*
+*/uploads/!.htaccess
+*.tags
+*.tags_sorted_by_file
+captcha/*
+temporary.txt
+system_logs/*
+/nbproject/private/
+/.htaccess
+/index.php
+
+# IDE directories/files
+.idea
+.settings
+.buildpath
+.project
+nbproject
