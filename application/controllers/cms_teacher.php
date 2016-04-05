@@ -33,10 +33,11 @@ class Cms_teacher extends MY_AdminController {
 	public function classes()
 	{
 
-		$this->view_data['classes']=$this->mc->get_all_classes();
+		$this->view_data['classes']=$this->mc->get_all_classes_where($this->session->userdata('userid'));
 
 		if ($this->input->post()) {
 			$data['class'] = $this->input->post('class');
+			$data['created_by'] = $this->session->userdata('userid');
 
 			$result = $this->mc->add_class($data);
 
@@ -54,6 +55,7 @@ class Cms_teacher extends MY_AdminController {
 		if ($id) {
 			if ($this->input->post()) {
 				$data['class'] = $this->input->post('class');
+				$data['created_by'] = $this->session->userdata('userid');
 
 				$result = $this->mc->edit_class($data, $id);
 
@@ -64,7 +66,7 @@ class Cms_teacher extends MY_AdminController {
 				}
 			}
 			$this->view_data['class']=$this->mc->get_class($id);
-			$this->view_data['classes']=$this->mc->get_all_classes();
+			$this->view_data['classes']=$this->mc->get_all_classes_where($this->session->userdata('userid'));
 
 		}else{
 			show_404();

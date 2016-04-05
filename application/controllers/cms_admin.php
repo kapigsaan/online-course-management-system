@@ -13,6 +13,9 @@ class Cms_admin extends MY_AdminController {
 			$this->load->model('M_content','mc');
 			$this->load->model('M_users','mu');
 			$this->load->model('M_students','ms');
+			$this->load->model('M_classes','cl');
+			$this->load->model('M_forums','mf');
+			$this->load->model('M_downloads','md');
 			$layout_view = '_admin_layout';
 		}elseif ($this->session->userdata('userType') == 'instructor') {
 			redirect('cms_teacher');
@@ -123,7 +126,8 @@ class Cms_admin extends MY_AdminController {
 	public function view_student($id = FALSE)
 	{
 		if ($id) {
-			$this->view_data['list']=$this->ms->get_student($id);
+			$this->view_data['list'] = $this->mc->get_account($id);
+
 		}else{
 			show_404();
 		}
@@ -152,6 +156,65 @@ class Cms_admin extends MY_AdminController {
 			}else{
 				$this->_msg('e','Failed.','cms_admin/'.$route);
 			}				
+		}else{
+			show_404();
+		}
+	}
+
+	public function classes()
+	{
+		$this->view_data['classes'] = $this->cl->get_all_class_with_instructor();		
+	}
+
+	public function forums($class = FALSE)
+	{
+		if ($class) {
+			$this->view_data['list'] = $this->mf->get_forums_in($class);
+		}else{
+			show_404();
+		}
+	}
+
+	public function view_forum($class = FALSE, $id = FALSE)
+	{
+		if ($id) {
+			if ($this->input->post('submit-comment')) {
+				$data['comment'] = $this->input->post('comment');
+				$data['forum_id'] = $id;
+				$data['comment_by'] = $this->session->userdata('userid');
+
+				$result = $this->mf->add_comment($data);
+
+				if ($result) {
+					$this->_msg('s','Comment Submitted.','cms_admin/view_forum/'.$class.'/'.$id);
+				}else{
+					$this->_msg('e','Failed.','cms_admin/view_forum/'.$class.'/'.$id);
+				}
+			}
+
+			$this->view_data['class'] = $this->mf->get_forum($id);
+			$this->view_data['list'] = $this->mf->get_comments_in($id);
+		}else{
+			show_404();
+		}
+	}
+
+	public function students($id = FALSE)
+	{
+		if ($id) {
+			$this->view_data['list'] = $this->ms->get_students_in_class($id);
+		}else{
+			show_404();
+		}
+	}
+
+	public function materials($class = FALSE)
+	{
+		if ($class) {
+			$this->view_data['list'] = $this->md->get_syllabus_in($class);
+			$this->view_data['course_content'] = $this->md->get_course_content_in($class);
+			$this->view_data['course_outline'] = $this->md->get_course_outline_in($class);
+			$this->view_data['class'] = $class;
 		}else{
 			show_404();
 		}

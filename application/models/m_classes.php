@@ -24,6 +24,30 @@ class M_classes Extends CI_Model
     return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
   }
 
+  public function get_all_classes_where($id = FALSE)
+  {
+    $query = "SELECT *
+          FROM
+          classes
+          WHERE created_by = ?
+          ORDER BY 
+          class";
+    $q = $this->db->query($query, [$id]);
+    
+    return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
+  public function get_all_class_with_instructor()
+  {
+    $query = "SELECT c.*, u.f_name, u.l_name, u.m_name
+          FROM classes c
+          LEFT JOIN useraccounts u ON c.created_by = u.acid
+          ORDER BY c.class";
+    $q = $this->db->query($query);
+    
+    return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
   
   /**
    * get_class

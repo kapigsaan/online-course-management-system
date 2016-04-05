@@ -27,9 +27,10 @@ class M_forums Extends CI_Model
   	public function get_forum($id=FALSE)
 	{
 		if ($id) {
-			$query = "SELECT *
-					  FROM forum_topics
-					  WHERE id = ?
+			$query = "SELECT f.*, u.username
+					  FROM forum_topics f
+					  LEFT JOIN useraccounts u ON f.created_by = u.acid
+					  WHERE f.id = ?
 					  ";
 			$q = $this->db->query($query,array($id));
 			return $q->num_rows() >= 1 ? $q->row() : FALSE; //returns result if none retrieved, returns FALSE
@@ -41,9 +42,10 @@ class M_forums Extends CI_Model
 	public function get_forums_in($class=FALSE)
 	{
 		if ($class) {
-			$query = "SELECT *
-					  FROM forum_topics
-					  WHERE class_id = ?
+			$query = "SELECT f.*, u.username
+					  FROM forum_topics f
+					  LEFT JOIN useraccounts u ON f.created_by = u.acid
+					  WHERE f.class_id = ?
 					  ";
 			$q = $this->db->query($query,array($class));
 			return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE

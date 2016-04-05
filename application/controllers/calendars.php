@@ -13,7 +13,11 @@ class Calendars extends MY_AdminController
 			$this->load->helper('text');
 			$this->load->library('string_manipulation');
 		}elseif ($this->session->userdata('userType') == 'admin') {
-			redirect('cms_admin');
+			$this->load->helper('file');
+			$this->view_data['system_message'] =$this->_msg();
+			$this->load->model('M_calendar','mc');
+			$this->load->helper('text');
+			$this->load->library('string_manipulation');
 		}elseif ($this->session->userdata('userType') == 'student') {
 			redirect('cms_student');
 		}

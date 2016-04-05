@@ -177,6 +177,9 @@
                             <li>
                                 <a href="<?=site_url('cms_admin/student')?>"><i class="fa fa-group fa-fw"></i> Students &nbsp;&nbsp;<span class = "badge"><?=$students?></span></a>
                             </li>
+                            <li>
+                                <a href="<?=site_url('cms_admin/classes')?>"><i class="fa fa-archive fa-fw"></i> View Class</a>
+                            </li>
                         <?php elseif ($this->session->userdata('userType') == 'instructor'):?>
                             <li>
                                 <a href="<?=site_url('cms_teacher')?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
