@@ -16,6 +16,7 @@ class Cms_admin extends MY_AdminController {
 			$this->load->model('M_classes','cl');
 			$this->load->model('M_forums','mf');
 			$this->load->model('M_downloads','md');
+			$this->load->model('M_yvideos','myv');
 			$layout_view = '_admin_layout';
 		}elseif ($this->session->userdata('userType') == 'instructor') {
 			redirect('cms_teacher');
@@ -214,6 +215,8 @@ class Cms_admin extends MY_AdminController {
 			$this->view_data['list'] = $this->md->get_syllabus_in($class);
 			$this->view_data['course_content'] = $this->md->get_course_content_in($class);
 			$this->view_data['course_outline'] = $this->md->get_course_outline_in($class);
+			$this->view_data['images'] = $this->md->get_images_in($class);
+			$this->view_data['videos'] = $this->myv->get_every_yv($class);
 			$this->view_data['class'] = $class;
 		}else{
 			show_404();

@@ -15,6 +15,7 @@ class Cms_student extends MY_AdminController {
 			$this->load->model('M_downloads','md');
 			$this->load->model('M_students','ms');
 			$this->load->model('M_forums','mf');
+			$this->load->model('M_yvideos','myv');
 		}elseif ($this->session->userdata('userType') == 'instructor') {
 			redirect('cms_teacher');
 		}elseif ($this->session->userdata('userType') == 'admin') {
@@ -59,6 +60,16 @@ class Cms_student extends MY_AdminController {
 	public function course_outline()
 	{
 		$this->view_data['course_outline'] = $this->md->get_course_outline_in($this->get_student_class());
+	}
+
+	public function course_images()
+	{
+		$this->view_data['course_images'] = $this->md->get_images_in($this->get_student_class());
+	}
+
+	public function course_videos()
+	{
+		$this->view_data['course_videos'] = $this->myv->get_every_yv($this->get_student_class());
 	}
 
 	public function news($year = FALSE, $month = FALSE)

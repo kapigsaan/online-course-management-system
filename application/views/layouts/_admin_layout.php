@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" type="image/png" href="<?=site_url('favicon.png')?>" sizes="32x32" />
 
     <title>
         <?php if ($title): ?>
@@ -198,10 +199,13 @@
                                 <a href="<?=site_url('cms_student/course_syllabus')?>"><i class="fa fa-align-left fa-fw"></i> Course Syllabus</a>
                             </li>
                             <li>
-                                <a href="<?=site_url('cms_student/course_outline')?>"><i class="fa fa-align-center fa-fw"></i> Course Outline</a>
+                                <a href="<?=site_url('cms_student/course_content')?>"><i class="fa fa-align-right fa-fw"></i> Course Content</a>
                             </li>
                             <li>
-                                <a href="<?=site_url('cms_student/course_content')?>"><i class="fa fa-align-right fa-fw"></i> Course Content</a>
+                                <a href="<?=site_url('cms_student/course_images')?>"><i class="fa fa-picture-o fa-fw"></i> Images</a>
+                            </li>
+                            <li>
+                                <a href="<?=site_url('cms_student/course_videos')?>"><i class="fa fa-video-camera fa-fw"></i> Videos</a>
                             </li>
                             <li>
                                 <a href="<?=site_url('cms_student/forums')?>"><i class="fa fa-file-text fa-fw"></i> Forums</a>
