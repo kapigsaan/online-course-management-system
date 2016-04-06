@@ -75,7 +75,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="<?=site_url('cms_admin')?>">
-                    <img src="<?=site_url('logo.jpg')?>" style = "height:50px;">
+                    <img src="<?=site_url('logo.jpg')?>" style = "height:50px; margin-top:-15px;">
                     <?php if ($title): ?>
                         <?php if ($title->name == ""): ?>
                             <?=ucwords($this->session->userdata('userType'))?> | CMS
