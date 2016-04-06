@@ -44,14 +44,8 @@ class M_yvideos Extends CI_Model
   
   public function process_add_yv($post)
 	{
-    $linkto = $post['yvideo'];
-		$linkto_a = str_replace("base64_decode(","-",$linkto);
-		$banner['yvideo'] = htmlentities(str_replace("eval(","-",$linkto_a));
-		$caption = $post['caption'];
-		$caption_a = str_replace("base64_decode(","-",$caption);
-		$banner['caption'] = htmlentities(str_replace("eval(","-",$caption_a));
-		
-		$this->db->insert('yvideos',$banner);
+		$post['created_at']= NOW;
+		$this->db->insert('yvideos',$post);
 
 		return $this->db->affected_rows()>=1?TRUE:FALSE; 
 	}

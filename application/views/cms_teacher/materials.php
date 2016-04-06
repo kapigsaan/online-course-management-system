@@ -32,6 +32,10 @@
                     </li>
                     <li><a href="#messages" data-toggle="tab">Course Outline</a>
                     </li>
+                    <li><a href="#Videos" data-toggle="tab">Videos</a>
+                    </li>
+                    <li><a href="#images" data-toggle="tab">Images</a>
+                    </li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -166,6 +170,98 @@
 	                        					<td>
 				                        			<a href="<?php echo assets_url('downloads/outline/'.$v->file); ?>" title="<?=$download->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
 				                        			<a href="<?=site_url('cms_teacher/delete_outline/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
+				                        		</td>
+	                        				</tr>
+	                        			<?endforeach?>
+	                        		<?php endif ?>
+		                        </tbody>
+		                    </table>
+		                </div>
+                    </div>
+                    <div class="tab-pane fade" id="Videos">
+                        <p></p>
+                    	<?php echo form_open_multipart('cms_teacher/materials/'.$class);?>
+							<div class="row">
+                    			<div class="col-md-2 text-center">
+                    				<h4><b>Upload File</b></h4>
+                    			</div>
+                    			<div class="col-md-3 text-center">
+                    				<input type = "text" name="v_caption" class = "form-control" placeholder = "Caption" />
+                    			</div>
+                    			<div class="col-md-4 text-center">
+                    				<input type = "file" name="video" class = "form-control" />
+                    			</div>
+                    			<div class="col-md-3 text-center">
+                    				<input type = "submit" name="submit-video" Value = "Upload" class = "form-control btn btn-primary" />
+                    			</div>
+                    		</div>
+						<?php echo form_close(); ?>
+		                <div class="table-responsive">
+		                    <table class="table table-striped table-bordered table-hover dataTables-accounts">
+		                        <thead>
+		                            <tr>
+		                                <th>Caption</th>
+		                                <th>File Name</th>
+		                                <th>File Size</th>
+		                                <th>Action</th>
+		                            </tr>
+		                        </thead>
+		                        <tbody>
+		                        	<?php if ($videos): ?>
+	                        			<?foreach ($videos as $key => $v):?>
+	                        				<tr>
+	                        					<td><?=$v->caption?></td>
+	                        					<td><?=$v->file?></td>
+	                        					<td><?=$v->file_size?></td>
+	                        					<td>
+				                        			<a href="<?php echo assets_url('downloads/videos/'.$v->file); ?>" title="<?=$download->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
+				                        			<a href="<?=site_url('cms_teacher/delete_videos/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
+				                        		</td>
+	                        				</tr>
+	                        			<?endforeach?>
+	                        		<?php endif ?>
+		                        </tbody>
+		                    </table>
+		                </div>
+                    </div>
+                    <div class="tab-pane fade" id="images">
+                        <p></p>
+                    	<?php echo form_open_multipart('cms_teacher/materials/'.$class);?>
+							<div class="row">
+                    			<div class="col-md-2 text-center">
+                    				<h4><b>Upload File</b></h4>
+                    			</div>
+                    			<div class="col-md-3 text-center">
+                    				<input type = "text" name="image_caption" class = "form-control" placeholder = "Caption" />
+                    			</div>
+                    			<div class="col-md-4 text-center">
+                    				<input type = "file" name="image" class = "form-control" />
+                    			</div>
+                    			<div class="col-md-3 text-center">
+                    				<input type = "submit" name="submit-image" Value = "Upload" class = "form-control btn btn-primary" />
+                    			</div>
+                    		</div>
+						<?php echo form_close(); ?>
+		                <div class="table-responsive">
+		                    <table class="table table-striped table-bordered table-hover dataTables-accounts">
+		                        <thead>
+		                            <tr>
+		                                <th>Caption</th>
+		                                <th>File Name</th>
+		                                <th>File Size</th>
+		                                <th>Action</th>
+		                            </tr>
+		                        </thead>
+		                        <tbody>
+		                        	<?php if ($images): ?>
+	                        			<?foreach ($images as $key => $v):?>
+	                        				<tr>
+	                        					<td><?=$v->caption?></td>
+	                        					<td><?=$v->file?></td>
+	                        					<td><?=$v->file_size?></td>
+	                        					<td>
+				                        			<a href="<?php echo assets_url('downloads/images/'.$v->file); ?>" title="<?=$download->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
+				                        			<a href="<?=site_url('cms_teacher/delete_images/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
 				                        		</td>
 	                        				</tr>
 	                        			<?endforeach?>

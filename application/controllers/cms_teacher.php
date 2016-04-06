@@ -16,6 +16,7 @@ class Cms_teacher extends MY_AdminController {
 			$this->load->model('M_students','ms');
 			$this->load->model('M_downloads','md');
 			$this->load->model('M_forums','mf');
+			$this->load->model('M_yvideos','myv');
 		}elseif ($this->session->userdata('userType') == 'admin') {
 			redirect('cms_admin');
 		}elseif ($this->session->userdata('userType') == 'student') {
@@ -268,10 +269,69 @@ class Cms_teacher extends MY_AdminController {
 				}else{
 					$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
 				}	
+			}if ($this->input->post('submit-video')) {
+				$config['upload_path'] = './assets/downloads/videos/';
+				$config['allowed_types'] = TRUE;
+				$config['max_size'] = '1000000';
+				$config['remove_spaces'] = TRUE;
+				$config['overwrite'] = TRUE;
+
+				$this->load->library('upload', $config); //LOAD UPLOAD LIBRARY WITH THE CONFIG VARIABLE
+
+				if (!$this->upload->do_upload('video')) //DO THE ACTUAL UPLOADING OF FILES
+				{	
+					$error = array('error' => $this->upload->display_errors()); // IF UPLOAD HAS ERROR 
+					$this->_msg('e', $error['error'], current_url()); //SHOW ERROR
+				}else{ 
+					$upload_data = array('upload_data' => $this->upload->data()); // IF UPLOAD SUCCESS GET UPLOAD INFORMATION
+					$data['file_size'] = number_format($upload_data['upload_data']['file_size'] / 1024, 2);
+					$data['file'] = $upload_data['upload_data']['file_name']; // GET THE FILENAME OF IMAGE UPLOADED
+				}
+
+				$data['caption']=$this->input->post('v_caption');
+				$data['class_id'] = $class;
+
+				$result = $this->myv->process_add_yv($data);
+				if ($result) {
+					$this->_msg('s','Successfully Added Course Video.','cms_teacher/materials/'.$class);
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
+				}
+			}if ($this->input->post('submit-image')) {
+				$this->load->library('image_lib');
+				$config['upload_path'] = './assets/downloads/images/';
+				$config['allowed_types'] = 'png|JPEG|jpg';
+				$config['max_size'] = '100000';
+				$config['remove_spaces'] = TRUE;
+				$config['overwrite'] = TRUE;
+
+				$this->load->library('upload', $config); //LOAD UPLOAD LIBRARY WITH THE CONFIG VARIABLE
+
+				if (!$this->upload->do_upload('image')) //DO THE ACTUAL UPLOADING OF FILES
+				{	
+					$error = array('error' => $this->upload->display_errors()); // IF UPLOAD HAS ERROR 
+					$this->_msg('e', $error['error'], current_url()); //SHOW ERROR
+				}else{ 
+					$upload_data = array('upload_data' => $this->upload->data()); // IF UPLOAD SUCCESS GET UPLOAD INFORMATION
+					$data['file_size'] = number_format($upload_data['upload_data']['file_size'] / 1024, 2);
+					$data['file'] = $upload_data['upload_data']['file_name']; // GET THE FILENAME OF IMAGE UPLOADED
+				}
+
+				$data['caption']=$this->input->post('image_caption');
+				$data['class_id'] = $class;
+
+				$result = $this->md->upload_image($data);
+				if ($result) {
+					$this->_msg('s','Successfully Added Course Image.','cms_teacher/materials/'.$class);
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
+				}
 			}
 			$this->view_data['list'] = $this->md->get_syllabus_in($class);
 			$this->view_data['course_content'] = $this->md->get_course_content_in($class);
 			$this->view_data['course_outline'] = $this->md->get_course_outline_in($class);
+			$this->view_data['images'] = $this->md->get_images_in($class);
+			$this->view_data['videos'] = $this->myv->get_every_yv($class);
 			$this->view_data['class'] = $class;
 		}else{
 			show_404();
@@ -330,6 +390,48 @@ class Cms_teacher extends MY_AdminController {
 		        $res = $this->md->delete_outline($id);
 				if ($res) {
 					$this->_msg('s','Successfully Delted Course Outline.','cms_teacher/materials/'.$class);
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
+				}	
+	        }else{
+	          $this->_msg('e','File Not Deleted.','cms_teacher/materials/'.$class);
+	        }
+		}else{
+			show_404();
+		}
+	}
+
+	public function delete_images($class = FALSE, $id = FALSE)
+	{
+		if ($id) {
+			$path = $this->md->get_syllabus($id);
+			$path = FCPATH.'assets/downloads/images/'.$path->file;
+	        if (file_exists($path)){ 
+				unlink($path); // DELETE RECENT IMAGE IF EXIST / UNLINK
+		        $res = $this->md->delete_image($id);
+				if ($res) {
+					$this->_msg('s','Successfully Delted Course Image.','Cms_teacher/materials/'.$class);
+				}else{
+					$this->_msg('e','Failed.','Cms_teacher/materials/'.$class);
+				}	
+	        }else{
+	          $this->_msg('e','File Not Deleted.','Cms_teacher/materials/'.$class);
+	        }
+		}else{
+			show_404();
+		}
+	}
+
+	public function delete_videos($class = FALSE, $id = FALSE)
+	{
+		if ($id) {
+			$path = $this->myv->get_yv($id);
+			$path = FCPATH.'assets/downloads/videos/'.$path->file;
+	        if (file_exists($path)){ 
+				unlink($path); // DELETE RECENT IMAGE IF EXIST / UNLINK
+		        $res = $this->myv->process_del_yv($id);
+				if ($res) {
+					$this->_msg('s','Successfully Delted Course Video.','cms_teacher/materials/'.$class);
 				}else{
 					$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
 				}	
@@ -427,9 +529,27 @@ class Cms_teacher extends MY_AdminController {
 			show_404();
 		}
 	}
+  
+   public function update_videos()
+	{	
+		if($this->input->post('delSelected') && $this->input->post('selectedItem'))
+	  	{
+	  		$selItem = $this->input->post('selectedItem');
+	  		foreach ($selItem as $key => $value) 
+				{
+					$banner = $this->myv->get_yv($value);
 
-	public function FunctionName($value='')
-	{
-		# code...
+					if($banner){
+						$path = FCPATH.'assets/video/'.$banner->yvideo;
+						if (file_exists($path))
+						{ 
+							unlink($path); // DELETE RECENT IMAGE IF EXIST / UNLINK
+						}
+					}
+
+					$this->myv->process_del_yv($value);
+	  		}
+	  		$this->_msg('s','Successfully deleted.','admin_display/yvideos');
+	  	}
 	}
 }

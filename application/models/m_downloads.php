@@ -71,6 +71,33 @@ class M_downloads Extends CI_Model
 		}
 	}
 
+	public function get_images_in($class)
+	{
+		if ($class) {
+			$query = "SELECT *
+				FROM course_images
+				WHERE class_id = ?
+				ORDER BY caption
+				";
+			$q = $this->db->query($query, [$class]);
+			
+			return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+		}
+	}
+
+	public function upload_image($post)
+	{
+		if ($post) {
+			$post['created_at']= NOW;
+
+			$this->db->insert('course_images',$post);
+
+			return $this->db->affected_rows()>=1?TRUE:FALSE; 
+		}else{
+			return FALSE;
+		}
+	}
+
 	public function upload_content($post)
 	{
 		if ($post) {
@@ -137,6 +164,18 @@ class M_downloads Extends CI_Model
 		if ($id) {
 
 			$this->db->delete('course_outline', array('id' => $id)); 
+
+			return $this->db->affected_rows() >= 1 ? TRUE : FALSE;	
+		}else{
+			return FALSE;
+		}
+	}
+
+	public function delete_image($id=FALSE)
+	{
+		if ($id) {
+
+			$this->db->delete('course_images', array('id' => $id)); 
 
 			return $this->db->affected_rows() >= 1 ? TRUE : FALSE;	
 		}else{
