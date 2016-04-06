@@ -17,7 +17,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" href="<?=site_url('favicon.png')?>" sizes="32x32" />
+    <link rel="shortcut icon" href="<?=site_url('favicon.png')?>">
+    <link rel="icon" href="<?=site_url('favicon.png')?>" type="image/x-icon">
+    
+    <!-- <link rel="icon" type="image/png" href="<?=site_url('favicon.png')?>" sizes="32x32" /> -->
 
     <title>
         <?php if ($title): ?>
