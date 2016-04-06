@@ -47,7 +47,7 @@
             <?php endif ?>
           </h1>
 
-          <p>©2015 All Rights Reserved. jnz_yui@rin</p>
+          <p>©2015 All Rights Reserved. <!-- jnz_yui@rin --></p>
       </div>
   </div>
 
