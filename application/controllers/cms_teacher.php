@@ -270,6 +270,10 @@ class Cms_teacher extends MY_AdminController {
 					$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
 				}	
 			}if ($this->input->post('submit-video')) {
+				ini_set('memory_limit','500M');
+	                        ini_set('max_execution_time',600);
+				ini_set('upload_max_filesize','150M');
+				ini_set('post_max_size','150M');
 				$config['upload_path'] = './assets/downloads/videos/';
 				$config['allowed_types'] = TRUE;
 				$config['max_size'] = '1000000';
@@ -300,7 +304,7 @@ class Cms_teacher extends MY_AdminController {
 			}if ($this->input->post('submit-image')) {
 				$this->load->library('image_lib');
 				$config['upload_path'] = './assets/downloads/images/';
-				$config['allowed_types'] = 'png|JPEG|jpg';
+				$config['allowed_types'] = 'png|jpeg|jpg|JPG|JPEG|PNG';
 				$config['max_size'] = '100000';
 				$config['remove_spaces'] = TRUE;
 				$config['overwrite'] = TRUE;
