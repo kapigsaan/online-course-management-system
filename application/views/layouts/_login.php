@@ -58,7 +58,6 @@
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading text-center" >
                         <img src="<?=site_url('logo.jpg')?>">
-                        <h3 class="panel-title">Please Sign In</h3>
                     </div>
                     <div class="panel-body">
                         <?php echo $yield;?>
