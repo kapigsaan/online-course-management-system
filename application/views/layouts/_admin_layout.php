@@ -19,8 +19,6 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="<?=site_url('favicon.png')?>">
     <link rel="icon" href="<?=site_url('favicon.png')?>" type="image/x-icon">
-    
-    <!-- <link rel="icon" type="image/png" href="<?=site_url('favicon.png')?>" sizes="32x32" /> -->
 
     <title>
         <?php if ($title): ?>
@@ -77,6 +75,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="<?=site_url('cms_admin')?>">
+                    <img src="<?=site_url('logo.jpg')?>" style = "50px;">
                     <?php if ($title): ?>
                         <?php if ($title->name == ""): ?>
                             <?=ucwords($this->session->userdata('userType'))?> | CMS
