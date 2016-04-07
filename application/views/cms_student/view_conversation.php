@@ -39,24 +39,25 @@
             </div>
         <?php endif ?>
     </div>
-    <?php if (!$messages->from == $me): ?>
-    	<div class="col-lg-12">
-	        <!-- /.panel -->
-	        <div class="panel panel-red">
-	            <div class="panel-heading">
-	            Reply
-	            </div>
-	            <div class="panel-body">
-	            	<form action="" method="post">
-	            		<input type = "hidden" name = "msg-to" value = "<?=$messages->from?>" required/>
-	            		<input type = "text" name = "subject" placeholder = "Subject" required/>
-	            		<p></p>
-	            		<textarea class = "form-control" name = "reply" style="height:250px" required></textarea>
-	            		<p></p>
-	            		<input type = "submit" name = "btn-reply-messages" class = "btn btn-primary" style="float:right;" value = "Send">
-	            	</form>
-	            </div>
-	        </div>
-	    </div>
+    <?php if ($messages->from == $me): ?>
+    <?php else:?>
+        <div class="col-lg-12">
+            <!-- /.panel -->
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                Reply
+                </div>
+                <div class="panel-body">
+                    <form action="" method="post">
+                        <input type = "hidden" name = "msg-to" value = "<?=$messages->from?>" required/>
+                        <input type = "text" name = "subject" placeholder = "Subject" required/>
+                        <p></p>
+                        <textarea class = "form-control" name = "reply" style="height:250px" required></textarea>
+                        <p></p>
+                        <input type = "submit" name = "btn-reply-messages" class = "btn btn-primary" style="float:right;" value = "Send">
+                    </form>
+                </div>
+            </div>
+        </div>
     <?php endif ?>
 </div>
