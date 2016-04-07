@@ -28,7 +28,7 @@
  <div class="row">
     <div class="col-lg-12">
         <p><?=$system_message;?></p>
-        <form action="" method = "post" role="form">
+        <form action = "<?=site_url('cms_teacher/messages')?>" method = "post" role="form">
             <div class="form-group">
                 <label>Send Message</label>
                 <input class="form-control" name = "subject" placeholder="Subject" required>
