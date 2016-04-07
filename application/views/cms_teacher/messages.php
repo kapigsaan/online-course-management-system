@@ -82,11 +82,9 @@
                                 <tr class="gradeC">
                                     <td><?=$v->subject?></td>
                                     <?php if ($accounts): ?>
-                                        <? foreach ($accounts as $k => $ac); ?>
-                                            <?php if ($ac->acid == $v->from): ?>
-                                                <td><?=$ac->l_name.', '.$ac->f_name?></td>
-                                            <?php endif; ?>
-                                        <? endforeach; ?>
+                                        <td>qweqweqw</td>
+                                    <?else?>
+                                        <td>asdasdas</td>
                                     <?php endif; ?>
                                     <td>asdas</td>
                                     <td><?php echo date('F d, Y',strtotime($v->created_at)); ?></td>
