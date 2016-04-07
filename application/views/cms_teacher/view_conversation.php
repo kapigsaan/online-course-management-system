@@ -50,7 +50,7 @@
 	            <div class="panel-body">
 	            	<form action="" method="post">
 	            		<input type = "hidden" name = "msg-to" value = "<?=$messages->from?>" required/>
-	            		<input type = "text" name = "subject" placeholder = "Subject" required/>
+	            		<input type = "text" class = "form-control" name = "subject" placeholder = "Subject" required/>
 	            		<p></p>
 	            		<textarea class = "form-control" name = "reply" style="height:250px" required></textarea>
 	            		<p></p>
