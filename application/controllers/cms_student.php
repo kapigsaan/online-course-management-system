@@ -272,4 +272,67 @@ class Cms_student extends MY_AdminController {
 		$this->view_data['profile'] = $this->mu->get_all_users($this->session->userdata('userid'));
 
 	}
+
+	public function messages()
+	{
+		if ($this->input->post('btn-submit-messages')) {
+			$data['subject'] = $this->input->post('subject');
+			$data['from'] = $this->session->userdata('userid');
+			$data['to'] = $this->input->post('msg-to');
+			$data['message'] = $this->input->post('message');
+
+			$result = $this->mm->send_message($data);
+
+				if ($result) {
+					$this->_msg('s','Message Sent.','cms_student/messages/');
+				}else{
+					$this->_msg('e','Failed.','cms_student/messages/');
+				}
+
+		}
+		$this->view_data['messages'] = $this->mm->get_my_messages($this->session->userdata('userid'));
+		$this->view_data['students'] = $this->mu->get_user_where('instructor');
+		$this->view_data['accounts'] = $this->mu->get_all_accounts();
+		$this->view_data['me'] = $this->session->userdata('userid');
+	}
+
+	public function view_conversation($id = FALSE)
+	{
+		if ($id) {
+			if ($this->input->post('btn-reply-messages')) {
+				$data['subject'] = $this->input->post('subject');
+				$data['from'] = $this->session->userdata('userid');
+				$data['to'] = $this->input->post('msg-to');
+				$data['message'] = $this->input->post('reply');
+
+				$result = $this->mm->send_message($data);
+
+					if ($result) {
+						$this->_msg('s','Message Sent.','cms_student/messages/');
+					}else{
+						$this->_msg('e','Failed.','cms_student/messages/');
+					}
+
+			}
+			$this->view_data['messages'] = $this->mm->get_conversation($id);	
+			$this->view_data['accounts'] = $this->mu->get_all_accounts();
+			$this->view_data['me'] = $this->session->userdata('userid');
+		}else{
+			show_404();
+		}
+	}
+
+	public function delete_conversation($id = FALSE)
+	{
+		if ($id) {
+			$res = $this->mm->delete_message($id);
+			if ($res) {
+				$this->_msg('s','Successfully Deleted.','cms_student/messages/');
+			}else{
+				$this->_msg('e','Failed.','cms_student/messages/');
+			}	
+		}else{
+			show_404();
+		}
+	}
 }

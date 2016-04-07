@@ -5,6 +5,13 @@
     </div>
 </div>
 
+<div class="col-md-12">
+    	<p></p>
+    	<a href="<?=site_url('cms_teacher/messages')?>" class = "btn btn-danger"><i class = "fa fa-hand-o-left"> Back </i> </a>
+    	<p></p>
+    <p></p>
+    </div>
+
 
 <!-- /.row -->
 <div class="row">

@@ -99,7 +99,7 @@
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-messages">
-                        <li>
+                        <!-- <li>
                             <a href="#">
                                 <div>
                                     <strong>Test 1</strong>
@@ -121,7 +121,7 @@
                                 </div>
                                 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="divider"></li>
                         <li>
                         <?php if ($this->session->userdata('userType') == 'admin'): ?>
