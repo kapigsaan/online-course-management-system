@@ -672,6 +672,7 @@ class Cms_teacher extends MY_AdminController {
 
 	public function delete_conversation($id = FALSE)
 	{
+		vd($id);
 		if ($id) {
 			$res = $this->mm->delete_message($id);
 			if ($res) {
