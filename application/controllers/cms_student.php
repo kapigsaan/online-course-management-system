@@ -17,6 +17,7 @@ class Cms_student extends MY_AdminController {
 			$this->load->model('M_forums','mf');
 			$this->load->model('M_yvideos','myv');
 			$this->load->model('M_users','mu');
+			$this->load->model('M_messages','mm');
 		}elseif ($this->session->userdata('userType') == 'instructor') {
 			redirect('cms_teacher');
 		}elseif ($this->session->userdata('userType') == 'admin') {
