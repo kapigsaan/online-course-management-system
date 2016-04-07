@@ -83,7 +83,7 @@
                                     <td><?=$v->subject?></td>
                                     <?php if ($accounts): ?>
                                         <td>qweqweqw</td>
-                                    <?else?>
+                                    <?else:?>
                                         <td>asdasdas</td>
                                     <?php endif; ?>
                                     <td>asdas</td>
