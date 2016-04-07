@@ -18,9 +18,8 @@ class M_messages Extends CI_Model
 
 	public function get_my_messages($id)
 	{
-		$query = "SELECT m.*, s.l_name, s.f_name
-				  FROM messages m
-				  LEFT JOIN students s ON m.
+		$query = "SELECT *
+				  FROM messages 
 				  WHERE `to` = ?
 				  OR `from` = ?
 				  ORDER BY created_at
