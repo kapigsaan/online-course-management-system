@@ -42,7 +42,7 @@
                             <?php if ($students): ?>
 
                                 <? foreach ($students as $key => $v):  ?>
-                                    <option value = "<?=$v->id?>"><?=$v->l_name.', '.$v->f_name?></option>
+                                    <option value = "<?=$v->acid?>"><?=$v->l_name.', '.$v->f_name?></option>
                                 <?endforeach; ?>
 
                             <?php endif; ?>
@@ -82,16 +82,19 @@
                                 <tr class="gradeC">
                                     <td><?=$v->subject?></td>
                                     <?php if ($accounts): ?>
+
                                         <? foreach ($accounts as $k => $ac): ?>
                                             <?php if ($ac->acid == $v->from): ?>
                                                 <td><?=$ac->l_name.', '.$ac->f_name?></td>
                                             <?php endif; ?>
                                         <? endforeach; ?>
+
                                         <? foreach ($accounts as $k => $ac): ?>
                                             <?php if ($ac->acid == $v->to): ?>
                                                 <td><?=$ac->l_name.', '.$ac->f_name?></td>
                                             <?php endif; ?>
                                         <? endforeach; ?>
+
                                     <?php endif; ?>
                                     <td><?php echo date('F d, Y',strtotime($v->created_at)); ?></td>
                                     <td>
