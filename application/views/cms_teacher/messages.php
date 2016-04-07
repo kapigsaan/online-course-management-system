@@ -28,7 +28,7 @@
  <div class="row">
     <div class="col-lg-12">
         <p><?=$system_message;?></p>
-        <form action = "<?=site_url('cms_teacher/messages')?>" method = "post" role="form">
+        <form action = "" method = "post" role="form">
             <div class="form-group">
                 <label>Send Message</label>
                 <input class="form-control" name = "subject" placeholder="Subject" required>
@@ -47,7 +47,7 @@
                         </select>    
                     </div>
                 </div>
-                <input type = "submit" class = "btn btn-primary" nama = "btn-submit-messages" value = "Send">
+                <input type = "submit" class = "btn btn-primary" name = "btn-submit-messages" value = "Send">
             </div>
         </form>
     </div>
