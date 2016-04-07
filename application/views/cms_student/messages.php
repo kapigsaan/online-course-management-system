@@ -107,8 +107,8 @@
                                     
                                     <td><?php echo date('F d, Y',strtotime($v->created_at)); ?></td>
                                     <td>
-                                        <a href="<?=site_url('cms_teacher/view_conversation/'.$v->id)?>"><i class = "fa fa-eye"> View Message </i></a>
-                                        <a href="<?=site_url('cms_teacher/delete_conversation/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a> 
+                                        <a href="<?=site_url('cms_student/view_conversation/'.$v->id)?>"><i class = "fa fa-eye"> View Message </i></a>
+                                        <a href="<?=site_url('cms_student/delete_conversation/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a> 
                                     </td>
                                 </tr>
                             <? endforeach; ?>
