@@ -86,11 +86,9 @@
                                             <?php if ($ac->acid == $v->from): ?>
                                                 <td><?=$ac->l_name.', '.$ac->f_name?></td>
                                             <?php endif; ?>
-                                            <?php if ($ac->acid == $v->to): ?>
-                                                <td><?=$ac->l_name.', '.$ac->f_name?></td>
-                                            <?php endif; ?>
                                         <? endforeach; ?>
                                     <?php endif; ?>
+                                    <td>asdas</td>
                                     <td><?php echo date('F d, Y',strtotime($v->created_at)); ?></td>
                                     <td>
                                         <a href="<?=site_url('cms_teacher/view_conversation/'.$v->id)?>"><i class = "fa fa-eye"> View Message </i></a>
