@@ -68,7 +68,7 @@
             <div class="col-md-5">
                 <div class="login-panel panel panel-primary">
                     <div class="panel-heading text-center" >
-                        System Decription
+                        System Description
                     </div>
                     <div class="panel-body">
                         Here 
