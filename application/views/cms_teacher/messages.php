@@ -37,8 +37,9 @@
                     <?php if ($students): ?>
 
                         <? foreach ($students as $key => $v):  ?>
-                            <option value = "<?=$v->id?>"><?=$v->l_name.', '$v->f_name?></option>
+                            <option value = "<?=$v->id?>"><?=$v->l_name.', '.$v->f_name?></option>
                         <?endforeach; ?>
+
                     <?php endif; ?>
                 </select>
                 <input style = "margin-top:10px;" type = "submit" class = "btn btn-primary" nama = "btn-submit-messages" value = "Send">
