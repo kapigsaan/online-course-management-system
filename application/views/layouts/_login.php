@@ -66,11 +66,13 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="panel-heading text-center" >
-                    System Decription
-                </div>
-                <div class="panel-body">
-                    Here 
+                <div class="login-panel panel panel-primary">
+                    <div class="panel-heading text-center" >
+                        System Decription
+                    </div>
+                    <div class="panel-body">
+                        Here 
+                    </div>
                 </div>
             </div>
             <div class="col-md-2"></div>
