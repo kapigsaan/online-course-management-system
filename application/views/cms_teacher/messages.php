@@ -34,7 +34,9 @@
                 <input class="form-control" name = "subject" placeholder="Subject" required>
                 <p></p>
                 <textarea class = "form-control" name = "message" style="height:250px" required></textarea>
+                <p></p>
                 <div class="row">
+                    <div class="col-md-2"><label>Sent To : </label></div>
                     <div class="col-md-4">
                         <select name = "msg-to" class = "form-control" required>
                             <?php if ($students): ?>
@@ -47,6 +49,7 @@
                         </select>    
                     </div>
                 </div>
+                <p></p>
                 <input type = "submit" class = "btn btn-primary" name = "btn-submit-messages" value = "Send">
             </div>
         </form>
@@ -78,8 +81,18 @@
                             <? foreach ($messages as $key => $v): ?> 
                                 <tr class="gradeC">
                                     <td><?=$v->subject?></td>
-                                    <td><?=$v->from?></td>
-                                    <td><?=$v->to?></td>
+                                    <?php if ($accounts): ?>
+                                        <? foreach ($accounts as $k => $ac); ?>
+                                            <?php if ($ac->acid == $v->from): ?>
+                                                <td><?=$ac->l_name.', '.$ac->f_name?></td>
+                                            <?php endif ?>
+                                        <? endforeach ?>
+                                        <? foreach ($accounts as $k => $ac); ?>
+                                            <?php if ($ac->acid == $v->to): ?>
+                                                <td><?=$ac->l_name.', '.$ac->f_name?></td>
+                                            <?php endif ?>
+                                        <? endforeach ?>
+                                    <?php endif ?>
                                     <td><?php echo date('F d, Y',strtotime($v->created_at)); ?></td>
                                     <td>
                                         <a href="<?=site_url('cms_teacher/view_conversation/'.$v->id)?>"><i class = "fa fa-eye"> View Message </i></a>
