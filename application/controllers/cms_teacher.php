@@ -643,6 +643,7 @@ class Cms_teacher extends MY_AdminController {
 
 		}
 		$this->view_data['messages'] = $this->mm->get_my_messages($this->session->userdata('userid'));
+		$this->view_data['students'] = $this->ms->get_all_student();
 	}
 
 	public function view_conversation($id = FALSE)

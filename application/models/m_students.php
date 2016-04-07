@@ -58,6 +58,22 @@ class M_students Extends CI_Model
   		return FALSE;
   	}
   }
+
+   public function get_all_student()
+	  {
+	  	if ($id) {
+	  		$query = "SELECT *
+	          FROM students
+	          ORDER BY  l_name 
+	          ";
+		    $q = $this->db->query($query);
+		    return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+	  	}else{
+	  		return FALSE;
+	  	}
+	  }
+
+
   
   /**
    * add_student
