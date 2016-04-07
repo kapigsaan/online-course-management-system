@@ -18,8 +18,9 @@ class M_messages Extends CI_Model
 
 	public function get_my_messages($id)
 	{
-		$query = "SELECT *
-				  FROM messages
+		$query = "SELECT m.*, s.l_name, s.f_name
+				  FROM messages m
+				  LEFT JOIN students s ON m.
 				  WHERE `to` = ?
 				  OR `from` = ?
 				  ORDER BY created_at
@@ -117,16 +118,16 @@ class M_messages Extends CI_Model
   }
   
   /**
-   * delete_forum
+   * delete_message
    * Delete the record of the id being passed
    * @param $post_id - id to be deleted
    * @return TRUE if successfully deleted
    * @return FALSE if it fails to delete
    *------------------------------------------------------------------
    */
-  public function delete_forum($post_id=FALSE)
+  public function delete_message($post_id=FALSE)
 	{
-		$this->db->delete('forum_topics', array('id' => $post_id)); 
+		$this->db->delete('messages', array('id' => $post_id)); 
 
 		return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
 	}

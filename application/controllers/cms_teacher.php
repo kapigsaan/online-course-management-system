@@ -643,7 +643,7 @@ class Cms_teacher extends MY_AdminController {
 
 		}
 		$this->view_data['messages'] = $this->mm->get_my_messages($this->session->userdata('userid'));
-		$this->view_data['students'] = $this->ms->get_all_student();
+		$this->view_data['students'] = $this->mu->get_user_where('student');
 	}
 
 	public function view_conversation($id = FALSE)
@@ -673,7 +673,12 @@ class Cms_teacher extends MY_AdminController {
 	public function delete_conversation($id = FALSE)
 	{
 		if ($id) {
-			
+			$res = $this->mm->delete_message($id);
+			if ($res) {
+				$this->_msg('s','Successfully Deleted.','cms_teacher/messages/');
+			}else{
+				$this->_msg('e','Failed.','cms_teacher/messages/');
+			}	
 		}else{
 			show_404();
 		}
