@@ -17,6 +17,9 @@ class Cms_teacher extends MY_AdminController {
 			$this->load->model('M_downloads','md');
 			$this->load->model('M_forums','mf');
 			$this->load->model('M_yvideos','myv');
+			$this->load->model('M_users','user');
+			$this->load->model('M_calendar','mcal');
+			$this->load->model('M_messages','mm');
 		}elseif ($this->session->userdata('userType') == 'admin') {
 			redirect('cms_admin');
 		}elseif ($this->session->userdata('userType') == 'student') {
@@ -24,11 +27,54 @@ class Cms_teacher extends MY_AdminController {
 		}
 	}
 	
-	public function index()
+	public function index($year = FALSE, $month = FALSE)
 	{
-		//$this->view_data['hits']=$this->mu->get_hits();
-		//$this->view_data['visits']=$this->mu->count_hits();
-		//$this->view_data['ipadd']=$this->mu->count_visits();
+		if (!$year) {
+			$year = date('Y');
+		}
+		if (!$month) {
+			$month = date('m');
+		}
+
+		$prefs = array (
+			'start_day' => 'sunday',
+			'show_next_prev' => true,
+			'next_prev_url' => base_url() . 'cms_teacher/index'
+             );
+
+		$prefs['day_type'] = 'long'; 
+
+		$prefs['template'] = '
+			 {table_open}<table class="calendar">{/table_open}
+
+			 {heading_row_start}<tr style = "width: 100%;">{/heading_row_start}
+
+			{heading_previous_cell}<th style = "text-align:center;"><a href="{previous_url}">&lt;&lt; Previous</a></th>{/heading_previous_cell}
+			{heading_title_cell}<th colspan="{colspan}" style = "text-align:center;">{heading}</th>{/heading_title_cell}
+			{heading_next_cell}<th style = "text-align:center;"><a href="{next_url}">Next &gt;&gt;</a></th>{/heading_next_cell}
+
+			{heading_row_end}</tr>{/heading_row_end}
+
+			    {week_day_cell}<th class="day_header">{week_day}</th>{/week_day_cell}
+			    {cal_cell_content}<span class="day_listing">{day}</span> {content}&nbsp;{/cal_cell_content}
+			    {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span> {content}</div>{/cal_cell_content_today}
+			    {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
+			    {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
+		';
+
+		$this->load->library('calendar', $prefs);
+		$datas = $this->mcal->get_all_events($year,$month);
+
+		$current_url = 'calendar-of--Events'.$year.'-'.$month;
+
+		$years = date('Y');
+		$months = date('m');
+
+		$this->view_data['current'] = $mm = date('F').'  '.$yy = date('Y');
+		$type = "web";
+		$this->view_data['cal'] = $this->calendar->generate_event_calendar($year,$month,$datas,$current_url,$type);
+		$this->view_data['links'] = $this->calendar->generate($this->uri->segment(3), $this->uri->segment(4));
+		$this->view_data['events'] = $this->mcal->get_all_event_for($months,$years);
 	}
 
 	public function classes()
@@ -555,5 +601,35 @@ class Cms_teacher extends MY_AdminController {
 	  		}
 	  		$this->_msg('s','Successfully deleted.','admin_display/yvideos');
 	  	}
+	}
+
+	public function change_password()
+	{
+		if ($this->input->post('btn-submit-changepass')) {
+			$old_pass = $this->input->post('old_pass');
+			$password = $this->input->post('password');
+
+			$old = $this->user->verify_password($old_pass, $this->session->userdata('userid'));
+			if ($old) {
+				$new = $this->user->change_pass($password, $this->session->userdata('userid'));
+				if ($new) {
+					$this->_msg('s','Password Successfully Changed.','cms_teacher/index/');
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/index/');
+				}
+			}else{
+				$this->_msg('e','Old Password is Invalid.','cms_teacher/change_password');
+			}
+		}
+		$this->view_data['profile'] = $this->user->get_all_users($this->session->userdata('userid'));
+
+	}
+
+	public function messages()
+	{
+		if ($this->input->post('btn-submit-messages')) {
+			# code...
+		}
+		$this->view_data['messages'] = $this->mm->get_my_messages($this->session->userdata('userid'));
 	}
 }

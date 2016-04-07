@@ -62,7 +62,7 @@ class Calendars extends MY_AdminController
 			';
 
 			$this->load->library('calendar', $prefs);
-			$datas = $this->mc->get_all_events($year,$month);
+			$datas = $this->mc->get_all_events($year,$month,$class);
 			$current_url = 'calendar-of--Events'.$year.'-'.$month;
 			$this->view_data['cal'] = $this->calendar->generate_event_calendar($year,$month,$datas,$current_url,FALSE,$class);
 			$this->view_data['links'] = $this->calendar->generate($this->uri->segment(3), $this->uri->segment(4));
@@ -72,7 +72,7 @@ class Calendars extends MY_AdminController
 			if($this->input->post('updatecalendar'))
 			{
 				$post = $this->input->post();
-				$event = $this->mc->new_event($post);
+				$event = $this->mc->new_event($post, $class, $this->session->userdata('userid'));
 
 				if($event->stat)
 				{

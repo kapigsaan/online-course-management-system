@@ -28,29 +28,53 @@ class M_calendar extends CI_Model
 		return $query->num_rows() > 0 ? $query->result() : FALSE;
 	}
 
-	public function get_all_events($year,$month)
+	public function get_all_events($year,$month,$class=FALSE)
 	{
 		if($year AND $month)
 		{
+			if ($class) {
+				
+				$sql = 'SELECT *,
+							   day(event_date) as day_of_event
+						FROM calendar
+						WHERE month(event_date) = ?
+						AND year(event_date) = ? 
+						AND class_id = ? ';
 
-			$sql = 'SELECT *,
-						   day(event_date) as day_of_event
-					FROM calendar
-					WHERE month(event_date) = ?
-					AND year(event_date) = ? ';
-
-			$result = $this->db->query($sql,[$month,$year]);	
-			
-			if($result->num_rows() >= 1)
-			{
-				foreach($result->result() as $k => $v)
+				$result = $this->db->query($sql,[$month,$year,$class]);	
+				
+				if($result->num_rows() >= 1)
 				{
-					$events[$v->day_of_event][]= ['name'=>$v->title,'desc'=>$v->desc,'col'=>$v->color,'ebc'=>$v->event_batch_code];
+					foreach($result->result() as $k => $v)
+					{
+						$events[$v->day_of_event][]= ['name'=>$v->title,'desc'=>$v->desc,'col'=>$v->color,'ebc'=>$v->event_batch_code];
+					}
+					return $events;
+				}else{
+					return array();
 				}
-				return $events;
 			}else{
-				return array();
+				
+				$sql = 'SELECT *,
+							   day(event_date) as day_of_event
+						FROM calendar
+						WHERE month(event_date) = ?
+						AND year(event_date) = ? ';
+
+				$result = $this->db->query($sql,[$month,$year]);	
+				
+				if($result->num_rows() >= 1)
+				{
+					foreach($result->result() as $k => $v)
+					{
+						$events[$v->day_of_event][]= ['name'=>$v->title,'desc'=>$v->desc,'col'=>$v->color,'ebc'=>$v->event_batch_code];
+					}
+					return $events;
+				}else{
+					return array();
+				}				
 			}
+
 		}else{
 			return array();
 		}
@@ -65,7 +89,7 @@ class M_calendar extends CI_Model
 		return $end;
 	}
 
-	public function new_event($event_details = '')
+	public function new_event($event_details = '', $class = FALSE, $created_by = FALSE)
 	{
 		$srt = DateTime::createFromFormat('m/d/Y',$event_details['start']);
 		$end = DateTime::createFromFormat('m/d/Y',$event_details['end']);
@@ -93,6 +117,8 @@ class M_calendar extends CI_Model
 					{
 						foreach($alldates as $k => $_date)
 						{
+							$dates[$k]['created_by'] = $created_by;
+							$dates[$k]['class_id'] = $class;
 							$dates[$k]['event_date'] = $_date->format('Y-m-d');
 							$dates[$k]['title'] = $event_details['title'];
 							$dates[$k]['start'] = $srt->format('Y-m-d');

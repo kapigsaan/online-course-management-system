@@ -222,4 +222,26 @@ class Cms_admin extends MY_AdminController {
 			show_404();
 		}
 	}
+
+	public function change_password()
+	{
+		if ($this->input->post('btn-submit-changepass')) {
+			$old_pass = $this->input->post('old_pass');
+			$password = $this->input->post('password');
+
+			$old = $this->mu->verify_password($old_pass, $this->session->userdata('userid'));
+			if ($old) {
+				$new = $this->mu->change_pass($password, $this->session->userdata('userid'));
+				if ($new) {
+					$this->_msg('s','Password Successfully Changed.','cms_admin/index/');
+				}else{
+					$this->_msg('e','Failed.','cms_admin/index/');
+				}
+			}else{
+				$this->_msg('e','Old Password is Invalid.','cms_admin/change_password');
+			}
+		}
+		$this->view_data['profile'] = $this->mu->get_all_users($this->session->userdata('userid'));
+
+	}
 }

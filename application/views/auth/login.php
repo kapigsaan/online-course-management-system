@@ -47,6 +47,7 @@
             <?php endif ?>
           </h1>
 
+
         <!--  <p class = "text-center">©2015 All Rights Reserved.</p> -->
       </div>
   </div>
