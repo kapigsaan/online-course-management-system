@@ -25,6 +25,27 @@
     </div>
 </div> -->
 
+ <div class="row">
+    <div class="col-lg-12">
+        <p><?=$system_message;?></p>
+        <form action="" method = "post" role="form">
+            <div class="form-group">
+                <label>Start New Comversation</label>
+                <input class="form-control" name = "subject" placeholder="Subject" required>
+                <textarea class = "form-control" name = "message" style="height:250px" required></textarea>
+                <select name = "msg-to" required>
+                    <?php if ($students): ?>
+                        <?foreach($students as $key => $v)?>
+                            <option value = "<?=$v->id?>"><?=$v->l_name.', '$v->f_name?></option>
+                        <?endforeach?>
+                    <?php endif ?>
+                </select>
+                <input style = "margin-top:10px;" type = "submit" class = "btn btn-primary" nama = "btn-submit-messages" value = "Send">
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
@@ -52,9 +73,8 @@
                                     <td><?=$v->from?></td>
                                     <td><?php echo date('F d, Y',strtotime($v->created_at)); ?></td>
                                     <td>
-                                        <a href="<?=site_url('cms_teacher/view_forum/'.$v->class_id.'/'.$v->id)?>"><i class = "fa fa-eye"> View </i></a> | 
-                                        <a href="<?=site_url('cms_teacher/edit_forum/'.$v->class_id.'/'.$v->id)?>"><i class = "fa fa-return"> Reply </i></a> | 
-                                        <a href="<?=site_url('cms_teacher/delete_forum/'.$v->class_id.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a> 
+                                        <a href="<?=site_url('cms_teacher/view_conversation/'.$v->id)?>"><i class = "fa fa-eye"> View Conversation </i></a>
+                                        <a href="<?=site_url('cms_teacher/delete_conversation/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a> 
                                     </td>
                                 </tr>
                             <? endforeach ?>

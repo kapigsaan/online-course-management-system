@@ -628,8 +628,53 @@ class Cms_teacher extends MY_AdminController {
 	public function messages()
 	{
 		if ($this->input->post('btn-submit-messages')) {
-			# code...
+			$data['subject'] = $this->input->post('subject');
+			$data['from'] = $this->session->userdata('userid');
+			$data['to'] = $this->input->post('msg-to');
+			$data['message'] = $this->input->post('message');
+
+			$result = $this->mm->send_message($data);
+
+				if ($result) {
+					$this->_msg('s','Message Sent.','cms_teacher/messages/');
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/messages/');
+				}
+
 		}
 		$this->view_data['messages'] = $this->mm->get_my_messages($this->session->userdata('userid'));
+	}
+
+	public function view_conversation($id = FALSE)
+	{
+		if ($id) {
+			if ($this->input->post('btn-submit-messages')) {
+				$data['subject'] = $this->input->post('subject');
+				$data['from'] = $this->session->userdata('userid');
+				$data['to'] = $this->input->post('msg-to');
+				$data['message'] = $this->input->post('message');
+
+				$result = $this->mm->send_message($data);
+
+					if ($result) {
+						$this->_msg('s','Message Sent.','cms_teacher/messages/');
+					}else{
+						$this->_msg('e','Failed.','cms_teacher/messages/');
+					}
+
+			}
+			$this->view_data['messages'] = $this->mm->get_conversation($id);	
+		}else{
+			show_404();
+		}
+	}
+
+	public function delete_conversation($id = FALSE)
+	{
+		if ($id) {
+			
+		}else{
+			show_404();
+		}
 	}
 }

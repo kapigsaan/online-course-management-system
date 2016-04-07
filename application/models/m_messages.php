@@ -21,6 +21,18 @@ class M_messages Extends CI_Model
 		$query = "SELECT *
 				  FROM messages
 				  WHERE `to` = ?
+				  OR `from` = ?
+				  ORDER BY created_at
+				  ";
+		$q = $this->db->query($query,[$id, $id]);
+		return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+	}
+
+	public function get_conversation($id)
+	{
+		$query = "SELECT *
+				  FROM messages
+				  WHERE `id` = ?
 				  ORDER BY created_at
 				  ";
 		$q = $this->db->query($query,[$id]);
@@ -58,18 +70,18 @@ class M_messages Extends CI_Model
 	}
 
 	/**
-	* add_forum
+	* send_message
 	* Save the data
 	* @param $post - array of the data to be saved
 	* @return TRUE if a record is added
 	* @return FALSE if it failed to saved
 	*------------------------------------------------------------------
 	*/
-	public function add_forum($post=FALSE)
+	public function send_message($post=FALSE)
 	{
 		if($post){
 			$post['created_at'] = NOW;
-			$this->db->insert('forum_topics',$post);
+			$this->db->insert('messages',$post);
 
 			return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
 

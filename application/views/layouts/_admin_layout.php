@@ -126,17 +126,17 @@
                         <li>
                         <?php if ($this->session->userdata('userType') == 'admin'): ?>
                             <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
+                                <strong>Go to Messages</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <?php elseif ($this->session->userdata('userType') == 'instructor'):?>
                             <a class="text-center" href="<?=site_url('cms_teacher/messages')?>">
-                                <strong>Read All Messages</strong>
+                                <strong>Go to Messages</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <?php elseif ($this->session->userdata('userType') == 'student'):?>
                             <a class="text-center" href="<?=site_url('cms_student/messages')?>">
-                                <strong>Read All Messages</strong>
+                                <strong>Go to Messages</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <?php endif ?>

@@ -54,7 +54,8 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading text-center" >
                         <img src="<?=site_url('logo.jpg')?>">
@@ -64,6 +65,15 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="panel-heading text-center" >
+                    System Decription
+                </div>
+                <div class="panel-body">
+                    Here 
+                </div>
+            </div>
+            <div class="col-md-2"></div>
         </div>
     </div>
 
