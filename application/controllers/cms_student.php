@@ -292,8 +292,8 @@ class Cms_student extends MY_AdminController {
 
 		}
 		$this->view_data['messages'] = $this->mm->get_my_messages($this->session->userdata('userid'));
-		$this->view_data['students'] = $this->mu->get_user_where('instructor');
-		$this->view_data['accounts'] = $this->mu->get_all_accounts();
+		$this->view_data['students'] = $this->mc->get_user_where('instructor');
+		$this->view_data['accounts'] = $this->mc->get_all_accounts();
 		$this->view_data['me'] = $this->session->userdata('userid');
 	}
 
@@ -316,7 +316,7 @@ class Cms_student extends MY_AdminController {
 
 			}
 			$this->view_data['messages'] = $this->mm->get_conversation($id);	
-			$this->view_data['accounts'] = $this->mu->get_all_accounts();
+			$this->view_data['accounts'] = $this->mc->get_all_accounts();
 			$this->view_data['me'] = $this->session->userdata('userid');
 		}else{
 			show_404();
