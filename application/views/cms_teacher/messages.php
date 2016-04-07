@@ -30,10 +30,11 @@
         <p><?=$system_message;?></p>
         <form action="" method = "post" role="form">
             <div class="form-group">
-                <label>Start New Comversation</label>
+                <label>Send Message</label>
                 <input class="form-control" name = "subject" placeholder="Subject" required>
+                <p></p>
                 <textarea class = "form-control" name = "message" style="height:250px" required></textarea>
-                <select name = "msg-to" required>
+                <select name = "msg-to" class = "form-control" required>
                     <?php if ($students): ?>
 
                         <? foreach ($students as $key => $v):  ?>
@@ -63,6 +64,7 @@
                             <tr>
                                 <th>Subject</th>
                                 <th>From</th>
+                                <th>To</th>
                                 <th>Date</th>
                                 <th>Action</th>
                             </tr>
@@ -73,9 +75,10 @@
                                 <tr class="gradeC">
                                     <td><?=$v->subject?></td>
                                     <td><?=$v->from?></td>
+                                    <td><?=$v->to?></td>
                                     <td><?php echo date('F d, Y',strtotime($v->created_at)); ?></td>
                                     <td>
-                                        <a href="<?=site_url('cms_teacher/view_conversation/'.$v->id)?>"><i class = "fa fa-eye"> View Conversation </i></a>
+                                        <a href="<?=site_url('cms_teacher/view_conversation/'.$v->id)?>"><i class = "fa fa-eye"> View Message </i></a>
                                         <a href="<?=site_url('cms_teacher/delete_conversation/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a> 
                                     </td>
                                 </tr>
