@@ -86,6 +86,8 @@
                                             <?php if ($ac->acid == $v->from): ?>
                                                 <td><?=$ac->l_name.', '.$ac->f_name?></td>
                                             <?php endif; ?>
+                                        <? endforeach; ?>
+                                        <? foreach ($accounts as $k => $ac): ?>
                                             <?php if ($ac->acid == $v->to): ?>
                                                 <td><?=$ac->l_name.', '.$ac->f_name?></td>
                                             <?php endif; ?>
