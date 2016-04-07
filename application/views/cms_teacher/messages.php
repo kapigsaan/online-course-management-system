@@ -34,16 +34,20 @@
                 <input class="form-control" name = "subject" placeholder="Subject" required>
                 <p></p>
                 <textarea class = "form-control" name = "message" style="height:250px" required></textarea>
-                <select name = "msg-to" class = "form-control" required>
-                    <?php if ($students): ?>
+                <div class="row">
+                    <div class="col-md-4">
+                        <select name = "msg-to" class = "form-control" required>
+                            <?php if ($students): ?>
 
-                        <? foreach ($students as $key => $v):  ?>
-                            <option value = "<?=$v->id?>"><?=$v->l_name.', '.$v->f_name?></option>
-                        <?endforeach; ?>
+                                <? foreach ($students as $key => $v):  ?>
+                                    <option value = "<?=$v->id?>"><?=$v->l_name.', '.$v->f_name?></option>
+                                <?endforeach; ?>
 
-                    <?php endif; ?>
-                </select>
-                <input style = "margin-top:10px;" type = "submit" class = "btn btn-primary" nama = "btn-submit-messages" value = "Send">
+                            <?php endif; ?>
+                        </select>    
+                    </div>
+                </div>
+                <input type = "submit" class = "btn btn-primary" nama = "btn-submit-messages" value = "Send">
             </div>
         </form>
     </div>

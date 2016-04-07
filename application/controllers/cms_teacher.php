@@ -628,6 +628,7 @@ class Cms_teacher extends MY_AdminController {
 	public function messages()
 	{
 		if ($this->input->post('btn-submit-messages')) {
+			vd($this->input->post());
 			$data['subject'] = $this->input->post('subject');
 			$data['from'] = $this->session->userdata('userid');
 			$data['to'] = $this->input->post('msg-to');
