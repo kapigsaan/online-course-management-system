@@ -28,7 +28,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#home" data-toggle="tab">Course Syllabus</a>
                     </li>
-                    <li><a href="#profile" data-toggle="tab">Course Content</a>
+                    <li><a href="#profile" data-toggle="tab">Course Content / Materials</a>
                     </li>
                     <li><a href="#messages" data-toggle="tab">Course Outline</a>
                     </li>

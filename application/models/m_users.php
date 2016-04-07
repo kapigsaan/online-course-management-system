@@ -137,11 +137,12 @@ class M_users extends CI_Model
 	public function get_all_users($id = FALSE)
 	{
 		if($id == FALSE){
-			$query = $this->db->get('users');		
+			$query = $this->db->get('useraccounts');		
+			return $query->num_rows() > 0 ? $query->result() : FALSE;
 		}else{
-			$query = $this->db->where('id',$id)->get('users');	
+			$query = $this->db->where('acid',$id)->get('useraccounts');	
+			return $query->num_rows() > 0 ? $query->row() : FALSE;
 		}
-		return $query->num_rows() > 0 ? $query->result() : FALSE;
 	}
 	
 	/*
@@ -153,7 +154,7 @@ class M_users extends CI_Model
 	
 	public function update_user($id,$data)
 	{
-		$this->db->set($data)->where('id',$id)->update('users');
+		$this->db->set($data)->where('acid',$id)->update('useraccounts');
 		return $this->db->affected_rows() > 0 ? TRUE : FALSE;
 	}
 	
@@ -167,7 +168,7 @@ class M_users extends CI_Model
 	public function change_pass($newpassword,$id)
 	{
 		$newpassword = $this->hash_password($newpassword);
-		if($this->db->set('hashed_password',$newpassword)->where('id',$id)->update('users')){
+		if($this->db->set('password',$newpassword)->where('acid',$id)->update('useraccounts')){
 			return TRUE;
 		}else{
 			return FALSE;
@@ -181,9 +182,8 @@ class M_users extends CI_Model
 	*/	
 	public function verify_password($password,$id)
 	{
-		$data = $this->db->select('hashed_password')->where('id',$id)->get('users');
-		
-		$h_pass = $data->num_rows() >=1 ? $data->row()->hashed_password : FALSE;
+		$data = $this->db->select('password')->where('acid',$id)->get('useraccounts');
+		$h_pass = $data->num_rows() >=1 ? $data->row()->password : FALSE;
 		
 		if($this->validate_password($h_pass,$password)){
 			return TRUE;	

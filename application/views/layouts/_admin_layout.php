@@ -124,10 +124,22 @@
                         </li>
                         <li class="divider"></li>
                         <li>
+                        <?php if ($this->session->userdata('userType') == 'admin'): ?>
                             <a class="text-center" href="#">
                                 <strong>Read All Messages</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
+                        <?php elseif ($this->session->userdata('userType') == 'instructor'):?>
+                            <a class="text-center" href="<?=site_url('cms_teacher/messages')?>">
+                                <strong>Read All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <?php elseif ($this->session->userdata('userType') == 'student'):?>
+                            <a class="text-center" href="<?=site_url('cms_student/messages')?>">
+                                <strong>Read All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <?php endif ?>
                         </li>
                     </ul>
                     <!-- /.dropdown-messages -->
@@ -139,10 +151,22 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
+                        <?php if ($this->session->userdata('userType') == 'admin'): ?>
+                            <li><a href="<?=site_url('cms_admin/change_password')?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                        <?php elseif ($this->session->userdata('userType') == 'instructor'):?>
+                            <li><a href="<?=site_url('cms_teacher/change_password')?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                        <?php elseif ($this->session->userdata('userType') == 'student'): ?>
+                            <li><a href="<?=site_url('cms_student/change_password')?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                        <?php endif ?>
                         <li class="divider"></li>
                         <li><a href="<?=site_url('auth/logout')?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
