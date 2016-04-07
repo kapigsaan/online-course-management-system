@@ -39,7 +39,8 @@
             </div>
         <?php endif ?>
     </div>
-    <?php if (!$messages->from == $me): ?>
+    <?php if ($messages->from == $me): ?>
+    <?php else: ?>
     	<div class="col-lg-12">
 	        <!-- /.panel -->
 	        <div class="panel panel-red">
