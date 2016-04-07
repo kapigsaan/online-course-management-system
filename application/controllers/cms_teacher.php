@@ -650,7 +650,7 @@ class Cms_teacher extends MY_AdminController {
 	public function view_conversation($id = FALSE)
 	{
 		if ($id) {
-			if ($this->input->post('btn-submit-messages')) {
+			if ($this->input->post('btn-reply-messages')) {
 				$data['subject'] = $this->input->post('subject');
 				$data['from'] = $this->session->userdata('userid');
 				$data['to'] = $this->input->post('msg-to');
@@ -666,6 +666,7 @@ class Cms_teacher extends MY_AdminController {
 
 			}
 			$this->view_data['messages'] = $this->mm->get_conversation($id);	
+			$this->view_data['accounts'] = $this->mu->get_all_accounts();
 		}else{
 			show_404();
 		}

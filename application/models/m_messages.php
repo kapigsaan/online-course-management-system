@@ -36,7 +36,7 @@ class M_messages Extends CI_Model
 				  ORDER BY created_at
 				  ";
 		$q = $this->db->query($query,[$id]);
-		return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+		return $q->num_rows() >= 1 ? $q->row() : FALSE; //returns result if none retrieved, returns FALSE
 	}
 
 	public function get_forums_in($class=FALSE)
