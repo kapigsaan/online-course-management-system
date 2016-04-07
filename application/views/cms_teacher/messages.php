@@ -94,7 +94,7 @@
                                         <? foreach ($accounts as $k => $ac): ?>
                                             <?php if ($ac->acid == $v->to): ?>
                                                 <td><?=$ac->l_name.', '.$ac->f_name?></td>
-                                            <? elseif ($v->from == $me):?>
+                                            <? elseif ($v->to == $me):?>
                                                 <td>Me</td>
                                             <?php endif; ?>
                                         <? endforeach; ?>
