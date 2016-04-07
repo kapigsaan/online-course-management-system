@@ -645,6 +645,7 @@ class Cms_teacher extends MY_AdminController {
 		$this->view_data['messages'] = $this->mm->get_my_messages($this->session->userdata('userid'));
 		$this->view_data['students'] = $this->mu->get_user_where('student');
 		$this->view_data['accounts'] = $this->mu->get_all_accounts();
+		$this->view_data['me'] = $this->session->userdata('userid');
 	}
 
 	public function view_conversation($id = FALSE)
@@ -654,7 +655,7 @@ class Cms_teacher extends MY_AdminController {
 				$data['subject'] = $this->input->post('subject');
 				$data['from'] = $this->session->userdata('userid');
 				$data['to'] = $this->input->post('msg-to');
-				$data['message'] = $this->input->post('message');
+				$data['message'] = $this->input->post('reply');
 
 				$result = $this->mm->send_message($data);
 
@@ -667,6 +668,7 @@ class Cms_teacher extends MY_AdminController {
 			}
 			$this->view_data['messages'] = $this->mm->get_conversation($id);	
 			$this->view_data['accounts'] = $this->mu->get_all_accounts();
+			$this->view_data['me'] = $this->session->userdata('userid');
 		}else{
 			show_404();
 		}

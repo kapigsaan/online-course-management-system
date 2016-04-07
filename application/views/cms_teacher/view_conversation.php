@@ -15,16 +15,16 @@
                 <div class="panel-heading" style="padding:0px;margin:0px;padding-left:15px;">
                     <time class="time" datetime="2013-02-08"><?php echo date('D F d, Y  H:i a',strtotime($messages->created_at)); ?></time>
                 </div>
-                <div class="panel-body" style="padding:0px;margin:0px;">
-        			<div class="col-md-12" style="background-color:#faebcc">
+                <div class="panel-body" >
+        			<div class="col-md-12" >
         				<p><?=$messages->message?></p>
         			</div>
                 </div>
-                <div class="pannel-footer">
+                <div class="pannel-footer text-right">
                 <?php if ($accounts): ?>
                     <? foreach ($accounts as $k => $ac): ?>
                         <?php if ($ac->acid == $messages->from): ?>
-                            <?=$ac->l_name.', '.$ac->f_name?>
+                            FROM : <?=$ac->l_name.', '.$ac->f_name?>
                         <?php endif; ?>
                     <? endforeach; ?>
                 <?php endif; ?>
@@ -32,20 +32,24 @@
             </div>
         <?php endif ?>
     </div>
-
-    <div class="col-lg-12">
-        <!-- /.panel -->
-        <div class="panel panel-red">
-            <div class="panel-heading">
-            Reply
-            </div>
-            <div class="panel-body">
-            	<form action="" method="post">
-            		<textarea class = "form-control" name = "comment" style="height:250px" required></textarea>
-            		<p></p>
-            		<input type = "submit" name = "submit-comment" class = "btn btn-primary" style="float:right;" value = "Submit Comment">
-            	</form>
-            </div>
-        </div>
-    </div>
+    <?php if (!$messages->from == $me): ?>
+    	<div class="col-lg-12">
+	        <!-- /.panel -->
+	        <div class="panel panel-red">
+	            <div class="panel-heading">
+	            Reply
+	            </div>
+	            <div class="panel-body">
+	            	<form action="" method="post">
+	            		<input type = "hidden" name = "msg-to" value = "<?=$messages->from?>" required/>
+	            		<input type = "text" name = "subject" placeholder = "Subject" required/>
+	            		<p></p>
+	            		<textarea class = "form-control" name = "reply" style="height:250px" required></textarea>
+	            		<p></p>
+	            		<input type = "submit" name = "btn-reply-messages" class = "btn btn-primary" style="float:right;" value = "Send">
+	            	</form>
+	            </div>
+	        </div>
+	    </div>
+    <?php endif ?>
 </div>
