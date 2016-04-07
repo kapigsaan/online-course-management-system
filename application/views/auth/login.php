@@ -31,7 +31,7 @@
         <input type="submit" class="btn btn-lg btn-success btn-block" name="backstage_login" value="Log In">
     </fieldset>
 
-    <div class="separator">
+    <div class="separator text-center">
       <div class="clearfix"></div>
       <br />
       <div>
@@ -47,7 +47,7 @@
             <?php endif ?>
           </h1>
 
-          <p>©2015 All Rights Reserved. jnz_yui@rin</p>
+        <!--  <p class = "text-center">©2015 All Rights Reserved.</p> -->
       </div>
   </div>
 
