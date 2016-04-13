@@ -139,19 +139,26 @@ class Cms_teacher extends MY_AdminController {
 		if ($id) {
 
 			if ($this->input->post('add-studentsubmit')) {
-				$data['username'] = $this->input->post('username');
-				$data['f_name'] = $this->input->post('f_name');
-				$data['m_name'] = $this->input->post('m_name');
-				$data['l_name'] = $this->input->post('l_name');
-				$data['userType'] = 'student';
-				$data['class_id'] = $id;
 
-				$res = $this->ms->add_student($data);
-				if ($res) {
-					$this->_msg('s','Successfully Added Student.','cms_teacher/students/'.$id);
+				$this->form_validation->set_rules('username', 'Username', 'required|is_unique[useraccounts.username]');
+
+				if ($this->form_validation->run() == FALSE){
+
 				}else{
-					$this->_msg('e','Failed.','cms_teacher/students/'.$id);
-				}	
+					$data['username'] = $this->input->post('username');
+					$data['f_name'] = $this->input->post('f_name');
+					$data['m_name'] = $this->input->post('m_name');
+					$data['l_name'] = $this->input->post('l_name');
+					$data['userType'] = 'student';
+					$data['class_id'] = $id;
+
+					$res = $this->ms->add_student($data);
+					if ($res) {
+						$this->_msg('s','Successfully Added Student.','cms_teacher/students/'.$id);
+					}else{
+						$this->_msg('e','Failed.','cms_teacher/students/'.$id);
+					}	
+				}
 			}
 			
 			$this->view_data['list'] = $this->ms->get_students_in_class($id);
@@ -627,23 +634,20 @@ class Cms_teacher extends MY_AdminController {
 
 	public function messages()
 	{
-		if ($this->input->post('btn-submit-messages')) {
-			$data['subject'] = $this->input->post('subject');
-			$data['from'] = $this->session->userdata('userid');
-			$data['to'] = $this->input->post('msg-to');
-			$data['message'] = $this->input->post('message');
-
-			$result = $this->mm->send_message($data);
-
-				if ($result) {
-					$this->_msg('s','Message Sent.','cms_teacher/messages/');
-				}else{
-					$this->_msg('e','Failed.','cms_teacher/messages/');
-				}
-
-		}
 		$this->view_data['messages'] = $this->mm->get_my_messages($this->session->userdata('userid'));
-		$this->view_data['students'] = $this->mu->get_user_where('student');
+		$this->view_data['instructors'] = $this->mu->get_user_where('instructor');
+
+		$class = $this->mc->get_all_classes_where($this->session->userdata('userid'));
+		if ($class) {
+			$students = array();
+			foreach ($class as $key => $v) {
+				$student[$key] = $this->ms->get_students_in_class($v->id);		
+			}
+		}else{
+			$student = FALSE;
+		}
+		$this->view_data['students'] = $student;
+		// $this->view_data['students'] = $this->mu->get_user_where('student');
 		$this->view_data['accounts'] = $this->mu->get_all_accounts();
 		$this->view_data['me'] = $this->session->userdata('userid');
 	}
@@ -654,19 +658,19 @@ class Cms_teacher extends MY_AdminController {
 			if ($this->input->post('btn-reply-messages')) {
 				$data['subject'] = $this->input->post('subject');
 				$data['from'] = $this->session->userdata('userid');
-				$data['to'] = $this->input->post('msg-to');
+				$data['to'] = $id;
 				$data['message'] = $this->input->post('reply');
 
 				$result = $this->mm->send_message($data);
 
 					if ($result) {
-						$this->_msg('s','Message Sent.','cms_teacher/messages/');
+						$this->_msg('s','Message Sent.','cms_teacher/view_conversation/'.$id);
 					}else{
-						$this->_msg('e','Failed.','cms_teacher/messages/');
+						$this->_msg('e','Failed.','cms_teacher/view_conversation/'.$id);
 					}
 
 			}
-			$this->view_data['messages'] = $this->mm->get_conversation($id);	
+			$this->view_data['messages'] = $this->mm->get_conversation_with_stud($id);	
 			$this->view_data['accounts'] = $this->mu->get_all_accounts();
 			$this->view_data['me'] = $this->session->userdata('userid');
 		}else{
@@ -683,6 +687,243 @@ class Cms_teacher extends MY_AdminController {
 			}else{
 				$this->_msg('e','Failed.','cms_teacher/messages/');
 			}	
+		}else{
+			show_404();
+		}
+	}
+
+	public function activity($id = FALSE)
+	{
+		if ($id) {
+			if ($this->input->post('submit-activity')) {
+				$this->load->library('image_lib');
+				$config['upload_path'] = './assets/downloads/activities/';
+				$config['allowed_types'] = TRUE;
+				$config['max_size'] = '100000';
+				$config['remove_spaces'] = TRUE;
+				$config['overwrite'] = TRUE;
+
+				$this->load->library('upload', $config); //LOAD UPLOAD LIBRARY WITH THE CONFIG VARIABLE
+
+				if (!$this->upload->do_upload('file')) //DO THE ACTUAL UPLOADING OF FILES
+				{	
+					$error = array('error' => $this->upload->display_errors()); // IF UPLOAD HAS ERROR 
+					$this->_msg('e', $error['error'], current_url()); //SHOW ERROR
+				}else{ 
+					$upload_data = array('upload_data' => $this->upload->data()); // IF UPLOAD SUCCESS GET UPLOAD INFORMATION
+					$data['file_size'] = number_format($upload_data['upload_data']['file_size'] / 1024, 2);
+					$data['file'] = $upload_data['upload_data']['file_name']; // GET THE FILENAME OF IMAGE UPLOADED
+				}
+
+				$data['caption']=$this->input->post('caption');
+				$data['class_id'] = $id;
+
+				$result = $this->mc->upload_activity($data);
+				if ($result) {
+					$this->_msg('s','Successfully Added Activity.','cms_teacher/activity/'.$id);
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/activity/'.$id);
+				}
+			}
+
+			$this->view_data['class'] = $id;
+			$this->view_data['class_name'] = $this->mc->get_class($id);
+			$this->view_data['activities'] = $this->mc->get_all_acticities($id);
+			$this->view_data['classes'] = $this->mc->get_all_classes_where($this->session->userdata('userid'));
+		}else{
+			$this->view_data['classes'] = $this->mc->get_all_classes_where($this->session->userdata('userid'));
+			$this->view_data['class'] = FALSE;
+		}
+	}
+
+	public function act()
+	{
+		if ($this->input->post('changeclass-btn')) {
+			$id = $this->input->post('class');
+
+			redirect(site_url('cms_teacher/activity/'.$id));
+		}else{
+			redirect(site_url('cms_teacher/activity'));
+		}
+	}
+
+	public function view_answers($id = FALSE)
+	{
+		if ($id) {
+			$this->view_data['answers'] = $this->mc->get_all_answers($id);
+		}else{
+			show_404();
+		}
+	}
+
+	public function delete_activity($id = FALSE, $class = FALSE)
+	{
+		if ($id) {
+			$path = $this->mc->get_activity($id);
+			$path = FCPATH.'assets/downloads/activities/'.$path->file;
+	        if (file_exists($path)){ 
+				unlink($path); // DELETE RECENT IMAGE IF EXIST / UNLINK
+		        $res = $this->mc->delete_activity($id);
+				if ($res) {
+					$this->_msg('s','Successfully Delted Activity.','cms_teacher/activity/'.$class);
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/activity/'.$class);
+				}	
+	        }else{
+	          $this->_msg('e','File Not Deleted.','cms_teacher/activity/'.$class);
+	        }
+		}else{
+			show_404();
+		}
+	}
+
+	public function homework($id = FALSE)
+	{
+		if ($id) {
+			if ($this->input->post('submit-homework')) {
+				$this->load->library('image_lib');
+				$config['upload_path'] = './assets/downloads/homework/';
+				$config['allowed_types'] = TRUE;
+				$config['max_size'] = '100000';
+				$config['remove_spaces'] = TRUE;
+				$config['overwrite'] = TRUE;
+
+				$this->load->library('upload', $config); //LOAD UPLOAD LIBRARY WITH THE CONFIG VARIABLE
+
+				if (!$this->upload->do_upload('file')) //DO THE ACTUAL UPLOADING OF FILES
+				{	
+					$error = array('error' => $this->upload->display_errors()); // IF UPLOAD HAS ERROR 
+					$this->_msg('e', $error['error'], current_url()); //SHOW ERROR
+				}else{ 
+					$upload_data = array('upload_data' => $this->upload->data()); // IF UPLOAD SUCCESS GET UPLOAD INFORMATION
+					$data['file_size'] = number_format($upload_data['upload_data']['file_size'] / 1024, 2);
+					$data['file'] = $upload_data['upload_data']['file_name']; // GET THE FILENAME OF IMAGE UPLOADED
+				}
+
+				$data['caption']=$this->input->post('caption');
+				$data['class_id'] = $id;
+
+				$result = $this->mc->upload_homework($data);
+				if ($result) {
+					$this->_msg('s','Successfully Added Homework.','cms_teacher/homework/'.$id);
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/homework/'.$id);
+				}
+			}
+
+			$this->view_data['class'] = $id;
+			$this->view_data['class_name'] = $this->mc->get_class($id);
+			$this->view_data['activities'] = $this->mc->get_all_homework($id);
+			$this->view_data['classes'] = $this->mc->get_all_classes_where($this->session->userdata('userid'));
+		}else{
+			$this->view_data['classes'] = $this->mc->get_all_classes_where($this->session->userdata('userid'));
+			$this->view_data['class'] = FALSE;
+		}
+	}
+
+	public function homew()
+	{
+		if ($this->input->post('changeclass-btn')) {
+			$id = $this->input->post('class');
+
+			redirect(site_url('cms_teacher/homework/'.$id));
+		}else{
+			redirect(site_url('cms_teacher/homework'));
+		}
+	}
+
+	public function delete_homework($id = FALSE, $class = FALSE)
+	{
+		if ($id) {
+			$path = $this->mc->get_homework($id);
+			$path = FCPATH.'assets/downloads/homework/'.$path->file;
+	        if (file_exists($path)){ 
+				unlink($path); // DELETE RECENT IMAGE IF EXIST / UNLINK
+		        $res = $this->mc->delete_homework($id);
+				if ($res) {
+					$this->_msg('s','Successfully Delted Homework.','cms_teacher/homework/'.$class);
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/homework/'.$class);
+				}	
+	        }else{
+	          $this->_msg('e','File Not Deleted.','cms_teacher/homework/'.$class);
+	        }
+		}else{
+			show_404();
+		}
+	}
+
+	public function quizzes($id = FALSE)
+	{
+		if ($id) {
+			if ($this->input->post('submit-quizzes')) {
+				$this->load->library('image_lib');
+				$config['upload_path'] = './assets/downloads/quizzes/';
+				$config['allowed_types'] = TRUE;
+				$config['max_size'] = '100000';
+				$config['remove_spaces'] = TRUE;
+				$config['overwrite'] = TRUE;
+
+				$this->load->library('upload', $config); //LOAD UPLOAD LIBRARY WITH THE CONFIG VARIABLE
+
+				if (!$this->upload->do_upload('file')) //DO THE ACTUAL UPLOADING OF FILES
+				{	
+					$error = array('error' => $this->upload->display_errors()); // IF UPLOAD HAS ERROR 
+					$this->_msg('e', $error['error'], current_url()); //SHOW ERROR
+				}else{ 
+					$upload_data = array('upload_data' => $this->upload->data()); // IF UPLOAD SUCCESS GET UPLOAD INFORMATION
+					$data['file_size'] = number_format($upload_data['upload_data']['file_size'] / 1024, 2);
+					$data['file'] = $upload_data['upload_data']['file_name']; // GET THE FILENAME OF IMAGE UPLOADED
+				}
+
+				$data['caption']=$this->input->post('caption');
+				$data['class_id'] = $id;
+
+				$result = $this->mc->upload_quizzes($data);
+				if ($result) {
+					$this->_msg('s','Successfully Added quizzes.','cms_teacher/quizzes/'.$id);
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/quizzes/'.$id);
+				}
+			}
+
+			$this->view_data['class'] = $id;
+			$this->view_data['class_name'] = $this->mc->get_class($id);
+			$this->view_data['activities'] = $this->mc->get_all_quizzes($id);
+			$this->view_data['classes'] = $this->mc->get_all_classes_where($this->session->userdata('userid'));
+		}else{
+			$this->view_data['classes'] = $this->mc->get_all_classes_where($this->session->userdata('userid'));
+			$this->view_data['class'] = FALSE;
+		}
+	}
+
+	public function quiz()
+	{
+		if ($this->input->post('changeclass-btn')) {
+			$id = $this->input->post('class');
+
+			redirect(site_url('cms_teacher/quizzes/'.$id));
+		}else{
+			redirect(site_url('cms_teacher/quizzes'));
+		}
+	}
+
+	public function delete_quizzes($id = FALSE, $class = FALSE)
+	{
+		if ($id) {
+			$path = $this->mc->get_quizzes($id);
+			$path = FCPATH.'assets/downloads/quizzes/'.$path->file;
+	        if (file_exists($path)){ 
+				unlink($path); // DELETE RECENT IMAGE IF EXIST / UNLINK
+		        $res = $this->mc->delete_quizzes($id);
+				if ($res) {
+					$this->_msg('s','Successfully Delted quizzes.','cms_teacher/quizzes/'.$class);
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/quizzes/'.$class);
+				}	
+	        }else{
+	          $this->_msg('e','File Not Deleted.','cms_teacher/quizzes/'.$class);
+	        }
 		}else{
 			show_404();
 		}

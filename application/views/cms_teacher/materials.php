@@ -77,7 +77,7 @@
 	                        					<td><?=$v->file_size?></td>
 	                        					<td>
 				                        			<a href="<?php echo assets_url('downloads/syllabus/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
-				                        			<a href="<?=site_url('cms_teacher/delete_syllabus/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
+				                        			<a class = "confirm" title = "Are you Sure?" href="<?=site_url('cms_teacher/delete_syllabus/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
 				                        		</td>
 	                        				</tr>
 	                        			<?endforeach?>
@@ -123,7 +123,7 @@
 	                        					<td><?=$v->file_size?></td>
 	                        					<td>
 				                        			<a href="<?php echo assets_url('downloads/content/'.$v->file); ?>" title="<?=$download->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
-				                        			<a href="<?=site_url('cms_teacher/delete_content/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
+				                        			<a class = "confirm" title = "Are you Sure?" href="<?=site_url('cms_teacher/delete_content/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
 				                        		</td>
 	                        				</tr>
 	                        			<?endforeach?>
@@ -169,7 +169,7 @@
 	                        					<td><?=$v->file_size?></td>
 	                        					<td>
 				                        			<a href="<?php echo assets_url('downloads/outline/'.$v->file); ?>" title="<?=$download->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
-				                        			<a href="<?=site_url('cms_teacher/delete_outline/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
+				                        			<a class = "confirm" title = "Are you Sure?" href="<?=site_url('cms_teacher/delete_outline/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
 				                        		</td>
 	                        				</tr>
 	                        			<?endforeach?>
@@ -215,7 +215,7 @@
 	                        					<td><?=$v->file_size?></td>
 	                        					<td>
 				                        			<a href="<?php echo assets_url('downloads/videos/'.$v->file); ?>" title="<?=$download->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
-				                        			<a href="<?=site_url('cms_teacher/delete_videos/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
+				                        			<a class = "confirm" title = "Are you Sure?" href="<?=site_url('cms_teacher/delete_videos/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
 				                        		</td>
 	                        				</tr>
 	                        			<?endforeach?>
@@ -261,7 +261,7 @@
 	                        					<td><?=$v->file_size?></td>
 	                        					<td>
 				                        			<a href="<?php echo assets_url('downloads/images/'.$v->file); ?>" title="<?=$download->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
-				                        			<a href="<?=site_url('cms_teacher/delete_images/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
+				                        			<a class = "confirm" title = "Are you Sure?" href="<?=site_url('cms_teacher/delete_images/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
 				                        		</td>
 	                        				</tr>
 	                        			<?endforeach?>

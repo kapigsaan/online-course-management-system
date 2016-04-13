@@ -7,7 +7,7 @@ class Auth extends MY_AdminController
 		parent::__construct();
 		if($this->session->userdata('logged_in') == TRUE AND strtolower($this->uri->segment(2)) !== 'logout')
 		{
-			redirect($this->session->userdata('userType'));
+			redirect('cms_admin');
 		}
 		$this->layout_view = '_login';
 		$this->load->model('M_users');

@@ -5,13 +5,24 @@ class Profiles extends MY_AdminController
 	{
 		parent::__construct();
 		
-		if($this->session->userdata('logged_in') == FALSE)
-		{
-			redirect();
-		}else{
+		if($this->session->userdata('logged_in') == FALSE){
+			redirect('obcms-login');
+		}elseif ($this->session->userdata('userType') == 'admin') {
+			$this->view_data['system_message'] =$this->_msg();
+			$this->load->model('M_content','mc');
+			$this->load->model('M_users','mu');
+			$this->load->model('M_students','ms');
+			$this->load->model('M_classes','cl');
+			$this->load->model('M_forums','mf');
+			$this->load->model('M_downloads','md');
+			$this->load->model('M_yvideos','myv');
 			$this->load->model('M_profile','mp');
 			
 			$this->view_data['system_message'] = $this->_msg();
+		}elseif ($this->session->userdata('userType') == 'instructor') {
+			redirect('cms_teacher');
+		}elseif ($this->session->userdata('userType') == 'student') {
+			redirect('cms_student');
 		}
 	}
 

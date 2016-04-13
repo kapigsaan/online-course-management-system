@@ -50,7 +50,7 @@
                                         <?php if ($my_forum == $v->created_by): ?>
                                              | 
                                             <a href="<?=site_url('cms_student/edit_forum/'.$v->id)?>"><i class = "fa fa-edit"> Edit </i></a> | 
-                                            <a href="<?=site_url('cms_student/delete_forum/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a> 
+                                            <a class = "btn confirm" title = "Click here to delete Forum" href="<?=site_url('cms_student/delete_forum/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a> 
                                         <?php endif ?>
                                     </td>
                                 </tr>
@@ -61,6 +61,23 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                
+            </div>
+            <div class="modal-body">
+                Are you sure you want to Delete Forum?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary " id = "confirm">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id = "closemodal">No</button>
             </div>
         </div>
     </div>

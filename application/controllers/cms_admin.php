@@ -40,19 +40,25 @@ class Cms_admin extends MY_AdminController {
 	public function instructor()
 	{
 		if ($this->input->post('add-instructorsubmit')) {
-			$data['username'] = $this->input->post('username');
-			$data['f_name'] = $this->input->post('fname');
-			$data['m_name'] = $this->input->post('mname');
-			$data['l_name'] = $this->input->post('lname');
-			$data['userType'] = 'instructor';
+			$this->form_validation->set_rules('username', 'Username', 'required|is_unique[useraccounts.username]');
 
-			$res = $this->mu->add_user($data);
+			if ($this->form_validation->run() == FALSE){
 
-			if ($res) {
-				$this->_msg('s','Successfully Added.','cms_admin/instructor');
 			}else{
-				$this->_msg('e','Failed.','cms_admin/instructor');
-			}	
+				$data['username'] = $this->input->post('username');
+				$data['f_name'] = $this->input->post('fname');
+				$data['m_name'] = $this->input->post('mname');
+				$data['l_name'] = $this->input->post('lname');
+				$data['userType'] = 'instructor';
+
+				$res = $this->mu->add_user($data);
+
+				if ($res) {
+					$this->_msg('s','Successfully Added.','cms_admin/instructor');
+				}else{
+					$this->_msg('e','Failed.','cms_admin/instructor');
+				}
+			}
 
 		}
 
@@ -165,6 +171,20 @@ class Cms_admin extends MY_AdminController {
 	public function classes()
 	{
 		$this->view_data['classes'] = $this->cl->get_all_class_with_instructor();		
+	}
+
+	public function delete_class($id)
+	{
+		if ($id) {
+			$res = $this->cl->delete_class($id);
+			if ($res) {
+				$this->_msg('s','Successfully Deleted.','cms_admin/classes');
+			}else{
+				$this->_msg('e','Failed.','cms_admin/classes');
+			}	
+		}else{
+			show_404();
+		}
 	}
 
 	public function forums($class = FALSE)

@@ -32,6 +32,8 @@
         <?php endif ?>
     </title>
 
+    <link href="<?=site_url('assets/css/font-awesome.css')?>" rel="stylesheet" />
+
     <!-- Bootstrap Core CSS -->
     <link href="<?=site_url('assets/admin_css/bootstrap.min.css')?>" rel="stylesheet">
 
@@ -154,7 +156,9 @@
                         <?php if ($this->session->userdata('userType') == 'admin'): ?>
                             <li><a href="<?=site_url('cms_admin/change_password')?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
                             </li>
-                            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            <!-- <li><a href="<?=site_url('profiles')?>"><i class="fa fa-chain fa-fw"></i> Site Profile </a>
+                            </li> -->
+                            <li><a href="<?=site_url('profiles')?>"><i class="fa fa-gear fa-fw"></i> Settings</a>
                             </li>
                         <?php elseif ($this->session->userdata('userType') == 'instructor'):?>
                             <li><a href="<?=site_url('cms_teacher/change_password')?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
@@ -214,9 +218,15 @@
                             <li>
                                 <a href="<?=site_url('cms_teacher/classes')?>"><i class="fa fa-group fa-fw"></i> Class</a>
                             </li>
-                            <!-- <li>
-                                <a href="<?=site_url('cms_teacher/forum')?>"><i class="fa fa-file-text fa-fw"></i> Forum</a>
-                            </li> -->
+                            <li>
+                                <a href="<?=site_url('cms_teacher/activity')?>"><i class="fa fa-list-ol fa-fw"></i> Activity</a>
+                            </li>
+                            <li>
+                                <a href="<?=site_url('cms_teacher/homework')?>"><i class="fa fa-list-alt fa-fw"></i> Home Work</a>
+                            </li>
+                            <li>
+                                <a href="<?=site_url('cms_teacher/quizzes')?>"><i class="fa fa-list-ul fa-fw"></i> Quizzes</a>
+                            </li>
                         <?php elseif ($this->session->userdata('userType') == 'student'): ?>
                             <li>
                                 <a href="<?=site_url('cms_student')?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
@@ -238,6 +248,15 @@
                             </li>
                             <li>
                                 <a href="<?=site_url('cms_student/news')?>"><i class="fa fa-newspaper-o fa-fw"></i> News</a>
+                            </li>
+                            <li>
+                                <a href="<?=site_url('cms_student/activity')?>"><i class="fa fa-list-ol fa-fw"></i> Activity</a>
+                            </li>
+                            <li>
+                                <a href="<?=site_url('cms_student/homework')?>"><i class="fa fa-list-alt fa-fw"></i> Home Work</a>
+                            </li>
+                            <li>
+                                <a href="<?=site_url('cms_student/quizzes')?>"><i class="fa fa-list-ul fa-fw"></i> Quizzes</a>
                             </li>
                         <?php endif ?>
                     </ul>
@@ -275,7 +294,22 @@
     <script type='text/javascript' src="<?=site_url('assets/admin_js/plugins/dataTables/dataTables.bootstrap.js')?>"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    
+    <div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header btn btn-danger form-control">
+                    
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary " id = "confirm">Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id = "closemodal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
     $(document).ready(function() {
         $('.dataTables-accounts').dataTable();
@@ -306,9 +340,57 @@
             $('#show_'+id).popover('toggle');
         });
 
+        $('#upload-answer').click(function(){
+            var url = $(this).attr('url');
+            $('#act-value').val(url);
+            $('#show-upload-answer').toggle('slow');
+        });
+
+        $('#cans').click(function(){
+            $('#show-upload-answer').toggle('slow');
+        });
+
         $('#date_start').datepicker({ dateFormat: 'mm/dd/yy' });
         $('#date_end').datepicker({ dateFormat: 'mm/dd/yy' });
 
+
+        $('a.confirm').on('click',function(e){
+          e.preventDefault();
+          var xelement = $(this);
+          var url = $(this).attr('href');
+          var title = $(this).attr('title') ? $(this).attr('title') : "Are you sure to continue?";
+          var click_function = $(this).attr('click_function') != null ? $(this).attr('click_function') : false;
+          var is_redirect = $(this).attr('is_redirect') != null && $(this).attr('is_redirect') == 'yes' ? true : false;
+
+          $('#myModal #confirm').unbind();
+          $('#myModal').modal({
+            'show' : true,
+            'backdrop' : 'static',
+            'keyboard' : false
+          });
+
+            if(title != "" && title != null){ $('#myModal .modal-body').html('<p>'+title+'</p>'); }
+
+            $('#myModal #confirm').click(function(){
+                // $(this).attr('disabled', true);
+                // $('#myModal #closemodal').attr('disabled', true);
+                // $('#myModal #xclosemodal').attr('disabled', true);
+            if(is_redirect)
+            {
+                //if attr is_redirect if fount on the link it will go directy to the link and will not call any function
+                window.location = url;
+            }else
+            {
+
+                if(click_function == false){
+                    window.location = url;
+                }else{
+                    //IF attr 'click_function' is found on the link it will call a function which name is value of the click_function attr
+                    window[click_function](url, xelement);
+                }
+                    }
+            });
+        });
     });
     </script>
 

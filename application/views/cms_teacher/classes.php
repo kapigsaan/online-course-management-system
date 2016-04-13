@@ -50,7 +50,7 @@
                                     </td>
                                     <td>
                                         <a href="<?=site_url('cms_teacher/edit_class/'.$v->id)?>"><i class = "fa fa-edit"> Edit </i></a> | 
-                                        <a href="<?=site_url('cms_teacher/delete_class/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a> 
+                                        <a class = "btn confirm" href="<?=site_url('cms_teacher/delete_class/'.$v->id)?>" title = "Are you sure you want to Delete Class This Cannot be reversed?"> <i class = "fa fa-trash-o"> Delete </i></a>
                                     </td>
                                 </tr>
                             <? endforeach ?>
@@ -60,6 +60,23 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                
+            </div>
+            <div class="modal-body">
+                Are you sure you want to Delete Class This Cannot be reversed?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary " id = "confirm">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id = "closemodal">No</button>
             </div>
         </div>
     </div>

@@ -37,6 +37,58 @@ class M_classes Extends CI_Model
     return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
   }
 
+  public function get_all_answers($id = FALSE)
+  {
+    $query = "SELECT a.*, u.l_name, u.f_name, a.created_at as subm
+          FROM answers a
+          LEFT JOIN useraccounts u ON a.stud_id = u.acid
+          WHERE a.class_id = ?
+          ORDER BY u.l_name
+          ";
+    $q = $this->db->query($query, [$id]);
+    
+    return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
+  public function get_all_acticities($id = FALSE)
+  {
+    $query = "SELECT *
+          FROM
+          activities
+          WHERE class_id = ?
+          ORDER BY 
+          caption";
+    $q = $this->db->query($query, [$id]);
+    
+    return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
+  public function get_all_homework($id = FALSE)
+  {
+    $query = "SELECT *
+          FROM
+          homework
+          WHERE class_id = ?
+          ORDER BY 
+          caption";
+    $q = $this->db->query($query, [$id]);
+    
+    return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
+  public function get_all_quizzes($id = FALSE)
+  {
+    $query = "SELECT *
+          FROM
+          quizzes
+          WHERE class_id = ?
+          ORDER BY 
+          caption";
+    $q = $this->db->query($query, [$id]);
+    
+    return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
   public function get_all_class_with_instructor()
   {
     $query = "SELECT c.*, u.f_name, u.l_name, u.m_name
@@ -116,5 +168,83 @@ class M_classes Extends CI_Model
 
 		return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
 	}
+
+  public function get_activity($id)
+  {
+    $query = "SELECT *
+          FROM
+          activities
+          WHERE id = ?
+          ";
+    $q = $this->db->query($query, [$id]);
+    
+    return $q->num_rows() >= 1 ? $q->row() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
+  public function upload_activity($post = FALSE)
+  {
+    $post['created_at'] = NOW;
+    $this->db->insert('activities', $post);
+    return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
+  }
+
+  public function delete_activity($id)
+  {
+    $this->db->delete('activities', array('id' => $id)); 
+
+    return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
+  }
+
+  public function get_homework($id)
+  {
+    $query = "SELECT *
+          FROM
+          homework
+          WHERE id = ?
+          ";
+    $q = $this->db->query($query, [$id]);
+    
+    return $q->num_rows() >= 1 ? $q->row() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
+  public function upload_homework($post = FALSE)
+  {
+    $post['created_at'] = NOW;
+    $this->db->insert('homework', $post);
+    return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
+  }
+
+  public function delete_homework($id)
+  {
+    $this->db->delete('homework', array('id' => $id)); 
+
+    return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
+  }
+
+  public function get_quizzes($id)
+  {
+    $query = "SELECT *
+          FROM
+          quizzes
+          WHERE id = ?
+          ";
+    $q = $this->db->query($query, [$id]);
+    
+    return $q->num_rows() >= 1 ? $q->row() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
+  public function upload_quizzes($post = FALSE)
+  {
+    $post['created_at'] = NOW;
+    $this->db->insert('quizzes', $post);
+    return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
+  }
+
+  public function delete_quizzes($id)
+  {
+    $this->db->delete('quizzes', array('id' => $id)); 
+
+    return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
+  }
 
 }

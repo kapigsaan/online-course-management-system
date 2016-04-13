@@ -4,6 +4,9 @@
         <h1 class="page-header">Classes</h1>
     </div>
     <!-- /.col-lg-12 -->
+    <?php if ($system_message): ?>
+        <p><?=$system_message?></p>
+    <?php endif ?>
 </div>
 
 <!-- /.row -->
@@ -22,6 +25,7 @@
                                 <th>Class</th>
                                 <th>Created By</th>
                                 <th>View</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,6 +39,9 @@
                                         <a href="<?=site_url('cms_admin/forums/'.$v->id)?>"><i class = "fa fa-file-text"> Forums </i></a> | 
                                         <a href="<?=site_url('cms_admin/materials/'.$v->id)?>"><i class = "fa fa-folder-open"> Course Materials </i></a> | 
                                         <a href="<?=site_url('calendars/index/'.$v->id)?>"><i class = "fa fa-newspaper-o"> News Bulletin </i></a>
+                                    </td>
+                                    <td>
+                                        <a href="<?=site_url('cms_admin/delete_class/'.$v->id)?>" class = "confirm" title = "Are you sure you want to delete class? deleting class cannot be reversed"><i class = "fa fa-remove"> Delete Class </i></a>
                                     </td>
                                 </tr>
                             <? endforeach ?>

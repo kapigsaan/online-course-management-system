@@ -55,7 +55,7 @@
                                         <a href="<?=site_url('cms_teacher/view_forum/'.$v->class_id.'/'.$v->id)?>"><i class = "fa fa-eye"> View </i></a> | 
                                         <?php if ($my_forum == $v->created_by): ?>
                                             <a href="<?=site_url('cms_teacher/edit_forum/'.$v->class_id.'/'.$v->id)?>"><i class = "fa fa-edit"> Edit </i></a> | 
-                                            <a href="<?=site_url('cms_teacher/delete_forum/'.$v->class_id.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a> 
+                                            <a class = "btn confirm" title = "Are you sure you want to Delete Forum?" href="<?=site_url('cms_teacher/delete_forum/'.$v->class_id.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a> 
                                         <?php endif ?>
                                     </td>
                                 </tr>

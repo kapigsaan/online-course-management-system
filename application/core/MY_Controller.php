@@ -31,12 +31,12 @@ class MY_Controller Extends CI_Controller
 	public function _output($output)
   {
     //get menu
-    $this->view_data['topnavs'] = $this->mc->get_all_contents('topnav');//top level
-    $this->view_data['firsttops'] = $this->mc->get_all_contents('firsttop');//level 1
-    $this->view_data['footer'] = $this->mc->get_contents('footer', 1);//footer
-    $this->view_data['blogers'] = $this->mc->get_contents('blog',3);
-    $this->view_data['newers'] = $this->mc->get_contents('news',3);
-    $this->view_data['eventers'] = $this->mc->get_contents('events',3);
+    // $this->view_data['topnavs'] = $this->mc->get_all_contents('topnav');//top level
+    // $this->view_data['firsttops'] = $this->mc->get_all_contents('firsttop');//level 1
+    // $this->view_data['footer'] = $this->mc->get_contents('footer', 1);//footer
+    // $this->view_data['blogers'] = $this->mc->get_contents('blog',3);
+    // $this->view_data['newers'] = $this->mc->get_contents('news',3);
+    // $this->view_data['eventers'] = $this->mc->get_contents('events',3);
     
     //firsttop parent id
 		$qryCIDS = "SELECT parent_id FROM contents WHERE level='firsttop'";

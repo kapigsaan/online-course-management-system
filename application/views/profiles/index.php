@@ -1,29 +1,16 @@
 <!-- Content Header (Page header) -->
-<section class="content-header">
-  <h1>
-    Company Profiles
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="<?=site_url('custodian');?>"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">Company Profiles</li>
-  </ol>
-</section>
 
-<!-- Main content -->
-<section class="content">
-  
-<!-- page-wrapper -->  
-<div id="page-wrapper">
-	<div class="row">
-		<?php if($system_message): ?>
-		<div class="col-lg-12">
-			<?=$system_message;?>
-		</div>
-		<?php endif; ?>
-		<!-- /.col-lg-12 -->
-	</div>
-	<!-- /.row -->
-	<div class="row">
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Company Profiles</h1>
+    </div>
+    <p></p>
+    <p><?=$system_message;?></p>
+    <p></p>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
 		<div class="col-lg-12">
 			<form method="post" action="" enctype="multipart/form-data">
 			<div class="table-responsive">
@@ -40,7 +27,7 @@
 				  <td class="table_td col-xs-3">Telephone Number: </td>
 				  <td class="table_td col-md-9"><input name="txtTel" type="text" value="<?=$prof?$prof->tel:'';?>" class="form-control"></td>
 				</tr>
-        <tr>
+   <!--      <tr>
 				  <td class="table_td col-xs-3">Fax Number: </td>
 				  <td class="table_td col-md-9"><input name="txtFax" type="text" value="<?=$prof?$prof->fax:'';?>" class="form-control"></td>
 				</tr>
@@ -55,7 +42,7 @@
         <tr>
 				  <td class="table_td col-xs-3">Sun: </td>
 				  <td class="table_td col-md-9"><input name="txtSun" type="text" value="<?=$prof?$prof->sun:'';?>" class="form-control"></td>
-				</tr>
+				</tr> -->
       <!--   <tr>
 				  <td class="table_td col-xs-3">Website Logo: </td>
 				  <td class="table_td col-md-9"><input name="txtWebsite" type="text" value="<?=$prof?$prof->website:'';?>" class="form-control"></td>
@@ -91,8 +78,3 @@
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
-	<!-- /.row -->
-</div>
-<!-- /#page-wrapper -->
-
-</section><!-- /.content -->

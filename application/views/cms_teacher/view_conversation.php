@@ -3,6 +3,9 @@
     <div class="col-lg-12">
         <h1 class="page-header">Messaging</h1>
     </div>
+     <?php if ($system_message): ?>
+        <p><?=$system_message?></p>
+    <?php endif ?>
 </div>
 
 <div class="col-md-12">
@@ -18,46 +21,81 @@
     <div class="col-lg-12">
         <!-- /.panel -->
         <?php if ($messages): ?>
-            <div class="panel panel-primary col-md-" >
-                <div class="panel-heading" style="padding:0px;margin:0px;padding-left:15px;">
-                    <time class="time" datetime="2013-02-08"><?php echo date('D F d, Y  H:i a',strtotime($messages->created_at)); ?></time>
-                </div>
-                <div class="panel-body" >
-        			<div class="col-md-12" >
-        				<p><?=$messages->message?></p>
-        			</div>
-                </div>
-                <div class="pannel-footer text-right">
-                <?php if ($accounts): ?>
-                    <? foreach ($accounts as $k => $ac): ?>
-                        <?php if ($ac->acid == $messages->from): ?>
-                            FROM : <?=$ac->l_name.', '.$ac->f_name?>
-                        <?php endif; ?>
-                    <? endforeach; ?>
-                <?php endif; ?>
-                </div>
-            </div>
+            <?foreach ($messages as $key => $v):?>
+                <?php if ($v->from == $me): ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-green " >
+                                <div class="panel-heading" style="padding:0px;margin:0px;padding-left:15px;">
+                                    <time class="time" datetime="2013-02-08"><?php echo date('D F d, Y  H:i a',strtotime($v->created_at)); ?></time>
+                                </div>
+                                <div class="panel-body" >
+                                    <div class="col-md-12" >
+                                        <p><?=nl2br($v->message)?></p>
+                                    </div>
+                                </div>
+                                <div class="pannel-footer text-right">
+                                    <div style="padding-right:10px;padding-left:10px;">
+                                        <?php if ($accounts): ?>
+                                            <? foreach ($accounts as $k => $ac): ?>
+                                                <?php if ($ac->acid == $v->from): ?>
+                                                    <?=$ac->l_name?>
+                                                <?php endif; ?>
+                                            <? endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <? else: ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-primary " >
+                                <div class="panel-heading" style="padding:0px;margin:0px;padding-left:15px;">
+                                    <time class="time" datetime="2013-02-08"><?php echo date('D F d, Y  H:i a',strtotime($v->created_at)); ?></time>
+                                </div>
+                                <div class="panel-body" >
+                                    <div class="col-md-12" >
+                                        <p><?=nl2br($v->message)?></p>
+                                    </div>
+                                </div>
+                                <div class="pannel-footer text-right">
+                                    <div style="padding-right:10px;padding-left:10px;">
+                                        <?php if ($accounts): ?>
+                                            <? foreach ($accounts as $k => $ac): ?>
+                                                <?php if ($ac->acid == $v->from): ?>
+                                                    <?=$ac->l_name?>
+                                                <?php endif; ?>
+                                            <? endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif ?>
+            <?endforeach?>
+        <?else:?>
+            NO Conversation Yet.. 
         <?php endif ?>
     </div>
-    <?php if ($messages->from == $me): ?>
-    <?php else: ?>
-    	<div class="col-lg-12">
-	        <!-- /.panel -->
-	        <div class="panel panel-red">
-	            <div class="panel-heading">
-	            Reply
-	            </div>
-	            <div class="panel-body">
-	            	<form action="" method="post">
-	            		<input type = "hidden" name = "msg-to" value = "<?=$messages->from?>" required/>
-	            		<input type = "text" class = "form-control" name = "subject" placeholder = "Subject" required/>
-	            		<p></p>
-	            		<textarea class = "form-control" name = "reply" style="height:250px" required></textarea>
-	            		<p></p>
-	            		<input type = "submit" name = "btn-reply-messages" class = "btn btn-primary" style="float:right;" value = "Send">
-	            	</form>
-	            </div>
-	        </div>
-	    </div>
-    <?php endif ?>
+
+	<div class="col-lg-12">
+        <!-- /.panel -->
+        <div class="panel panel-red">
+            <div class="panel-heading">
+            Message
+            </div>
+            <div class="panel-body">
+            	<form action="" method="post">
+            		<p></p>
+            		<textarea class = "form-control" name = "reply" style="height:250px" required></textarea>
+            		<p></p>
+            		<input type = "submit" name = "btn-reply-messages" class = "btn btn-primary" style="float:right;" value = "Send">
+            	</form>
+            </div>
+        </div>
+    </div>
+
 </div>

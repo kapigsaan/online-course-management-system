@@ -18,6 +18,7 @@ class Cms_student extends MY_AdminController {
 			$this->load->model('M_yvideos','myv');
 			$this->load->model('M_users','mu');
 			$this->load->model('M_messages','mm');
+			$this->load->model('M_classes','mcl');
 		}elseif ($this->session->userdata('userType') == 'instructor') {
 			redirect('cms_teacher');
 		}elseif ($this->session->userdata('userType') == 'admin') {
@@ -276,23 +277,8 @@ class Cms_student extends MY_AdminController {
 
 	public function messages()
 	{
-		if ($this->input->post('btn-submit-messages')) {
-			$data['subject'] = $this->input->post('subject');
-			$data['from'] = $this->session->userdata('userid');
-			$data['to'] = $this->input->post('msg-to');
-			$data['message'] = $this->input->post('message');
-
-			$result = $this->mm->send_message($data);
-
-				if ($result) {
-					$this->_msg('s','Message Sent.','cms_student/messages/');
-				}else{
-					$this->_msg('e','Failed.','cms_student/messages/');
-				}
-
-		}
 		$this->view_data['messages'] = $this->mm->get_my_messages($this->session->userdata('userid'));
-		$this->view_data['students'] = $this->mc->get_user_where('instructor');
+		$this->view_data['instructors'] = $this->mc->get_user_where('instructor');
 		$this->view_data['accounts'] = $this->mc->get_all_accounts();
 		$this->view_data['me'] = $this->session->userdata('userid');
 	}
@@ -315,7 +301,7 @@ class Cms_student extends MY_AdminController {
 					}
 
 			}
-			$this->view_data['messages'] = $this->mm->get_conversation($id);	
+			$this->view_data['messages'] = $this->mm->get_conversation_with($id, $this->session->userdata('userid'));	
 			$this->view_data['accounts'] = $this->mc->get_all_accounts();
 			$this->view_data['me'] = $this->session->userdata('userid');
 		}else{
@@ -335,5 +321,117 @@ class Cms_student extends MY_AdminController {
 		}else{
 			show_404();
 		}
+	}
+
+	public function activity()
+	{
+		if ($this->input->post('upload-act-ans')) {
+
+			$this->load->library('image_lib');
+			$config['upload_path'] = './assets/downloads/answers';
+			$config['allowed_types'] = TRUE;
+			$config['max_size'] = '100000';
+			$config['remove_spaces'] = TRUE;
+			$config['overwrite'] = FALSE;
+
+			$this->load->library('upload', $config); //LOAD UPLOAD LIBRARY WITH THE CONFIG VARIABLE
+
+			if (!$this->upload->do_upload('file')) //DO THE ACTUAL UPLOADING OF FILES
+			{
+				$error = array('error' => $this->upload->display_errors()); // IF UPLOAD HAS ERROR 
+				$this->_msg('e', $error['error'], current_url()); //SHOW ERROR
+			}else{ 
+				$upload_data = array('upload_data' => $this->upload->data()); // IF UPLOAD SUCCESS GET UPLOAD INFORMATION
+				$data['file_size'] = number_format($upload_data['upload_data']['file_size'] / 1024, 2);
+				$data['file'] = $upload_data['upload_data']['file_name']; // GET THE FILENAME OF IMAGE UPLOADED
+			}
+
+			$data['caption'] = $this->input->post('caption');
+			$data['class_id'] = $this->input->post('act_id');
+			$data['stud_id'] = $this->session->userdata('userid');
+
+			$result = $this->ms->submit_avtivity($data);
+			if ($result) {
+				$this->_msg('s','Successfully Submitted.','cms_student/activity/');
+			}else{
+				$this->_msg('e','Failed.','cms_student/activity/');
+			}
+		}
+		$this->view_data['activities'] = $this->mcl->get_all_acticities($this->get_student_class());
+	}
+
+	public function homework()
+	{
+		if ($this->input->post('upload-home-ans')) {
+			
+			$this->load->library('image_lib');
+			$config['upload_path'] = './assets/downloads/answers';
+			$config['allowed_types'] = TRUE;
+			$config['max_size'] = '100000';
+			$config['remove_spaces'] = TRUE;
+			$config['overwrite'] = FALSE;
+
+			$this->load->library('upload', $config); //LOAD UPLOAD LIBRARY WITH THE CONFIG VARIABLE
+
+			if (!$this->upload->do_upload('file')) //DO THE ACTUAL UPLOADING OF FILES
+			{
+				$error = array('error' => $this->upload->display_errors()); // IF UPLOAD HAS ERROR 
+				$this->_msg('e', $error['error'], current_url()); //SHOW ERROR
+			}else{ 
+				$upload_data = array('upload_data' => $this->upload->data()); // IF UPLOAD SUCCESS GET UPLOAD INFORMATION
+				$data['file_size'] = number_format($upload_data['upload_data']['file_size'] / 1024, 2);
+				$data['file'] = $upload_data['upload_data']['file_name']; // GET THE FILENAME OF IMAGE UPLOADED
+			}
+
+			$data['caption'] = $this->input->post('caption');
+			$data['class_id'] = $this->input->post('act_id');
+			$data['stud_id'] = $this->session->userdata('userid');
+
+			$result = $this->ms->submit_avtivity($data);
+			if ($result) {
+				$this->_msg('s','Successfully Submitted.','cms_student/homework/');
+			}else{
+				$this->_msg('e','Failed.','cms_student/homework/');
+			}
+		}
+
+		$this->view_data['homework'] = $this->mcl->get_all_homework($this->get_student_class());
+	}
+
+	public function quizzes()
+	{
+		if ($this->input->post('upload-quiz-ans')) {
+			
+			$this->load->library('image_lib');
+			$config['upload_path'] = './assets/downloads/answers';
+			$config['allowed_types'] = TRUE;
+			$config['max_size'] = '100000';
+			$config['remove_spaces'] = TRUE;
+			$config['overwrite'] = FALSE;
+
+			$this->load->library('upload', $config); //LOAD UPLOAD LIBRARY WITH THE CONFIG VARIABLE
+
+			if (!$this->upload->do_upload('file')) //DO THE ACTUAL UPLOADING OF FILES
+			{
+				$error = array('error' => $this->upload->display_errors()); // IF UPLOAD HAS ERROR 
+				$this->_msg('e', $error['error'], current_url()); //SHOW ERROR
+			}else{ 
+				$upload_data = array('upload_data' => $this->upload->data()); // IF UPLOAD SUCCESS GET UPLOAD INFORMATION
+				$data['file_size'] = number_format($upload_data['upload_data']['file_size'] / 1024, 2);
+				$data['file'] = $upload_data['upload_data']['file_name']; // GET THE FILENAME OF IMAGE UPLOADED
+			}
+
+			$data['caption'] = $this->input->post('caption');
+			$data['class_id'] = $this->input->post('act_id');
+			$data['stud_id'] = $this->session->userdata('userid');
+
+			$result = $this->ms->submit_avtivity($data);
+			if ($result) {
+				$this->_msg('s','Successfully Submitted.','cms_student/quizzes/');
+			}else{
+				$this->_msg('e','Failed.','cms_student/quizzes/');
+			}
+		}
+		$this->view_data['quizzes'] = $this->mcl->get_all_quizzes($this->get_student_class());
 	}
 }

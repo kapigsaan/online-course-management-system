@@ -21,6 +21,9 @@ class MY_AdminController Extends CI_Controller
 		$this->disable_browser_cache($this->disable_browser_cache);
 
 		$this->load->model('M_profile','mp');
+		$this->load->model('M_setting','mset');
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
 		
 		if(config_item('profiler') === TRUE){ 
 			$this->output->enable_profiler(TRUE);
@@ -29,6 +32,9 @@ class MY_AdminController Extends CI_Controller
 	
 	public function _output($output)
     {
+    	$this->view_data['prof'] = $this->mp->get_profiles();
+    //Company URL settings
+    	$this->view_data['settings'] = $setting  = $this->mset->get_settings();
 		//elapsed_time and memory_usage to show in views
         $this->view_data['title'] = @$this->page_title;
 		if($this->content_view !== FALSE && empty($this->content_view)) $this->content_view = $this->router->class . '/' . $this->router->method;

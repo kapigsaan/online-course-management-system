@@ -206,4 +206,12 @@ class M_students Extends CI_Model
 		return password_hash($password,PASSWORD_BCRYPT);
     }
 
+    public function submit_avtivity($post)
+    {
+    	$post['created_at'] = NOW;
+    	$this->db->insert('answers', $post);
+
+    	return $this->db->affected_rows() >= 1 ? TRUE : FALSE;	
+    }
+
 }

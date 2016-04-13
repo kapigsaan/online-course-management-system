@@ -39,6 +39,30 @@ class M_messages Extends CI_Model
 		return $q->num_rows() >= 1 ? $q->row() : FALSE; //returns result if none retrieved, returns FALSE
 	}
 
+	public function get_conversation_with_stud($id)
+	{
+		$query = "SELECT *
+				  FROM messages
+				  WHERE `from` = ?
+				  OR `to` = ?
+				  ORDER BY created_at
+				  ";
+		$q = $this->db->query($query,[$id,$id]);
+		return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+	}
+
+	public function get_conversation_with($id,$teach_id)
+	{
+		$query = "SELECT *
+				  FROM messages
+				  WHERE (`from` = ? AND `to` = ?)
+				  OR (`from` = ? AND `to` = ?)
+				  ORDER BY created_at
+				  ";
+		$q = $this->db->query($query,[$id,$teach_id,$teach_id,$id]);
+		return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+	}
+
 	public function get_forums_in($class=FALSE)
 	{
 		if ($class) {
