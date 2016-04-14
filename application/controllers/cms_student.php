@@ -86,36 +86,36 @@ class Cms_student extends MY_AdminController {
 
 	public function materials()
 	{
-		$this->view_data['list'] = $this->md->get_syllabus_in($this->get_student_class());
-		$this->view_data['course_content'] = $this->md->get_course_content_in($this->get_student_class());
-		$this->view_data['course_outline'] = $this->md->get_course_outline_in($this->get_student_class());
+		$this->view_data['list'] = $this->md->get_syllabus_in_where($this->get_student_class());
+		$this->view_data['course_content'] = $this->md->get_course_content_in_where($this->get_student_class());
+		$this->view_data['course_outline'] = $this->md->get_course_outline_in_where($this->get_student_class());
 	}
 
 	public function course_syllabus()
 	{
-		$this->view_data['course_syllabus'] = $this->md->get_syllabus_in($this->get_student_class());
-		$this->view_data['course_content'] = $this->md->get_course_content_in($this->get_student_class());
-		$this->view_data['course_outline'] = $this->md->get_course_outline_in($this->get_student_class());
+		$this->view_data['course_syllabus'] = $this->md->get_syllabus_in_where($this->get_student_class());
+		$this->view_data['course_content'] = $this->md->get_course_content_in_where($this->get_student_class());
+		$this->view_data['course_outline'] = $this->md->get_course_outline_in_where($this->get_student_class());
 	}
 
 	public function course_content()
 	{
-		$this->view_data['course_content'] = $this->md->get_course_content_in($this->get_student_class());
+		$this->view_data['course_content'] = $this->md->get_course_content_in_where($this->get_student_class());
 	}
 
 	public function course_outline()
 	{
-		$this->view_data['course_outline'] = $this->md->get_course_outline_in($this->get_student_class());
+		$this->view_data['course_outline'] = $this->md->get_course_outline_in_where($this->get_student_class());
 	}
 
 	public function course_images()
 	{
-		$this->view_data['course_images'] = $this->md->get_images_in($this->get_student_class());
+		$this->view_data['course_images'] = $this->md->get_images_in_where($this->get_student_class());
 	}
 
 	public function course_videos()
 	{
-		$this->view_data['course_videos'] = $this->myv->get_every_yv($this->get_student_class());
+		$this->view_data['course_videos'] = $this->myv->get_every_yv_where($this->get_student_class());
 	}
 
 	public function news($year = FALSE, $month = FALSE)

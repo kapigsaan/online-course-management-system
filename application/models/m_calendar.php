@@ -177,7 +177,7 @@ class M_calendar extends CI_Model
 		
 	}
 
-	function edit_event($old_data,$new_data)
+	function edit_event($old_data,$new_data,$class = FALSE, $created_by = FALSE)
 	{
 		if($old_data && $new_data)
 		{
@@ -212,6 +212,8 @@ class M_calendar extends CI_Model
 								$batch_id = bin2hex(openssl_random_pseudo_bytes(2)).time();
 								foreach($alldates as $k => $_date)
 								{
+									$dates[$k]['created_by'] = $created_by;
+									$dates[$k]['class_id'] = $class;
 									$dates[$k]['event_date'] = $_date->format('Y-m-d');
 									$dates[$k]['title'] = $new_data['title'];
 									$dates[$k]['start'] = $srt->format('Y-m-d');

@@ -23,6 +23,22 @@ class M_downloads Extends CI_Model
 			$query = "SELECT *
 				FROM syllabus
 				WHERE class_id = ?
+				
+				ORDER BY caption
+				";
+			$q = $this->db->query($query, [$class]);
+			
+			return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+		}
+	}
+
+	public function get_syllabus_in_where($class)
+	{
+		if ($class) {
+			$query = "SELECT *
+				FROM syllabus
+				WHERE class_id = ?
+				AND status = 'active' 
 				ORDER BY caption
 				";
 			$q = $this->db->query($query, [$class]);
@@ -50,6 +66,7 @@ class M_downloads Extends CI_Model
 			$query = "SELECT *
 				FROM course_content
 				WHERE class_id = ?
+				 
 				ORDER BY caption
 				";
 			$q = $this->db->query($query, [$class]);
@@ -57,12 +74,44 @@ class M_downloads Extends CI_Model
 			return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
 		}
 	}
+
+	public function get_course_content_in_where($class)
+	{
+		if ($class) {
+			$query = "SELECT *
+				FROM course_content
+				WHERE class_id = ?
+				AND status = 'active' 
+				ORDER BY caption
+				";
+			$q = $this->db->query($query, [$class]);
+			
+			return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+		}
+	}
+
 	public function get_course_outline_in($class)
 	{
 		if ($class) {
 			$query = "SELECT *
 				FROM course_outline
 				WHERE class_id = ?
+				 
+				ORDER BY caption
+				";
+			$q = $this->db->query($query, [$class]);
+			
+			return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+		}
+	}
+
+	public function get_course_outline_in_where($class)
+	{
+		if ($class) {
+			$query = "SELECT *
+				FROM course_outline
+				WHERE class_id = ?
+				AND status = 'active' 
 				ORDER BY caption
 				";
 			$q = $this->db->query($query, [$class]);
@@ -77,6 +126,22 @@ class M_downloads Extends CI_Model
 			$query = "SELECT *
 				FROM course_images
 				WHERE class_id = ?
+				 
+				ORDER BY caption
+				";
+			$q = $this->db->query($query, [$class]);
+			
+			return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+		}
+	}
+
+	public function get_images_in_where($class)
+	{
+		if ($class) {
+			$query = "SELECT *
+				FROM course_images
+				WHERE class_id = ?
+				AND status = 'active' 
 				ORDER BY caption
 				";
 			$q = $this->db->query($query, [$class]);
@@ -135,6 +200,39 @@ class M_downloads Extends CI_Model
 		return $q->num_rows() >= 1 ? $q->row() : FALSE; //returns result if none retrieved, returns FALSE
 	}
 
+	public function get_images($id=FALSE)
+	{
+		$query = "SELECT *
+				  FROM
+					course_images
+				  WHERE
+				   id = ?";
+		$q = $this->db->query($query,array($id));
+		return $q->num_rows() >= 1 ? $q->row() : FALSE; //returns result if none retrieved, returns FALSE
+	}
+
+	public function get_content($id=FALSE)
+	{
+		$query = "SELECT *
+				  FROM
+					course_content
+				  WHERE
+				   id = ?";
+		$q = $this->db->query($query,array($id));
+		return $q->num_rows() >= 1 ? $q->row() : FALSE; //returns result if none retrieved, returns FALSE
+	}
+
+	public function get_outline($id=FALSE)
+	{
+		$query = "SELECT *
+				  FROM
+					course_outline
+				  WHERE
+				   id = ?";
+		$q = $this->db->query($query,array($id));
+		return $q->num_rows() >= 1 ? $q->row() : FALSE; //returns result if none retrieved, returns FALSE
+	}
+
 	public function delete_syllabus($id=FALSE)
 	{
 		if ($id) {
@@ -182,5 +280,18 @@ class M_downloads Extends CI_Model
 			return FALSE;
 		}
 	}
+
+	public function change_status($databse = FALSE, $status = FALSE, $id = FALSE){
+	    if ($id) {
+	      $query="UPDATE $databse
+	              SET status = ?
+	              WHERE id = ?
+	              ";
+	      $result = $this->db->query($query, array($status,$id)); 
+	      return $this->db->affected_rows()>=1 ?TRUE:FALSE; 
+	    }else{
+	      return FALSE;
+	    }
+	  }
   
 }

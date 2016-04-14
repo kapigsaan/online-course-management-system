@@ -240,7 +240,7 @@ class Cms_teacher extends MY_AdminController {
 		if ($class) {
 			if ($this->input->post('submit-syllabus')) {
 				$config['upload_path'] = './assets/downloads/syllabus/';
-				$config['allowed_types'] = 'pdf';
+				$config['allowed_types'] = TRUE;
 				$config['max_size'] = '1000000';
 				$config['remove_spaces'] = TRUE;
 				$config['overwrite'] = TRUE;
@@ -268,7 +268,7 @@ class Cms_teacher extends MY_AdminController {
 				}	
 			}elseif ($this->input->post('submit-content')) {
 				$config['upload_path'] = './assets/downloads/content/';
-				$config['allowed_types'] = 'pdf';
+				$config['allowed_types'] = TRUE;
 				$config['max_size'] = '1000000';
 				$config['remove_spaces'] = TRUE;
 				$config['overwrite'] = TRUE;
@@ -296,7 +296,7 @@ class Cms_teacher extends MY_AdminController {
 				}	
 			}elseif ($this->input->post('submit-outline')) {
 				$config['upload_path'] = './assets/downloads/outline/';
-				$config['allowed_types'] = 'pdf';
+				$config['allowed_types'] = TRUE;
 				$config['max_size'] = '1000000';
 				$config['remove_spaces'] = TRUE;
 				$config['overwrite'] = TRUE;
@@ -395,6 +395,24 @@ class Cms_teacher extends MY_AdminController {
 		}
 	}
 
+	public function activenot($databse = FALSE, $status = FALSE, $id = FALSE, $class = FALSE)
+	{
+		if ($id) {
+			$res = $this->md->change_status($databse, $status, $id);
+			if ($res) {
+				if ($status == "inactive") {
+					$this->_msg('s','Account Successfully Deactivated.','cms_teacher/materials/'.$class);	
+				}else{
+					$this->_msg('s','Account Successfully Activated.','cms_teacher/materials/'.$class);
+				}
+			}else{
+				$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
+			}				
+		}else{
+			show_404();
+		}
+	}
+
 	public function delete_syllabus($class = FALSE, $id = FALSE)
 	{
 		if ($id) {
@@ -419,7 +437,7 @@ class Cms_teacher extends MY_AdminController {
 	public function delete_content($class = FALSE, $id = FALSE)
 	{
 		if ($id) {
-			$path = $this->md->get_syllabus($id);
+			$path = $this->md->get_content($id);
 			$path = FCPATH.'assets/downloads/content/'.$path->file;
 	        if (file_exists($path)){ 
 				unlink($path); // DELETE RECENT IMAGE IF EXIST / UNLINK
@@ -440,7 +458,7 @@ class Cms_teacher extends MY_AdminController {
 	public function delete_outline($class = FALSE, $id = FALSE)
 	{
 		if ($id) {
-			$path = $this->md->get_syllabus($id);
+			$path = $this->md->get_outline($id);
 			$path = FCPATH.'assets/downloads/outline/'.$path->file;
 	        if (file_exists($path)){ 
 				unlink($path); // DELETE RECENT IMAGE IF EXIST / UNLINK
@@ -461,7 +479,7 @@ class Cms_teacher extends MY_AdminController {
 	public function delete_images($class = FALSE, $id = FALSE)
 	{
 		if ($id) {
-			$path = $this->md->get_syllabus($id);
+			$path = $this->md->get_images($id);
 			$path = FCPATH.'assets/downloads/images/'.$path->file;
 	        if (file_exists($path)){ 
 				unlink($path); // DELETE RECENT IMAGE IF EXIST / UNLINK

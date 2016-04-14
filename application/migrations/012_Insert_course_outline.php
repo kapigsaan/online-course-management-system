@@ -6,6 +6,7 @@ class Migration_Insert_course_outline extends CI_Migration {
 		if(!$this->db->table_exists("course_outline")){
 		$this->dbforge->add_field("`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT");
 		$this->dbforge->add_field("`class_id` bigint(20) unsigned NOT NULL");
+		$this->dbforge->add_field("`status` set('active','inactive') NOT NULL DEFAULT 'active'");
     	$this->dbforge->add_field("`caption` varchar(255) DEFAULT NULL");
     	$this->dbforge->add_field("`file` varchar(255) DEFAULT NULL");
     	$this->dbforge->add_field("`file_size` varchar(255) DEFAULT NULL");

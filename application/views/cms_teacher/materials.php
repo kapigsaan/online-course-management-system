@@ -73,7 +73,13 @@
 	                        			<?foreach ($list as $key => $v):?>
 	                        				<tr>
 	                        					<td><?=$v->caption?></td>
-	                        					<td><?=$v->file?></td>
+	                        					<td><?=$v->file?>
+	                        						<?if($v->status == "active"):?>
+			                                            <a href="<?=site_url('cms_teacher/activenot/syllabus/inactive/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-lock"></i></a>
+			                                        <?else:?>
+			                                            <a href="<?=site_url('cms_teacher/activenot/syllabus/active/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-unlock"></i></a>
+			                                        <?endif;?>
+	                        					</td>
 	                        					<td><?=$v->file_size?></td>
 	                        					<td>
 				                        			<a href="<?php echo assets_url('downloads/syllabus/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
@@ -119,7 +125,13 @@
 	                        			<?foreach ($course_content as $key => $v):?>
 	                        				<tr>
 	                        					<td><?=$v->caption?></td>
-	                        					<td><?=$v->file?></td>
+	                        					<td><?=$v->file?>
+	                        						<?if($v->status == "active"):?>
+			                                            <a href="<?=site_url('cms_teacher/activenot/course_content/inactive/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-lock"></i></a>
+			                                        <?else:?>
+			                                            <a href="<?=site_url('cms_teacher/activenot/course_content/active/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-unlock"></i></a>
+			                                        <?endif;?>
+	                        					</td>
 	                        					<td><?=$v->file_size?></td>
 	                        					<td>
 				                        			<a href="<?php echo assets_url('downloads/content/'.$v->file); ?>" title="<?=$download->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
@@ -165,7 +177,13 @@
 	                        			<?foreach ($course_outline as $key => $v):?>
 	                        				<tr>
 	                        					<td><?=$v->caption?></td>
-	                        					<td><?=$v->file?></td>
+	                        					<td><?=$v->file?>
+	                        						<?if($v->status == "active"):?>
+			                                            <a href="<?=site_url('cms_teacher/activenot/course_outline/inactive/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-lock"></i></a>
+			                                        <?else:?>
+			                                            <a href="<?=site_url('cms_teacher/activenot/course_outline/active/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-unlock"></i></a>
+			                                        <?endif;?>
+	                        					</td>
 	                        					<td><?=$v->file_size?></td>
 	                        					<td>
 				                        			<a href="<?php echo assets_url('downloads/outline/'.$v->file); ?>" title="<?=$download->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
@@ -211,7 +229,13 @@
 	                        			<?foreach ($videos as $key => $v):?>
 	                        				<tr>
 	                        					<td><?=$v->caption?></td>
-	                        					<td><?=$v->file?></td>
+	                        					<td><?=$v->file?>
+	                        						<?if($v->status == "active"):?>
+			                                            <a href="<?=site_url('cms_teacher/activenot/yvideos/inactive/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-lock"></i></a>
+			                                        <?else:?>
+			                                            <a href="<?=site_url('cms_teacher/activenot/yvideos/active/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-unlock"></i></a>
+			                                        <?endif;?>
+	                        					</td>
 	                        					<td><?=$v->file_size?></td>
 	                        					<td>
 				                        			<a href="<?php echo assets_url('downloads/videos/'.$v->file); ?>" title="<?=$download->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>
@@ -257,7 +281,13 @@
 	                        			<?foreach ($images as $key => $v):?>
 	                        				<tr>
 	                        					<td><?=$v->caption?></td>
-	                        					<td><?=$v->file?></td>
+	                        					<td><?=$v->file?>
+	                        						<?if($v->status == "active"):?>
+			                                            <a href="<?=site_url('cms_teacher/activenot/course_images/inactive/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-lock"></i></a>
+			                                        <?else:?>
+			                                            <a href="<?=site_url('cms_teacher/activenot/course_images/active/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-unlock"></i></a>
+			                                        <?endif;?>
+	                        					</td>
 	                        					<td><?=$v->file_size?></td>
 	                        					<td>
 				                        			<a href="<?php echo assets_url('downloads/images/'.$v->file); ?>" title="<?=$download->caption;?>" target="_blank"><i class = "fa fa-download"> View </i></a>

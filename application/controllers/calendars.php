@@ -111,7 +111,7 @@ class Calendars extends MY_AdminController
 		if($this->input->post('updatecalendar'))
 		{
 			$eventa = $this->mc->get_event($this->input->post('codec'));
-			$events = $this->mc->edit_event($eventa,$this->input->post());
+			$events = $this->mc->edit_event($eventa,$this->input->post(),$class,$this->session->userdata('userid'));
 			if($events)
 			{
 				$this->_msg('s',$events->msg,'calendars/index/'.$class.'/'.$year.'/'.$month);

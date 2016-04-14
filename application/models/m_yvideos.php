@@ -1,13 +1,26 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class M_yvideos Extends CI_Model
 {
-  public function get_every_yv()
+  public function get_every_yv($class)
 	{
 		$query = "SELECT *
 				  FROM
 					yvideos
+					WHERE class_id = ?
           ORDER BY id DESC";
-		$q = $this->db->query($query);
+		$q = $this->db->query($query,[$class]);
+		return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+	}
+
+	public function get_every_yv_where($class)
+	{
+		$query = "SELECT *
+				  FROM
+					yvideos
+					WHERE class_id = ?
+				AND status = 'active' 
+          ORDER BY id DESC";
+		$q = $this->db->query($query,[$class]);
 		return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
 	}
   
