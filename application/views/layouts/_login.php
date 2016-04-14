@@ -53,10 +53,10 @@
 <body>
 
     <div class="container">
-        <div class="row text-center" id="wrapper">
-            <!-- <div class="col-md-1"></div>
-            <div class="col-md-5"> -->
-                <div id="login" class="login-panel panel panel-default">
+        <div class="row text-center">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="login-panel panel panel-default">
                     <div class="panel-heading text-center" >
                     <?php if ($prof): ?>
                         <?php if (!$prof->website == ""):?>
@@ -73,8 +73,8 @@
                         <?php echo $yield;?>
                     </div>
                 </div>
-            <!-- </div>
-            <div class="col-md-5">
+            </div>
+            <!-- <div class="col-md-5">
                 <div class="login-panel panel panel-primary">
                     <div class="panel-heading text-center" >
                         System Description
