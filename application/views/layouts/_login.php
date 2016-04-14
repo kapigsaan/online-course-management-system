@@ -53,9 +53,9 @@
 <body>
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
+        <div class="row text-center">
+            <!-- <div class="col-md-1"></div>
+            <div class="col-md-5"> -->
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading text-center" >
                     <?php if ($prof): ?>
@@ -73,7 +73,7 @@
                         <?php echo $yield;?>
                     </div>
                 </div>
-            </div>
+            <!-- </div>
             <div class="col-md-5">
                 <div class="login-panel panel panel-primary">
                     <div class="panel-heading text-center" >
@@ -84,7 +84,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-1"></div>
+            <div class="col-md-1"></div> -->
         </div>
     </div>
 
