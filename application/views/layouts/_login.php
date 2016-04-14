@@ -53,10 +53,10 @@
 <body>
 
     <div class="container">
-        <div class="row text-center">
+        <div class="row text-center" id="wrapper">
             <!-- <div class="col-md-1"></div>
             <div class="col-md-5"> -->
-                <div class="login-panel panel panel-default">
+                <div id="login" class="login-panel panel panel-default">
                     <div class="panel-heading text-center" >
                     <?php if ($prof): ?>
                         <?php if (!$prof->website == ""):?>
@@ -87,6 +87,7 @@
             <div class="col-md-1"></div> -->
         </div>
     </div>
+
 
     <!-- jQuery Version 1.11.0 -->
     <script src="<?=site_url('assets/jquery-1.11.0.js')?>"></script>
