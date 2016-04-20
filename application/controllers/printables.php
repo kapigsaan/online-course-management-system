@@ -15,7 +15,7 @@ class Printables extends MY_AdminController
 	{
 		//this data will be passed on to the view
 		$instructors = $this->mc->get_user_where('instructor');
-		$data['Head'] = 'instructors Lists';
+		$data['Head'] = 'Instructors Lists';
 		$data['content'] = $instructors;
 
 		//load the view, pass the variable and do not show it but "save" the output into $html variable
@@ -23,6 +23,58 @@ class Printables extends MY_AdminController
 
 		//this the the PDF filename that user will get to download
 		$pdfFilePath = "instructors_pdf.pdf";
+
+		//load mPDF library
+		$this->load->library('m_pdf');
+		//actually, you can pass mPDF parameter on this load() function
+		$pdf = $this->m_pdf->load();
+		//generate the PDF!
+		$pdf->WriteHTML($html);
+		//offer it to user via browser download! (The PDF won't be saved on your server HDD)
+		//$pdf->Output($pdfFilePath, "D");
+
+		//browser
+  		$pdf->Output();
+	}
+
+	public function print_students()
+	{
+		//this data will be passed on to the view
+		$students = $this->ms->get_student_all('instructor');
+		$data['Head'] = 'Students Lists';
+		$data['content'] = $students;
+
+		//load the view, pass the variable and do not show it but "save" the output into $html variable
+		$html = $this->load->view('printables/pdf_output', $data, true); 
+
+		//this the the PDF filename that user will get to download
+		$pdfFilePath = "students_pdf.pdf";
+
+		//load mPDF library
+		$this->load->library('m_pdf');
+		//actually, you can pass mPDF parameter on this load() function
+		$pdf = $this->m_pdf->load();
+		//generate the PDF!
+		$pdf->WriteHTML($html);
+		//offer it to user via browser download! (The PDF won't be saved on your server HDD)
+		//$pdf->Output($pdfFilePath, "D");
+
+		//browser
+  		$pdf->Output();
+	}
+
+	public function print_subjects()
+	{
+		//this data will be passed on to the view
+		$students = $this->ms->get_student_all('instructor');
+		$data['Head'] = 'Students Lists';
+		$data['content'] = $students;
+
+		//load the view, pass the variable and do not show it but "save" the output into $html variable
+		$html = $this->load->view('printables/pdf_output', $data, true); 
+
+		//this the the PDF filename that user will get to download
+		$pdfFilePath = "students_pdf.pdf";
 
 		//load mPDF library
 		$this->load->library('m_pdf');

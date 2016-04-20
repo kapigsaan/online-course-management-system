@@ -23,11 +23,14 @@ table.gridtable td {
 	border-color: #666666;
 	background-color: #ffffff;
 }
+.head{
+	text-align: center;
+}
 </style>
 
 <p></p>
 <?php if ($Head): ?>
-	<center><h3><?php echo $Head?></h3></center>
+	<h3 class = "head"><?php echo $Head?></h3>
 <?php endif ?>
 <p></p>
 <p></p>
