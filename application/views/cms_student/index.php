@@ -100,13 +100,13 @@
                                 <div class="col-xs-5">
                                     <input type="hidden" class="form-control" name="class_id" value = "<?=$v->id?>"/>
                                     <input type="hidden" class="form-control" name="right_code" value = "<?=$v->code?>"/>
-                                    <input type="text" class="form-control" name="code" />
+                                    <input type="text" class="form-control" name="code" required/>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-xs-5 col-xs-offset-3">
-                                    <button type="submit" name = "submit-code" class="btn btn-primary">Join</button>
+                                    <input type="submit" name = "submit-code" class="btn btn-primary" value = "Join"/>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                 </div>
                             </div>

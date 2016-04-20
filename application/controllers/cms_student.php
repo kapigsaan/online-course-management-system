@@ -37,6 +37,7 @@ class Cms_student extends MY_AdminController {
 	public function index()
 	{	
 		if ($this->input->post('submit-code')) {
+			vd($this->input->post());
 			$rightcode = $this->input->post('right_code');
 			$code = $this->input->post('code');
 
