@@ -47,7 +47,7 @@
                                         </td>
                                         <td>
                                             <?php if ($cls): ?>
-                                                <?php if ($cls->status): ?>
+                                                <?php if ($cls->status == 'active'): ?>
                                                     <i class = "fa fa-check">Class in Use</i>
                                                 <?php endif ?>
                                             <?php endif ?>
@@ -56,7 +56,7 @@
                                             <?php if ($cls): ?>
                                                 <?php if ($cls->join): ?>
                                                     <?php if ($cls->status): ?>
-                                                        <a class="btn btn-success" href="<?=site_url('cms_student/use_class/'.$v->id)?>">Use Class</a> |
+                                                        <a class="btn btn-success" href="<?=site_url('cms_student/use_class/'.$v->id)?>">Use Class</a>
                                                     <?php endif ?>
                                                 <? else: ?>
                                                     <button class="btn btn-primary" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</button>
