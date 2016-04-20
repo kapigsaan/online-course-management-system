@@ -106,7 +106,7 @@
 
                             <div class="form-group">
                                 <div class="col-xs-5 col-xs-offset-3">
-                                    <button type="submit-code" class="btn btn-primary">Join</button>
+                                    <button type="submit" name = "submit-code" class="btn btn-primary">Join</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                 </div>
                             </div>
