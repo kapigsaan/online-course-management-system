@@ -215,7 +215,7 @@
                                 <a href="#"><i class="fa fa-print fa-fw"></i> Printables <span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="<?=site_url('printables/print_instructors')?>"><i class="fa fa-hand-o-right"> Instructors</i></a>
+                                        <a href="<?=site_url('cms_admin/print_instructors')?>"><i class="fa fa-hand-o-right"> Instructors</i></a>
                                     </li>
                                     <li>
                                         <a href="<?=site_url('printables/print_students')?>"><i class="fa fa-hand-o-right"> Students</i></a>
