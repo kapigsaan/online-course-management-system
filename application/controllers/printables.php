@@ -8,12 +8,15 @@ class Printables extends MY_AdminController
         $this->load->model('M_users','mu');
 		$this->load->model('M_students','ms');
 		$this->load->model('M_classes','cl');
+		$this->load->model('M_content','mc');
     }
 
     public function print_instructors()
 	{
 		//this data will be passed on to the view
-		$data['the_content']='mPDF and CodeIgniter are cool!';
+		$instructors = $this->mc->get_user_where('instructor');
+		$data['Head'] = 'instructors Lists';
+		$data['content'] = $instructors;
 
 		//load the view, pass the variable and do not show it but "save" the output into $html variable
 		$html = $this->load->view('printables/pdf_output', $data, true); 
