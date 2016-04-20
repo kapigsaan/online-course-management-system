@@ -65,6 +65,8 @@
                                                 <button class="btn btn-primary" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</button>
                                             <?php endif ?>
 
+                                             <button class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Join Class</button>
+
                                         </td>
                                     </tr>
                                 <?endforeach?>
@@ -79,12 +81,45 @@
     </div>
 </div>
 
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title">Join Class <?=$v->class?></h5>
+                    </div>
+
+                    <div class="modal-body">
+                        <!-- The form is placed inside the body of modal -->
+                        <form action="" method="post" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Code</label>
+                                <div class="col-xs-5">
+                                    <input type="hidden" class="form-control" name="class_id" value = "<?=$v->id?>"/>
+                                    <input type="hidden" class="form-control" name="right_code" value = "<?=$v->code?>"/>
+                                    <input type="text" class="form-control" name="code" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-5 col-xs-offset-3">
+                                    <button type="submit-code" class="btn btn-primary">Join</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 <?php if ($classes): ?>
 
     <?foreach ($classes as $key => $v):?>
 
-        <div class="modal fade" id="#modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+        <div class="modal fade" id="modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
