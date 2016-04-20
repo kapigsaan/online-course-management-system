@@ -57,7 +57,7 @@ table.gridtable td {
 
 
 <?php if ($classes): ?>
-	<?foreach($content as $key => $v):?>
+	<?foreach($classes as $key => $v):?>
 		<h4 class = "head"><?=$key?></h4>
 		<table class="gridtable">
 			<tr>

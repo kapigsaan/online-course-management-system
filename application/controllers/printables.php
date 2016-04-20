@@ -17,6 +17,7 @@ class Printables extends MY_AdminController
 		$instructors = $this->mc->get_user_where('instructor');
 		$data['Head'] = 'Instructors Lists';
 		$data['content'] = $instructors;
+		$data['classes'] = FAlSE;
 
 		//load the view, pass the variable and do not show it but "save" the output into $html variable
 		$html = $this->load->view('printables/pdf_output', $data, true); 
@@ -43,6 +44,7 @@ class Printables extends MY_AdminController
 		$students = $this->mc->get_user_where('student');
 		$data['Head'] = 'Students Lists';
 		$data['content'] = $students;
+		$data['classes'] = FAlSE;
 
 		//load the view, pass the variable and do not show it but "save" the output into $html variable
 		$html = $this->load->view('printables/pdf_output', $data, true); 
@@ -69,6 +71,7 @@ class Printables extends MY_AdminController
 		$Classes = $this->cl->get_all_classes_with_insturctor();
 		$data['Head'] = 'Classes Lists';
 		$data['classes'] = $Classes;
+		$data['content'] = FAlSE;
 
 		//load the view, pass the variable and do not show it but "save" the output into $html variable
 		$html = $this->load->view('printables/pdf_output', $data, true); 
