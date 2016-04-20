@@ -92,7 +92,7 @@
 	                    					<td><?=$v->caption?></td>
 	                    					<td><?=$v->file?></td>
 	                    					<td><?=$v->file_size?></td>
-	                    					<td><?=$v->updated_at?></td>
+	                    					<td><?=date('F d, Y',$v->updated_at)?></td>
 	                    					<td>
 			                        			<a href="<?=assets_url('downloads/activities/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> Download </i></a>
 			                        			<a class = "btn confirm" href="<?=site_url('cms_teacher/delete_activity/'.$v->id.'/'.$class)?>" title = "Click here to delete Activity"> <i class = "fa fa-trash-o"> Delete </i></a>
