@@ -36,10 +36,10 @@ class M_classes Extends CI_Model
 
     if ($q->num_rows() >= 1) {
     
-    $data = array();
+      $data = array();
 
       foreach ($q->result() as $key => $v) {
-        $namefull = $v->l_name.' '.$v->f_name.' '$v->m_name;
+        $namefull = $v->l_name.' '.$v->f_name.' '.$v->m_name;
         $data[$namefull] = $this->get_my_classes($v->id);
       }
 
