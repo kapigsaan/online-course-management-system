@@ -64,9 +64,6 @@
                                             <?else:?>
                                                 <button class="btn btn-primary" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</button>
                                             <?php endif ?>
-
-                                             <button class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Join Class</button>
-
                                         </td>
                                     </tr>
                                 <?endforeach?>
