@@ -71,9 +71,11 @@
                                         <td><?=$v->file_size?></td>
                     					<td><?=date('F d, Y', strtotime($v->updated_at))?></td>
                     					<td>
-                                        <?php if ($v->updated_at <= NOW): ?>
-                                            <a href="<?php echo assets_url('downloads/activities/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> Download </i></a> | 
+                                        <?php if (date('Y-m-d', strtotime($v->updated_at)) <= date('Y-m-d')): ?>
+                                            <a href="<?php echo assets_url('downloads/activities/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> Download </i></a>| 
                                             <a href="javascript:;" url = "<?=$v->id?>" id = "upload-answer" ><i class = "fa fa-upload"> Upload Answer </i></a>
+                                        <?php else:?>
+                                            Activity already Passed Deadline
                                         <?php endif ?>
 		                        		</td>
                     				</tr>
