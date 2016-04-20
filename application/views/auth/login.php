@@ -55,9 +55,10 @@
             'required' => 'required'
             );
             echo form_input($data_captcha, '' ,'');
-            ?>    
+            ?>   
+            <p></p> 
         </div>
-
+        <p></p>
         <div class = "col-md-2"></div>
       </div>
         <input type="submit" class="btn btn-lg btn-success btn-block" name="backstage_login" value="Log In">
@@ -87,20 +88,5 @@
 </form>
 
 <script type="text/javascript">
-  $("a.refresh").click(function() {
-    var url = $(this).attr('url');
-                    jQuery.ajax({
-                        type: "POST",
-                        url: url,
-                        success: function(res) {
-                            if (res)
-                            { 
-        $("div.c_image .the_im").empty();
-        $("div.c_image .the_im").append(res);
-                                  
-                            }  
-                        }
-                    });
-                });
-            });
+  
 </script>

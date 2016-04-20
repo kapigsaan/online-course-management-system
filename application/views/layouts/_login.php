@@ -89,7 +89,24 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="<?=site_url('assets/sb-admin-2.js')?>"></script>
-
+    <script type="text/javascript">
+        $("a.refresh").click(function() {
+    var url = $(this).attr('url');
+                    jQuery.ajax({
+                        type: "POST",
+                        url: url,
+                        success: function(res) {
+                            if (res)
+                            { 
+        $("div.c_image .the_im").empty();
+        $("div.c_image .the_im").append(res);
+                                  
+                            }  
+                        }
+                    });
+                });
+            });
+    </script>
 </body>
 
 </html>
