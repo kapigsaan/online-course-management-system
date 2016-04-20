@@ -71,7 +71,7 @@ class Auth extends MY_AdminController
 		$this->form_validation->set_rules('password', 'password', 'required|trim|htmlspecialchars');
 		// $this->form_validation->set_rules('type', 'type', 'required|trim|htmlspecialchars');
 		$this->form_validation->set_rules('fit', ' ', 'required|trim|htmlspecialchars');
-		$this->form_validation->set_rules('captcha', "Captcha", 'trim|required|callback_check_captcha');
+		$this->form_validation->set_rules('captcha', "Captcha", 'trim|required');
 		//$this->form_validation->set_rules('captcha_text', 'captcha', 'required|trim|htmlspecialchars');
 
 		//$this->view_data['captcha_image'] = $captcha->image;
