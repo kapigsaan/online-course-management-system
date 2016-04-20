@@ -211,6 +211,23 @@
                             <li>
                                 <a href="<?=site_url('cms_admin/classes')?>"><i class="fa fa-archive fa-fw"></i> View Class</a>
                             </li>
+                            <li>
+                                <a href="#"><i class="fa fa-print fa-fw"></i> Printables <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="<?=site_url('Printables/print_instructors')?>"><i class="fa fa-hand-o-right"> Instructors</i></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?=site_url('Printables/print_students')?>"><i class="fa fa-hand-o-right"> Students</i></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?=site_url('Printables/print_subjects')?>"><i class="fa fa-hand-o-right"> Subjects/Classes</i></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?=site_url('Printables/print_student_by_class')?>"><i class="fa fa-hand-o-right"> Student by Class</i></a>
+                                    </li>
+                                </ul>
+                            </li>
                         <?php elseif ($this->session->userdata('userType') == 'instructor'):?>
                             <li>
                                 <a href="<?=site_url('cms_teacher')?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
