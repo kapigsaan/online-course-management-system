@@ -200,8 +200,9 @@ class M_students Extends CI_Model
 	{
 		$query = "SELECT s.*, u.username, u.userStatus, u.acid
 				  FROM students s
-				  LEFT JOIN useraccounts u ON s.acc_id = u.acid
-				  WHERE s.class_id = ?
+          LEFT JOIN useraccounts u ON s.acc_id = u.acid
+				  LEFT JOIN students_in_class sc ON u.acid = sc.stud_id
+				  AND sc.class_id = ?
 				  ";
 		$q = $this->db->query($query,array($id));
 		return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
