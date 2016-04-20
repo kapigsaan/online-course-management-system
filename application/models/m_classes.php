@@ -24,17 +24,19 @@ class M_classes Extends CI_Model
     return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
   }
 
-  public function get_all_my_class($id = FALSE)
+  public function get_all_my_class($x = FALSE, $id = FALSE)
   {
-    $query = "SELECT *
-          FROM students_in_class s
-          LEFT JOIN classes c ON s.class_id = s.id
+    $query = "SELECT s.status,s.join
+          FROM
+          classes c
+          LEFT JOIN students_in_class s ON c.id = s.class_id
           WHERE s.stud_id = ?
+          AND c.id = ?
           ORDER BY 
-          class";
-    $q = $this->db->query($query, [$id]);
+          c.class";
+    $q = $this->db->query($query, [$id,$x]);
     
-    return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+    return $q->num_rows() >= 1 ? $q->row() : FALSE; //returns result if none retrieved, returns FALSE
   }
 
   public function get_all_classes_where($id = FALSE)
@@ -257,6 +259,22 @@ class M_classes Extends CI_Model
   {
     $this->db->delete('quizzes', array('id' => $id)); 
 
+    return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
+  }
+
+  public function join_class($post = FALSE)
+  {
+    $post['created_at'] = NOW;
+    $this->db->insert('students_in_class', $post); 
+
+    return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
+  }
+
+  public function use_class($id)
+  {
+    $this->db->set('status', 'active'); 
+    $this->db->where('id', $id); 
+    $this->db->update('students_in_class'); 
     return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
   }
 

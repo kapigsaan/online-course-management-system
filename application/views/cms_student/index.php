@@ -9,6 +9,7 @@
         <p><?=$system_message?></p>
     <?php endif ?>
 <p></p>
+
  <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-primary">
@@ -24,19 +25,46 @@
                             <tr>
                                 <th>Class</th>
                                 <th>Status</th>
-                                <th>Use</th>
+                                <th>Is Active</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if ($classes): ?>
+                                <?php $cls) = NULL ?>
                                 <?foreach ($classes as $key => $v):?>
+                                    <?php if ($myclasses): ?>
+                                        <?$cls = $myclasses($v->id)?>
+                                    <?php endif ?>
                                     <tr>
                                         <td><?=$v->class?></td>
-                                        <td>asd</td>
-                                        <td>asd</td>
                                         <td>
-                                            asd
+                                            <?php if ($cls): ?>
+                                                <?php if ($cls->join): ?>
+                                                    Joined
+                                                <?php endif ?>
+                                            <?php endif ?>
+                                        </td>
+                                        <td>
+                                            <?php if ($cls): ?>
+                                                <?php if ($cls->status): ?>
+                                                    <i class = "fa fa-check">Class in Use</i>
+                                                <?php endif ?>
+                                            <?php endif ?>
+                                        </td>
+                                        <td>
+                                            <?php if ($cls): ?>
+                                                <?php if ($cls->join): ?>
+                                                    <?php if ($cls->status): ?>
+                                                        <a class="btn btn-success" href="javascript:;" data-toggle="modal" data-target="#modal_<?=$v->id?>">Use Class</a> |
+                                                    <?php endif ?>
+                                                <? else: ?>
+                                                    <a class="btn btn-primary" href="<?=site_url('cms_student/join_class/'.$v->id)?>">Join Class</a>
+                                                <?php endif ?>
+                                            <?else:?>
+                                                <a class="btn btn-primary" href="<?=site_url('cms_student/join_class/'.$v->id)?>">Join Class</a>
+                                            <?php endif ?>
+
                                         </td>
                                     </tr>
                                 <?endforeach?>
@@ -52,3 +80,46 @@
 </div>
 
 
+<?php if ($classes): ?>
+    
+
+    <?foreach ($classes as $key => $v):?>
+       
+
+        <div class="modal fade" id="#modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title">Join Class <?=$v->class?></h5>
+                    </div>
+
+                    <div class="modal-body">
+                        <!-- The form is placed inside the body of modal -->
+                        <form action="" method="post" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">Code</label>
+                                <div class="col-xs-5">
+                                    <input type="hidden" class="form-control" name="class_id" value = "<?=$v->id?>"/>
+                                    <input type="hidden" class="form-control" name="right_code" value = "<?=$v->code?>"/>
+                                    <input type="text" class="form-control" name="code" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-5 col-xs-offset-3">
+                                    <button type="submit-code" class="btn btn-primary">Join</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <?endforeach?>
+
+<?php endif ?>

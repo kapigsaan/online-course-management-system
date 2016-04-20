@@ -35,9 +35,50 @@ class Cms_student extends MY_AdminController {
 	}
 	
 	public function index()
-	{
+	{	
+		if ($this->input->post('submit-code')) {
+			$rightcode = $this->input->post('right_code');
+			$code = $this->input->post('code');
+
+			if ($code == $rightcode) {
+				$data['stud_id'] = $this->session->userdata('userid');
+				$data['class_id'] = $this->input->post('class_id');
+				$data['code'] = $this->input->post('class_id');
+
+				$res = $this->mcl->join_class($data);
+
+				if ($res) {
+					$this->_msg('s','Joined class Successfully.','cms_student/index/');
+				}else{
+					$this->_msg('e','Failed.','cms_student/index/');
+				}				
+			}else{
+					$this->_msg('e','Wrong Code.','cms_student/index/');
+				}				
+
+		}
+
 		$this->view_data['classes'] = $this->mcl->get_all_classes();
-		$this->view_data['myclasses'] = $this->mcl->get_all_my_class($this->session->userdata('userid'));
+		$this->view_data['myclasses'] = function($x){
+							return $this->mcl->get_all_my_class($x,$this->session->userdata('userid'));							
+						};
+
+		// $this->mcl->get_all_my_class($this->session->userdata('userid'))
+	}
+
+	public function use_class($id = FALSE)
+	{
+		if ($id) {
+			$res = $this->mcl->use_class($id,$this->session->userdata('userid'));
+
+			if ($res) {
+				$this->_msg('s','Class in Use has been Updated.','cms_student/index/');
+			}else{
+				$this->_msg('e','Failed.','cms_student/index/');
+			}
+		}else{
+			show_404();
+		}
 	}
 
 	public function materials()
