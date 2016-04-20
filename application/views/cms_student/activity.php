@@ -58,6 +58,7 @@
                                 <th>Caption</th>
                                 <th>File Name</th>
                                 <th>File Size</th>
+                                <th>Dead Line</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -67,10 +68,13 @@
                     				<tr>
                     					<td><?=$v->caption?></td>
                     					<td><?=$v->file?></td>
-                    					<td><?=$v->file_size?></td>
+                                        <td><?=$v->file_size?></td>
+                    					<td><?=$v->updated_at?></td>
                     					<td>
-		                        			<a href="<?php echo assets_url('downloads/activities/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> Download </i></a> | 
-		                        			<a href="javascript:;" url = "<?=$v->id?>" id = "upload-answer" ><i class = "fa fa-upload"> Upload Answer </i></a>
+                                        <?php if ($v->updated_at >= NOW): ?>
+                                            <a href="<?php echo assets_url('downloads/activities/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> Download </i></a> | 
+                                            <a href="javascript:;" url = "<?=$v->id?>" id = "upload-answer" ><i class = "fa fa-upload"> Upload Answer </i></a>
+                                        <?php endif ?>
 		                        		</td>
                     				</tr>
                     			<?endforeach?>

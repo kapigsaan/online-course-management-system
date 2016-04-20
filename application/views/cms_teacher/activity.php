@@ -46,9 +46,6 @@
     <div class="col-lg-12">
         <?php echo form_open_multipart('cms_teacher/activity/'.$class);?>
 			<div class="row">
-    			<div class="col-md-2 text-center">
-    				<h4><b>Upload File</b></h4>
-    			</div>
     			<div class="col-md-3 text-center">
     				<input type = "text" name="caption" class = "form-control" placeholder = "Caption" />
     			</div>
@@ -56,6 +53,9 @@
     				<input type = "file" name="file" class = "form-control" />
     			</div>
     			<div class="col-md-3 text-center">
+    				<input type = "text" name="deadline" class = "form-control" placeholder = "Deadline" />
+    			</div>
+    			<div class="col-md-2 text-center">
     				<input type = "submit" name="submit-activity" Value = "Upload" class = "form-control btn btn-primary" />
     			</div>
     			<p></p>
@@ -81,6 +81,7 @@
 	                                <th>Caption</th>
 	                                <th>File Name</th>
 	                                <th>File Size</th>
+	                                <th>Dead Line</th>
 	                                <th>Action</th>
 	                            </tr>
 	                        </thead>
@@ -91,6 +92,7 @@
 	                    					<td><?=$v->caption?></td>
 	                    					<td><?=$v->file?></td>
 	                    					<td><?=$v->file_size?></td>
+	                    					<td><?=$v->updated_at?></td>
 	                    					<td>
 			                        			<a href="<?=assets_url('downloads/activities/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> Download </i></a>
 			                        			<a class = "btn confirm" href="<?=site_url('cms_teacher/delete_activity/'.$v->id.'/'.$class)?>" title = "Click here to delete Activity"> <i class = "fa fa-trash-o"> Delete </i></a>

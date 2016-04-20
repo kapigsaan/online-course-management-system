@@ -743,6 +743,7 @@ class Cms_teacher extends MY_AdminController {
 				}
 
 				$data['caption']=$this->input->post('caption');
+				$data['updated_at']=$this->input->post('deadline');
 				$data['class_id'] = $id;
 
 				$result = $this->mc->upload_activity($data);
