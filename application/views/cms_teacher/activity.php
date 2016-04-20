@@ -53,7 +53,7 @@
     				<input type = "file" name="file" class = "form-control" />
     			</div>
     			<div class="col-md-3 text-center">
-    				<input type = "text" name="deadline" class = "form-control" placeholder = "Deadline" />
+    				<input type = "text" name="deadline" class = "form-control datepick" placeholder = "Deadline" />
     			</div>
     			<div class="col-md-2 text-center">
     				<input type = "submit" name="submit-activity" Value = "Upload" class = "form-control btn btn-primary" />
