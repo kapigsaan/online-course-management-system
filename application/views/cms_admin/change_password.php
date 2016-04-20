@@ -8,6 +8,11 @@
 <?php if ($system_message): ?>
     <p><?=$system_message?></p>
 <?php endif ?>
+<?php if (validation_errors()): ?>
+	<div class = "alert alert-danger">
+		<?php echo validation_errors()?>		
+	</div>
+<?php endif ?>
 <!-- /.row -->
 <div class="row">
     <div class="col-md-12">
