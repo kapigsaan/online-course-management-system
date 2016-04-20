@@ -59,10 +59,10 @@
                                                         <a class="btn btn-success" href="<?=site_url('cms_student/use_class/'.$v->id)?>">Use Class</a> |
                                                     <?php endif ?>
                                                 <? else: ?>
-                                                    <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</a>
+                                                    <button class="btn btn-primary" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</button>
                                                 <?php endif ?>
                                             <?else:?>
-                                                <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</a>
+                                                <button class="btn btn-primary" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</button>
                                             <?php endif ?>
 
                                         </td>
@@ -81,10 +81,8 @@
 
 
 <?php if ($classes): ?>
-    
 
     <?foreach ($classes as $key => $v):?>
-       
 
         <div class="modal fade" id="#modal_<?=$v->id?>" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
             <div class="modal-dialog">
