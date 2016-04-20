@@ -31,7 +31,7 @@
                         </thead>
                         <tbody>
                             <?php if ($classes): ?>
-                                <?php $cls) = NULL ?>
+                                <?php $cls = NULL ?>
                                 <?foreach ($classes as $key => $v):?>
                                     <?php if ($myclasses): ?>
                                         <?$cls = $myclasses($v->id)?>
