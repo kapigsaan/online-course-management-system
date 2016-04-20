@@ -29,5 +29,8 @@ class Printables extends MY_AdminController
 		$pdf->WriteHTML($html);
 		//offer it to user via browser download! (The PDF won't be saved on your server HDD)
 		//$pdf->Output($pdfFilePath, "D");
+
+		//browser
+  		$mpdf->Output();
 	}
 }
