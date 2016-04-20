@@ -31,6 +31,6 @@ class Printables extends MY_AdminController
 		//$pdf->Output($pdfFilePath, "D");
 
 		//browser
-  		$mpdf->Output();
+  		$pdf->Output();
 	}
 }
