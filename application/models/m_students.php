@@ -202,7 +202,7 @@ class M_students Extends CI_Model
 				  FROM students s
           LEFT JOIN useraccounts u ON s.acc_id = u.acid
 				  LEFT JOIN students_in_class sc ON u.acid = sc.stud_id
-				  AND sc.class_id = ?
+				  WHERE sc.class_id = ?
 				  ";
 		$q = $this->db->query($query,array($id));
 		return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
