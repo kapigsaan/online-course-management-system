@@ -19,6 +19,8 @@ class Cms_student extends MY_AdminController {
 			$this->load->model('M_users','mu');
 			$this->load->model('M_messages','mm');
 			$this->load->model('M_classes','mcl');
+			$this->load->library(array('form_validation','token'));
+			$this->load->helper(array('url','form'));
 		}elseif ($this->session->userdata('userType') == 'instructor') {
 			redirect('cms_teacher');
 		}elseif ($this->session->userdata('userType') == 'admin') {

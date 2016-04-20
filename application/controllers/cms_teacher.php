@@ -20,6 +20,9 @@ class Cms_teacher extends MY_AdminController {
 			$this->load->model('M_users','user');
 			$this->load->model('M_calendar','mcal');
 			$this->load->model('M_messages','mm');
+			$this->load->helper('string');
+			$this->load->library(array('form_validation','token'));
+			$this->load->helper(array('url','form'));
 		}elseif ($this->session->userdata('userType') == 'admin') {
 			redirect('cms_admin');
 		}elseif ($this->session->userdata('userType') == 'student') {
@@ -84,7 +87,7 @@ class Cms_teacher extends MY_AdminController {
 
 		if ($this->input->post()) {
 			$data['class'] = $this->input->post('class');
-			$data['code'] = $this->input->post('class');
+			$data['code'] =  random_string('alnum',10);
 			$data['created_by'] = $this->session->userdata('userid');
 
 			$result = $this->mc->add_class($data);
@@ -631,20 +634,25 @@ class Cms_teacher extends MY_AdminController {
 
 	public function change_password()
 	{
-		if ($this->input->post('btn-submit-changepass')) {
-			$old_pass = $this->input->post('old_pass');
-			$password = $this->input->post('password');
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|max_length[45]');
 
-			$old = $this->user->verify_password($old_pass, $this->session->userdata('userid'));
-			if ($old) {
-				$new = $this->user->change_pass($password, $this->session->userdata('userid'));
-				if ($new) {
-					$this->_msg('s','Password Successfully Changed.','cms_teacher/index/');
+		if ($this->input->post('btn-submit-changepass')) {
+			if($this->form_validation->run() !== FALSE){
+
+				$old_pass = $this->input->post('old_pass');
+				$password = $this->input->post('password');
+
+				$old = $this->user->verify_password($old_pass, $this->session->userdata('userid'));
+				if ($old) {
+					$new = $this->user->change_pass($password, $this->session->userdata('userid'));
+					if ($new) {
+						$this->_msg('s','Password Successfully Changed.','cms_teacher/index/');
+					}else{
+						$this->_msg('e','Failed.','cms_teacher/index/');
+					}
 				}else{
-					$this->_msg('e','Failed.','cms_teacher/index/');
+					$this->_msg('e','Old Password is Invalid.','cms_teacher/change_password');
 				}
-			}else{
-				$this->_msg('e','Old Password is Invalid.','cms_teacher/change_password');
 			}
 		}
 		$this->view_data['profile'] = $this->user->get_all_users($this->session->userdata('userid'));

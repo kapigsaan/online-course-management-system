@@ -163,13 +163,13 @@
                         <?php elseif ($this->session->userdata('userType') == 'instructor'):?>
                             <li><a href="<?=site_url('cms_teacher/change_password')?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
                             </li>
-                            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                            </li>
+                            <!-- <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li> -->
                         <?php elseif ($this->session->userdata('userType') == 'student'): ?>
                             <li><a href="<?=site_url('cms_student/change_password')?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
                             </li>
-                            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                            </li>
+                            <!-- <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li> -->
                         <?php endif ?>
                         <li class="divider"></li>
                         <li><a href="<?=site_url('auth/logout')?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
