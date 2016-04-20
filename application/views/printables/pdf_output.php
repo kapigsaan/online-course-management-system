@@ -39,7 +39,7 @@ table.gridtable td {
 			<th>Last Name</th>
 			<th>Status</th>
 		</tr>
-		<?foreach($content as $key => $v)?>
+		<?foreach($content as $key => $v):?>
 			<tr>
 				<td><?=$v->username?></td>
 				<td><?=$v->f_name?></td>
