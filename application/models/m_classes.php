@@ -67,7 +67,7 @@ class M_classes Extends CI_Model
 
   public function get_all_acticities($id = FALSE)
   {
-    $query = "SELECT *, 
+    $query = "SELECT *
           FROM
           activities
           WHERE class_id = ?
