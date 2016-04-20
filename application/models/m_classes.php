@@ -63,6 +63,51 @@ class M_classes Extends CI_Model
     return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
   }
 
+
+  public function get_all_classes_with_students()
+  {
+    $query = "SELECT c.*,u.f_name,u.l_name,u.m_name
+          FROM
+          classes c
+          LEFT JOIN useraccounts u ON c.created_by = u.acid
+          ORDER BY 
+          class";
+    $q = $this->db->query($query);
+
+    if ($q->num_rows() >= 1) {
+    
+      $data = array();
+
+      foreach ($q->result() as $key => $v) {
+        $namefull = $v->l_name.' '.$v->f_name.' '.$v->m_name;
+        $class = $v->class; 
+        $data[$key][$class] = $class;
+        $data[$key][$namefull] = $this->get_my_classes_stud($v->id);
+      }
+
+      return $data;
+
+    }else{
+      return FALSE; //returns result if none retrieved, returns FALSE
+    }
+  }
+
+  public function get_my_classes_stud($id = FALSE)
+  {
+    $query = "SELECT *
+            FROM
+            useraccounts u
+            LEFT JOIN students_in_class sc ON u.acid = sc.stud_id
+            WHERE u.type = 'student'
+            AND sc.class_id = ?
+            ORDER BY 
+            u.l_name";
+    $q = $this->db->query($query,[$id]);
+
+    return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
+
   public function get_all_my_class($x = FALSE, $id = FALSE)
   {
     $query = "SELECT s.status,s.join
