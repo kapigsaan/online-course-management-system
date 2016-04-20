@@ -37,7 +37,6 @@ class Cms_student extends MY_AdminController {
 	public function index()
 	{	
 		if ($this->input->post('submit-code')) {
-			vd($this->input->post());
 			$rightcode = $this->input->post('right_code');
 			$code = $this->input->post('code');
 
@@ -54,8 +53,8 @@ class Cms_student extends MY_AdminController {
 					$this->_msg('e','Failed.','cms_student/index/');
 				}				
 			}else{
-					$this->_msg('e','Wrong Code.','cms_student/index/');
-				}				
+				$this->_msg('e','Wrong Code.','cms_student/index/');
+			}				
 
 		}
 
