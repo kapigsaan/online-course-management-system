@@ -48,6 +48,7 @@ class M_classes Extends CI_Model
     }else{
       return FALSE; //returns result if none retrieved, returns FALSE
     }
+  }
 
   public function get_my_classes($id = FALSE)
   {
