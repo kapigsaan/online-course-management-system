@@ -24,8 +24,6 @@
 <div class="navbar-collapse collapse">
 <ul class="nav navbar-nav navbar-right">
 <li><a href="<?=site_url('obcms-login')?>">Login</a></li>
-<?= $data['image']; ?>
-<?= $data['word']; ?>
 <!-- <li><a href="<?=site_url('obcms-register')?>">Register</a></li> -->
 </ul>
 </div>
@@ -37,7 +35,6 @@
 <div id="home" >
 <div class="container">
 <div class="row">
-
 <div class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 ">
 <div id="carousel-slider" data-ride="carousel" class="carousel slide  animate-in" data-anim-type="fade-in-up">
 

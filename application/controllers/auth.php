@@ -93,7 +93,7 @@ class Auth extends MY_AdminController
 				{
 					$captcha_word = $this->session->userdata('captchaWord');
 					$sent_captcha_text = $this->input->post('captcha');
-					if (strcasecmp($captcha_word, $sent_captcha_text) == 0) {
+					// if (strcasecmp($captcha_word, $sent_captcha_text) == 0) {
 					//hash the word
 					//$captcha_word = md5(strtolower($this->session->userdata('word')));
 					//$sent_captcha_text = md5(strtolower($this->input->post('captcha_text')));
@@ -122,9 +122,9 @@ class Auth extends MY_AdminController
 					//	unlink($captcha_image_link);
 					//	$this->_msgbootstrap('e','Wrong captcha code entered.','auth/login/');
 					//}
-					}else{
-	                	$this->captcha_setting();
-					}
+					// }else{
+	    //             	$this->captcha_setting();
+					// }
 				}
 			}else{
 				$this->logger('log','User: '.$username.' failed login attempt. Token expired.');
@@ -239,7 +239,7 @@ class Auth extends MY_AdminController
         $data = create_captcha($values);
         $d = $data['word'];
 		$this->session->set_userdata('captchaWord', $d) ;
-        echo $data['image'];
+        $this->view_data['data'] $data['image'];
         
     }
 }
