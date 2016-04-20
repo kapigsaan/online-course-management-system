@@ -33,6 +33,7 @@
             <div class = "col-md-2"></div>
             <div class = "the_im col-md-6 text-right">
               <?= $data['image']; ?>
+              <?= $data['word']; ?>
             </div>
             <div class = "col-md-2 text-left">             
               <a href='#' url = "<?=site_url('auth/captcha_refresh')?>" class ="btn btn-warning refresh"><span class = "glyphicon glyphicon-refresh"></span></a>
