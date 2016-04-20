@@ -40,7 +40,7 @@ class Printables extends MY_AdminController
 	public function print_students()
 	{
 		//this data will be passed on to the view
-		$students = $this->ms->get_student_all('instructor');
+		$students = $this->mc->get_user_where('student');
 		$data['Head'] = 'Students Lists';
 		$data['content'] = $students;
 
@@ -66,9 +66,10 @@ class Printables extends MY_AdminController
 	public function print_subjects()
 	{
 		//this data will be passed on to the view
-		$students = $this->ms->get_student_all('instructor');
-		$data['Head'] = 'Students Lists';
-		$data['content'] = $students;
+		$Classes = $this->ms->get_all_classes_with_insturctor();
+		vd($Classes);
+		$data['Head'] = 'Classes Lists';
+		$data['classes'] = $Classes;
 
 		//load the view, pass the variable and do not show it but "save" the output into $html variable
 		$html = $this->load->view('printables/pdf_output', $data, true); 

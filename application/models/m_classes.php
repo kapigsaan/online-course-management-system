@@ -24,6 +24,44 @@ class M_classes Extends CI_Model
     return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
   }
 
+  public function get_all_classes_with_insturctor()
+  {
+    $query = "SELECT *
+          FROM
+          useraccounts
+          WHERE type = 'instructor'
+          ORDER BY 
+          l_name";
+    $q = $this->db->query($query);
+
+    if ($q->num_rows() >= 1) {
+    
+    $data = array();
+
+      foreach ($q->result() as $key => $v) {
+        $namefull = $v->l_name.' '.$v->f_name.' '$v->m_name;
+        $data[$namefull] = $this->get_my_classes($v->id);
+      }
+
+      return $data;
+
+    }else{
+      return FALSE; //returns result if none retrieved, returns FALSE
+    }
+
+  public function get_my_classes($id = FALSE)
+  {
+    $query = "SELECT *
+            FROM
+            classes
+            WHERE created_by = ?
+            ORDER BY 
+            class";
+    $q = $this->db->query($query,[$id]);
+
+    return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
   public function get_all_my_class($x = FALSE, $id = FALSE)
   {
     $query = "SELECT s.status,s.join
