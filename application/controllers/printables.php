@@ -67,7 +67,6 @@ class Printables extends MY_AdminController
 	{
 		//this data will be passed on to the view
 		$Classes = $this->cl->get_all_classes_with_insturctor();
-		vd($Classes);
 		$data['Head'] = 'Classes Lists';
 		$data['classes'] = $Classes;
 

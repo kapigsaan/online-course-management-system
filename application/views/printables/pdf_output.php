@@ -56,3 +56,26 @@ table.gridtable td {
 <?php endif ?>
 
 
+<?php if ($classes): ?>
+	<?foreach($content as $key => $v):?>
+		<h4 class = "head"><?=$key?></h4>
+		<table class="gridtable">
+			<tr>
+				<th>Class</th>
+				<th>Code</th>
+				<th>Created Date</th>
+				<!-- <th>Status</th> -->
+			</tr>
+				<?foreach($v as $k => $val):?>
+					<tr>
+						<td><?=$val->class?></td>
+						<td><?=$val->code?></td>
+						<td><?=date('F d, Y', strtotime($val->created_at))?></td>
+						<!-- <td></td> -->
+					</tr>
+				<?endforeach?>
+		</table>
+	<?endforeach?>
+<?php endif ?>
+
+
