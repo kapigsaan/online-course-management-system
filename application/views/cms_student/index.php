@@ -56,13 +56,13 @@
                                             <?php if ($cls): ?>
                                                 <?php if ($cls->join): ?>
                                                     <?php if ($cls->status): ?>
-                                                        <a class="btn btn-success" href="javascript:;" data-toggle="modal" data-target="#modal_<?=$v->id?>">Use Class</a> |
+                                                        <a class="btn btn-success" href="<?=site_url('cms_student/use_class/'.$v->id)?>">Use Class</a> |
                                                     <?php endif ?>
                                                 <? else: ?>
-                                                    <a class="btn btn-primary" href="<?=site_url('cms_student/join_class/'.$v->id)?>">Join Class</a>
+                                                    <a class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</a>
                                                 <?php endif ?>
                                             <?else:?>
-                                                <a class="btn btn-primary" href="<?=site_url('cms_student/join_class/'.$v->id)?>">Join Class</a>
+                                                <a class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</a>
                                             <?php endif ?>
 
                                         </td>
