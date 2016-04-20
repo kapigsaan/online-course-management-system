@@ -14,6 +14,7 @@ class Auth extends MY_AdminController
 		$this->load->library(array('form_validation','token'));
 		$this->load->helper(array('url','form'));
 		$this->load->helper('captcha');
+		$this->load->library('session');
 		$this->token->set_token();
 		session_start();
 	}
@@ -62,6 +63,7 @@ class Auth extends MY_AdminController
 		$this->load->helper('file');//load helper file
 		delete_files('./captcha');// delete all images in captcha folder
 		//$captcha = $this->_captcha(); //generate captcha
+		$this->captcha_setting();	
 		//$this->session->set_flashdata('image_url',$captcha->link); // save path of generated captcha to session
 		$this->view_data['form_token'] = $this->token->get_token();//generate form token
 		$this->load->library('form_validation');
