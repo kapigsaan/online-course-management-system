@@ -13,6 +13,7 @@ class Auth extends MY_AdminController
 		$this->load->model('M_users');
 		$this->load->library(array('form_validation','token'));
 		$this->load->helper(array('url','form'));
+		$this->load->helper('captcha');
 		$this->token->set_token();
 		session_start();
 	}
