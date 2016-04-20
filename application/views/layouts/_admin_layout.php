@@ -352,7 +352,7 @@
 
         $('#date_start').datepicker({ dateFormat: 'mm/dd/yy' });
         $('#date_end').datepicker({ dateFormat: 'mm/dd/yy' });
-        $('.datepick').datepicker({ dateFormat: 'Y-m-d' });
+        $('.datepick').datepicker({ dateFormat: 'yy-mm-dd' });
 
 
         $('a.confirm').on('click',function(e){
