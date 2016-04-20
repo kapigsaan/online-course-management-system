@@ -22,6 +22,7 @@ class Auth extends MY_AdminController
 	public function index()
 	{
 		redirect();
+		 $this->captcha_setting();
 	}
 	
 	private function _captcha()
@@ -61,7 +62,7 @@ class Auth extends MY_AdminController
 	{
 		$this->view_data['system_message'] = $this->_msg();
 		$this->load->helper('file');//load helper file
-		delete_files('./captcha');// delete all images in captcha folder
+		//delete_files('./captcha');// delete all images in captcha folder
 		//$captcha = $this->_captcha(); //generate captcha
 		$this->captcha_setting();	
 		//$this->session->set_flashdata('image_url',$captcha->link); // save path of generated captcha to session
