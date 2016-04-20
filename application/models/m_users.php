@@ -66,11 +66,11 @@ class M_users extends CI_Model
 		
 		$username_filter = $this->db->escape_str($v->username);
 		$password_filter = $this->db->escape_str($v->password);
-		$type_filter = $this->db->escape_str($v->type);
+		// $type_filter = $this->db->escape_str($v->type);
 		
 		
 		$this->db->where('username', $username_filter);
-		$this->db->where('type', $type_filter);
+		// $this->db->where('type', $type_filter);
 		$query = $this->db->get('useraccounts');
 
 		if($query->num_rows() >= 1 && $query->row()->userStatus == 'active')
@@ -89,6 +89,12 @@ class M_users extends CI_Model
 					'logged_in' => TRUE
 				);
 				$this->session->set_userdata($userdata);
+
+				if ($row->type == 'student') {
+					$data['updated_at'] = NOW;
+					$this->db->where('acid', $row->acid);
+					$this->db->update('useraccounts', $data);
+				}
 				return true;
 			}
 			else

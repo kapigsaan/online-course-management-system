@@ -7,8 +7,11 @@
         <p><?=$system_message?></p>
     <?php endif ?>
     <!-- /.col-lg-12 -->
+   
 </div>
-
+ <div>
+    <?php echo validation_errors('<div class = "alert alert-danger">')?>
+    </div>
 <!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
@@ -22,27 +25,27 @@
             <form action="" method = "post">
                 <div class="row">
                     <div class="col-md-6">
-                        <p>*Note Username will be used as password and can be change later</p>
-                        <input type = "text" class = "form-control" name = "username" placeholder = "Username & Password" required/>
+                        <p>*Note ID NUMBER will be used as User Name and password and can be change later</p>
+                        <input type = "text" class = "form-control" name = "username" placeholder = "ID Number" required/>
                     </div>    
                 </div>
                 <p></p>
                 <div class = "row">
                     <div class="col-md-4">
-                        <input type = "text" class = "form-control" name = "fname" placeholder = "First Name"/>
+                        <input type = "text" class = "form-control" name = "f_name" placeholder = "First Name"/>
                     </div>
                     <div class="col-md-4">
-                        <input type = "text" class = "form-control" name = "mname" placeholder = "Middle Name"/>
+                        <input type = "text" class = "form-control" name = "m_name" placeholder = "Middle Name"/>
                     </div>
                     <div class="col-md-4">
-                        <input type = "text" class = "form-control" name = "lname" placeholder = "Last Name"/>
+                        <input type = "text" class = "form-control" name = "l_name" placeholder = "Last Name"/>
                     </div>
                 </div>
                 <p></p>
                 <div class="row">
                     <div class="col-md-6"></div>
                     <div class="col-md-6 text-right">
-                        <input type = "submit" class = "btn btn-primary" name = "add-instructorsubmit" value = "Add Instructor" />
+                        <input type = "submit" class = "btn btn-primary" name = "add-studentsubmit" value = "Add Student" />
                         <a href="javascript:;" id = "canc" class = "btn btn-danger" >Cancel</a>
                     </div>
                 </div>
@@ -55,7 +58,7 @@
         </div>
 
         <!-- /.panel -->
-        <!-- <a href="javascript:;" id = "show-instructor-form" class = "btn btn-primary">Add Student</a> -->
+        <a href="javascript:;" id = "show-instructor-form" class = "btn btn-primary">Add Student</a>
         <p></p>
         <div class="panel panel-default">
             <!-- <div class="panel-heading">
@@ -89,9 +92,9 @@
                                         <?endif;?>
                                     </td>
                                     <td>
-                                        <a href="<?=site_url('cms_admin/view_student/'.$v->acid)?>"><i class = "fa fa-eye"> View Student </i></a>
-                                        <!-- <a href="<?=site_url('cms_admin/edit_instructor/'.$v->acid)?>"><i class = "fa fa-edit"> Edit </i></a>
-                                        <a href="<?=site_url('cms_admin/delete_instructor/'.$v->acid)?>"><i class = "fa fa-trash-o"> Delete </i></a> -->
+                                        <a href="<?=site_url('cms_admin/view_student/'.$v->id)?>"><i class = "fa fa-eye"> View Student </i></a> | 
+                                        <a href="<?=site_url('cms_admin/edit_student/'.$v->id)?>"><i class = "fa fa-edit"> Edit </i></a> | 
+                                        <a href="<?=site_url('cms_admin/delete_student/'.$v->id.'/'.$v->acid)?>" class = "confirm" title = "Are you Sure you want to delete student?"><i class = "fa fa-trash-o"> Delete </i></a>
                                     </td>
                                 </tr>
                             <? endforeach ?>

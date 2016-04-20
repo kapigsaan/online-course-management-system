@@ -43,6 +43,7 @@ $route['404_override'] = '';
 
 $route['obcms-login'] = 'auth/login';
 $route['obcms-logout'] = 'auth/logout';
+$route['obcms-register'] = 'register';
 
 //for content
 $route['content/(:any)/(:any)'] = 'content/index/$1/$2';

@@ -1,207 +1,153 @@
-<?php if ($backblog): ?>
-  <div id="da-slider" class="da-slider" style="background: transparent url(assets/images/<?=$backblog->imagefile?>) repeat 0% 0%;">
-<?else:?>
-  <div id="da-slider" class="da-slider" style="background: transparent url(assets/images/main-bg.jpg) repeat 0% 0%;">
-<?php endif ?>
-    <?php if ($banners): ?>
-        <?foreach ($banners as $key => $v):?>
-            <div class="da-slide">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2>
-                                <i><?=$v->caption?></i>
-                            </h2>
-                            <p>
-                                <i><?=html_entity_decode($v->content)?></i>
-                            </p>
-                            <a href="#" class="btn btn-info btn-lg da-link">
-                                Read more
-                            </a>
-                            <div class="da-img">
-                                <img src="<?=image_url($v->file)?>" style = "height:400px;" alt="image01" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?endforeach?>    
-    <?php endif ?>
+<div class="navbar navbar-inverse navbar-fixed-top scroll-me" id="menu-section" >
+<div class="container">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
 
-      <nav class="da-arrows">
-        <span class="da-arrows-prev">
-        </span>
-        <span class="da-arrows-next">
-        </span>
-      </nav>
-    </div>
+<a class="navbar-brand" href="<?=site_url('home')?>">
 
-
-    <div class="container">
-      <div class="row mar-b-50">
-        <div class="col-md-12">
-          <div class="text-center feature-head wow fadeInDown">
-            <h1 class="">
-              Welcome To Teknon Host IT Solutions
-            </h1>
-
-          </div>
-
-
-          <div class="feature-box text-center">
-            <?php if ($features): ?>
-                <?foreach ($features as $key => $v):?>
-                    <div class="
-                        <?php if ($counter): ?>
-                            <?php if ($counter == 4): ?>
-                              col-md-3 col-sm-3
-                            <?elseif($counter == 3):?>
-                              col-md-4 col-sm-4
-                            <?elseif($counter == 2):?>
-                              col-md-6 col-sm-6
-                            <?elseif($counter == 1):?>
-                              col-md-12 col-sm-12
-                            <?php endif ?>
-                        <?php endif ?> 
-                        text-center wow fadeInUp">
-                        <div class="feature-box-heading">
-                            <em>
-                            <?php if ($v->imagefile): ?>
-                              <img src="<?=image_url($v->imagefile)?>" alt="" height="100" style = "border-radius:25px;">
-                            <?php else:?>
-                              <img src="<?=site_url('teknon_no_image.png')?>" alt="" height="100" style = "opacity: 0.4;">
-                            <?php endif ?>
-                            </em>
-                            <h4>
-                                <b><?=$v->caption?></b>
-                            </h4>
-                        </div>
-                        <p class="text-center">
-                            <?= html_entity_decode($v->content)?>
-                        </p>
-                    </div>
-                <?endforeach?>
-            <?php endif ?>
-          </div>
-
-          <!--feature end-->
-        </div>
-      </div>
-    </div>
-
-
-      <!--recent work start-->
-    <div class="bg-lg">
-     <!--  <div class="container">
-        <div class="row">
-          <div class="col-lg-12 recent">
-            <h3 class="recent-work">
-              Recent Work
-            </h3>
-            <p>Some of our work we have done earlier</p>
-            <div id="owl-demo" class="owl-carousel owl-theme wow fadeIn">
-              <?php if ($activities): ?>
-                <?foreach ($activities as $key => $v):?>
-                  <div class="item view view-tenth">
-                    <img src="<?=image_url($v->imagefile)?>" alt="work Image">
-                    <div class="mask">
-                      <a href="<?=$v->linkto?>" class="info" data-toggle="tooltip" data-placement="top" title="">
-                        <?=$v->caption?>
-                      </a>
-                    </div>
-                  </div>
-                <?endforeach?>
+              <?php if ($prof): ?>
+                <?php if ($prof->name):?>
+                  <?=$prof->name?>
+                <?else:?>
+                  Company<span>Logo</span>
+                <?php endif ?>
+              <?php else:?>
+                Company<span>Logo</span>
               <?php endif ?>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!--recent work end-->
-    </div>
+
+              </a>
+</div>
+<div class="navbar-collapse collapse">
+<ul class="nav navbar-nav navbar-right">
+<li><a href="<?=site_url('obcms-login')?>">Login</a></li>
+<!-- <li><a href="<?=site_url('obcms-register')?>">Register</a></li> -->
+</ul>
+</div>
+
+</div>
+</div>
+<!--MENU SECTION END-->
+<!--HOME SECTION START-->
+<div id="home" >
+<div class="container">
+<div class="row">
+<div class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 ">
+<div id="carousel-slider" data-ride="carousel" class="carousel slide  animate-in" data-anim-type="fade-in-up">
+
+<div class="carousel-inner">
+<div class="item active">
+
+<h3>
+Consectetur adipiscing elit felis dolor felis dolor vitae
+</h3>
+<p>
+Lorem ipsumdolor sitamet, consect adipiscing elit
+Lorem ipsumdolor sitamet, consect adipiscing elit.
+Lorem ipsumdolor sitamet, consect adipiscing elit
+Lorem ipsumdolor sitamet, consect adipiscing elit.
+</p>
+</div>
+<div class="item">
+<h3>
+Lorem ipsumdolor sitamet, consect adipiscing elit
+</h3>
+<p>
+Lorem ipsumdolor sitamet, consect adipiscing elit
+Lorem ipsumdolor sitamet, consect adipiscing elit.
+Lorem ipsumdolor sitamet, consect adipiscing elit
+Lorem ipsumdolor sitamet, consect adipiscing elit.
+</p>
+</div>
+
+</div>
 
 
-<!-- 
-    <div id="home-services">
+</div>
 
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h2>
-              In case you need any help
-            </h2>
-          </div>
 
-          <div class="col-md-4">
-            <div class="h-service">
-              <div class="icon-wrap ico-bg round-fifty wow fadeInDown">
-                <i class="fa fa-question">
-                </i>
-              </div>
-              <div class="h-service-content wow fadeInUp">
-                <h3>
-                  PRESALE QUESTION
-                </h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim  laborum.
-                  <br>
-                  <a href="#">
-                    Learn more
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="h-service">
-              <div class="icon-wrap ico-bg round-fifty wow fadeInDown">
-                <i class="fa fa-h-square">
-                </i>
-              </div>
-              <div class="h-service-content wow fadeInUp">
-                <h3>
-                  NEED SUPPORT?
-                </h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim  laborum.
-                  <br>
-                  <a href="#">
-                    Learn more
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="h-service">
-              <div class="icon-wrap ico-bg round-fifty wow fadeInDown">
-                <i class="fa fa-users">
-                </i>
-              </div>
-              <div class="h-service-content wow fadeInUp">
-                <h3>
-                  CHECK FORUM
-                </h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim  laborum.
-                  <br>
-                  <a href="#">
-                    Learn more
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
+</div>
+</div>
+<div class="row animate-in" data-anim-type="fade-in-up">
+<div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-8 col-lg-offset-2 scroll-me">
 
-      </div> -->
-      <!-- /container -->
 
-    </div>
-    <!-- service end -->
-    <div class="hr">
-      <span class="hr-inner"></span>
-    </div>
+<p >
+This line is fixed so you can write anything
+
+</p>
+<div class="social">
+<a href="#" class="btn button-custom btn-custom-one" ><i class="fa fa-facebook "></i></a>
+<a href="#" class="btn button-custom btn-custom-one" ><i class="fa fa-twitter"></i></a>
+<a href="#" class="btn button-custom btn-custom-one" ><i class="fa fa-google-plus "></i></a>
+<a href="#" class="btn button-custom btn-custom-one" ><i class="fa fa-linkedin "></i></a>
+<a href="#" class="btn button-custom btn-custom-one" ><i class="fa fa-pinterest "></i></a>
+<a href="#" class="btn button-custom btn-custom-one" ><i class="fa fa-github "></i></a>
+</div>
+<a href="#services" class=" btn button-custom btn-custom-two">See Service List </a>
+</div>
+</div>
+</div>
+
+</div>
+<!--HOME SECTION END-->
+
+<!--GRID SECTION END-->
+<!--CONTACT SECTION START-->
+<section id="contact" >
+<div class="container">
+<div class="row text-center header animate-in" data-anim-type="fade-in-up">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+<h3>Contact Details </h3>
+<hr />
+
+</div>
+</div>
+
+<div class="row animate-in" data-anim-type="fade-in-up">
+
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+<div class="contact-wrapper">
+<h3>We Are Social</h3>
+<p>
+Aliquam tempus ante placerat,
+consectetur tellus nec, porttitor nulla.
+</p>
+<div class="social-below">
+<a href="#" class="btn button-custom btn-custom-two" > Facebook</a>
+<a href="#" class="btn button-custom btn-custom-two" > Twitter</a>
+<a href="#" class="btn button-custom btn-custom-two" > Google +</a>
+</div>
+</div>
+
+</div>
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+<div class="contact-wrapper">
+<h3>Quick Contact</h3>
+<h4><strong>Email : </strong> info@yuordomain.com </h4>
+<h4><strong>Call : </strong> +09-88-99-77-55 </h4>
+<h4><strong>Skype : </strong> Yujhaeu78 </h4>
+</div>
+
+</div>
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+<div class="contact-wrapper">
+<h3>Address : </h3>
+<h4>230/45 , New way Lane , </h4>
+<h4>United States</h4>
+<div class="footer-div" >
+&copy; 2015 YourDomain | <a href="http://www.designbootstrap.com/" target="_blank" >by DesignBootstrp</a>
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+</section>

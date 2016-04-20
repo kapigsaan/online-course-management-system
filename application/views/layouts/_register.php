@@ -20,12 +20,12 @@
     <title>
         <?php if ($title): ?>
             <?php if ($title->name == ""): ?>
-                Admin Login | CMS
+                Create Account | CMS
             <?php else:?>
                 <?=$title->name?>
             <?php endif ?>
         <?php else:?>
-            Admin Login | CMS
+            Create Account | CMS
         <?php endif ?>
     </title>
 
@@ -40,7 +40,9 @@
 
     <!-- Custom Fonts -->
     <link href="<?=site_url('assets/fonts/css/font-awesome.min.css')?>" rel="stylesheet">
-
+    <link href="<?=site_url('assets/css/jquery-ui.css')?>" rel="stylesheet">
+    <link href="<?=site_url('assets/css/jquery-ui.structure.min.css')?>" rel="stylesheet">
+    <link href="<?=site_url('assets/css/jquery-ui.theme.min.css')?>" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -54,32 +56,19 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading text-center" >
-                    <?php if ($prof): ?>
-                        <?php if (!$prof->website == ""):?>
-                          <img src="<?php echo site_url($prof->website); ?>" alt="Jnz@yui.rin"/>
-                        <?else:?>
-                           <img src="<?=site_url('logo.jpg')?>">
-                        <?php endif ?>
-                    <?php else:?>
-                         <img src="<?=site_url('logo.jpg')?>">
-                    <?php endif ?>
-                       
-                    </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="login-panel panel panel-default" style = "margin-top:50px;">
                     <div class="panel-body">
                         <?php echo $yield;?>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-1"></div>
         </div>
     </div>
 
     <!-- jQuery Version 1.11.0 -->
-    <script src="<?=site_url('assets/jquery-1.11.0.js')?>"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<?=site_url('assets/bootstrap.min.js')?>"></script>
@@ -90,6 +79,16 @@
     <!-- Custom Theme JavaScript -->
     <script src="<?=site_url('assets/sb-admin-2.js')?>"></script>
 
+     <script src="<?=site_url('assets/js/jquery-ui.min.js')?>"></script>
+     <script src="<?=site_url('assets/js/jquery.min.js')?>"></script>
+     
+     <script>
+      $(document).ready(function(){
+
+        $( ".datepicker" ).datepicker();
+        $('#birthdate').val('asd');
+      });
+    </script>
 </body>
 
 </html>

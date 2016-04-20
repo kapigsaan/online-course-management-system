@@ -44,6 +44,16 @@ class M_students Extends CI_Model
     return $q->num_rows() >= 1 ? $q->row() : FALSE; //returns result if none retrieved, returns FALSE
   }
 
+  public function get_student_all()
+  {
+    $query = "SELECT s.*, u.username,u.acid,u.userStatus,u.type
+          FROM students s
+          LEFT JOIN useraccounts u ON s.acc_id = u.acid
+          ";
+    $q = $this->db->query($query);
+    return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
   public function get_student_class($id=FALSE)
   {
   	if ($id) {
@@ -91,7 +101,7 @@ class M_students Extends CI_Model
 					'm_name' => $v->m_name,
 					'l_name' => $v->l_name,
 					'type' => $v->userType,
-					'userStatus' => 'inactive',
+					'userStatus' => 'active',
 					'created_at' => NOW,
 			);
 			$this->db->insert('useraccounts', $user_data);
@@ -103,7 +113,6 @@ class M_students Extends CI_Model
 					'm_name' => $v->m_name, 
 					'l_name' => $v->l_name, 
 					'acc_id' => $last_insert_id,
-					'class_id' => $v->class_id,
 					'created_at' => NOW,
 					);
 
@@ -125,7 +134,6 @@ class M_students Extends CI_Model
 					'f_name' => $v->f_name,
 					'm_name' => $v->m_name,
 					'l_name' => $v->l_name,
-					'updated_at' => NOW,
 			);
 			$this->db->where('acid', $account_id);
 			$this->db->update('useraccounts', $user_data);
@@ -135,8 +143,6 @@ class M_students Extends CI_Model
 					'm_name' => $v->m_name, 
 					'l_name' => $v->l_name, 
 					'acc_id' => $account_id,
-					'class_id' => $v->class_id,
-					'updated_at' => NOW,
 					);
 
 			$this->db->where('id', $id);

@@ -84,6 +84,7 @@ class Cms_teacher extends MY_AdminController {
 
 		if ($this->input->post()) {
 			$data['class'] = $this->input->post('class');
+			$data['code'] = $this->input->post('class');
 			$data['created_by'] = $this->session->userdata('userid');
 
 			$result = $this->mc->add_class($data);

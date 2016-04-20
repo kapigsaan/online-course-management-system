@@ -34,6 +34,7 @@
                             <tr>
                                 <th>Class</th>
                                 <th>Manage</th>
+                                <th>Code</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -48,6 +49,7 @@
                                         <a href="<?=site_url('cms_teacher/materials/'.$v->id)?>"><i class = "fa fa-folder-open"> Course Materials </i></a> | 
                                         <a href="<?=site_url('calendars/index/'.$v->id)?>"><i class = "fa fa-newspaper-o"> News Bulletin </i></a>
                                     </td>
+                                    <td><?=$v->code?></td>
                                     <td>
                                         <a href="<?=site_url('cms_teacher/edit_class/'.$v->id)?>"><i class = "fa fa-edit"> Edit </i></a> | 
                                         <a class = "btn confirm" href="<?=site_url('cms_teacher/delete_class/'.$v->id)?>" title = "Are you sure you want to Delete Class This Cannot be reversed?"> <i class = "fa fa-trash-o"> Delete </i></a>

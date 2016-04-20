@@ -110,24 +110,29 @@ class Cms_admin extends MY_AdminController {
 
 	public function student()
 	{
+
 		if ($this->input->post('add-studentsubmit')) {
-			$data['username'] = $this->input->post('username');
-			$data['f_name'] = $this->input->post('fname');
-			$data['m_name'] = $this->input->post('mname');
-			$data['l_name'] = $this->input->post('lname');
-			$data['userType'] = 'instructor';
+			$this->form_validation->set_rules('username', 'Username', 'required|is_unique[useraccounts.username]');
 
-			$res = $this->mu->add_user($data);
+			if ($this->form_validation->run() == FALSE){
 
-			if ($res) {
-				$this->_msg('s','Successfully Added.','Cms_admin/student');
 			}else{
-				$this->_msg('e','Failed.','Cms_admin/student');
-			}	
+				$data['username'] = $this->input->post('username');
+				$data['f_name'] = $this->input->post('f_name');
+				$data['m_name'] = $this->input->post('m_name');
+				$data['l_name'] = $this->input->post('l_name');
+				$data['userType'] = 'student';
 
+				$res = $this->ms->add_student($data);
+				if ($res) {
+					$this->_msg('s','Successfully Added Student.','Cms_admin/student/'.$id);
+				}else{
+					$this->_msg('e','Failed.','Cms_admin/student/'.$id);
+				}	
+			}
 		}
 
-		$this->view_data['list']=$this->mc->get_user_where('student');
+		$this->view_data['list']=$this->ms->get_student_all();
 	}
 
 	public function view_student($id = FALSE)
@@ -142,12 +147,42 @@ class Cms_admin extends MY_AdminController {
 
 	public function edit_student($id = FALSE)
 	{
-		# code...
+		if ($id) {
+			
+			if ($this->input->post('edit-studentsubmit')) {
+				$account_id = $this->input->post('account_id');
+				$data['username'] = $this->input->post('username');
+				$data['f_name'] = $this->input->post('f_name');
+				$data['m_name'] = $this->input->post('m_name');
+				$data['l_name'] = $this->input->post('l_name');
+				$data['userType'] = 'student';
+
+				$res = $this->ms->edit_student($data, $id, $account_id);
+				if ($res) {
+					$this->_msg('s','Successfully Updated Student.','Cms_admin/student/'.$class);
+				}else{
+					$this->_msg('e','Failed.','Cms_admin/student/'.$class);
+				}	
+			}
+
+			$this->view_data['list'] = $this->ms->get_student($id);
+		}else{
+			show_404();
+		}
 	}
 
-	public function delete_student($id = FALSE)
+	public function delete_student($id = FALSE, $account_id = FALSE)
 	{
-		# code...
+		if ($id && $account_id) {
+			$res = $this->ms->delete_student($id, $account_id);
+			if ($res) {
+					$this->_msg('s','Successfully Deleted Student.','Cms_admin/student/'.$class);
+				}else{
+					$this->_msg('e','Failed.','Cms_admin/student/'.$class);
+				}
+		}else{
+			show_404();
+		}
 	}
 
 	public function change_status($route = FALSE, $status = FALSE, $id = FALSE)

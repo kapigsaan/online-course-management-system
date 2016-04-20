@@ -63,7 +63,7 @@
         </div>
 
         <!-- /.panel -->
-        <a href="javascript:;" id = "show-instructor-form" class = "btn btn-primary">Add Student</a>
+        <!-- <a href="javascript:;" id = "show-instructor-form" class = "btn btn-primary">Add Student</a> -->
         <p></p>
         <div class="panel panel-default">
             <!-- <div class="panel-heading">
