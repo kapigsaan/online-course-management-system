@@ -16,6 +16,7 @@ table.gridtable th {
 	background-color: #dedede;
 }
 table.gridtable td {
+	width: 90%;
 	border-width: 1px;
 	padding: 8px;
 	border-style: solid;
@@ -26,7 +27,7 @@ table.gridtable td {
 
 <p></p>
 <?php if ($Head): ?>
-	<h3><?php echo $Head?></h3>
+	<center><h3><?php echo $Head?></h3></center>
 <?php endif ?>
 <p></p>
 <p></p>
