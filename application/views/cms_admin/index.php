@@ -6,8 +6,10 @@
                 <!-- /.col-lg-12 -->
             </div>
             <?php if ($system_message): ?>
-    <p><?=$system_message?></p>
-<?php endif ?>
+                <div class="alert alert-success">
+                   <?=$system_message?> 
+                </div>
+            <?php endif ?>
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-3 col-md-6">
