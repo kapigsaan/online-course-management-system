@@ -239,7 +239,7 @@ class Auth extends MY_AdminController
         $data = create_captcha($values);
         $d = $data['word'];
 		$this->session->set_userdata('captchaWord', $d) ;
-        $this->view_data['data'] $data['image'];
+        $this->view_data['data'] = $data['image'];
         
     }
 }
