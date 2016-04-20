@@ -444,12 +444,12 @@ class Cms_teacher extends MY_AdminController {
 				unlink($path); // DELETE RECENT IMAGE IF EXIST / UNLINK
 		        $res = $this->md->delete_content($id);
 				if ($res) {
-					$this->_msg('s','Successfully Delted Course Content.','Cms_teacher/materials/'.$class);
+					$this->_msg('s','Successfully Delted Course Content.','cms_teacher/materials/'.$class);
 				}else{
-					$this->_msg('e','Failed.','Cms_teacher/materials/'.$class);
+					$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
 				}	
 	        }else{
-	          $this->_msg('e','File Not Deleted.','Cms_teacher/materials/'.$class);
+	          $this->_msg('e','File Not Deleted.','cms_teacher/materials/'.$class);
 	        }
 		}else{
 			show_404();

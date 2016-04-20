@@ -125,9 +125,9 @@ class Cms_admin extends MY_AdminController {
 
 				$res = $this->ms->add_student($data);
 				if ($res) {
-					$this->_msg('s','Successfully Added Student.','Cms_admin/student/'.$id);
+					$this->_msg('s','Successfully Added Student.','cms_admin/student/'.$id);
 				}else{
-					$this->_msg('e','Failed.','Cms_admin/student/'.$id);
+					$this->_msg('e','Failed.','cms_admin/student/'.$id);
 				}	
 			}
 		}
@@ -159,9 +159,9 @@ class Cms_admin extends MY_AdminController {
 
 				$res = $this->ms->edit_student($data, $id, $account_id);
 				if ($res) {
-					$this->_msg('s','Successfully Updated Student.','Cms_admin/student/'.$class);
+					$this->_msg('s','Successfully Updated Student.','cms_admin/student/'.$class);
 				}else{
-					$this->_msg('e','Failed.','Cms_admin/student/'.$class);
+					$this->_msg('e','Failed.','cms_admin/student/'.$class);
 				}	
 			}
 
@@ -176,9 +176,9 @@ class Cms_admin extends MY_AdminController {
 		if ($id && $account_id) {
 			$res = $this->ms->delete_student($id, $account_id);
 			if ($res) {
-					$this->_msg('s','Successfully Deleted Student.','Cms_admin/student/'.$class);
+					$this->_msg('s','Successfully Deleted Student.','cms_admin/student/'.$class);
 				}else{
-					$this->_msg('e','Failed.','Cms_admin/student/'.$class);
+					$this->_msg('e','Failed.','cms_admin/student/'.$class);
 				}
 		}else{
 			show_404();

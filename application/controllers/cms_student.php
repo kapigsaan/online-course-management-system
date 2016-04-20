@@ -34,54 +34,10 @@ class Cms_student extends MY_AdminController {
 
 	}
 	
-	public function index($year = FALSE, $month = FALSE)
+	public function index()
 	{
-		if (!$year) {
-			$year = date('Y');
-		}
-		if (!$month) {
-			$month = date('m');
-		}
-
-		$prefs = array (
-			'start_day' => 'sunday',
-			'show_next_prev' => true,
-			'next_prev_url' => base_url() . 'cms_student/index'
-             );
-
-		$prefs['day_type'] = 'long'; 
-
-		$prefs['template'] = '
-			 {table_open}<table class="calendar">{/table_open}
-
-			 {heading_row_start}<tr style = "width: 100%;">{/heading_row_start}
-
-			{heading_previous_cell}<th style = "text-align:center;"><a href="{previous_url}">&lt;&lt; Previous</a></th>{/heading_previous_cell}
-			{heading_title_cell}<th colspan="{colspan}" style = "text-align:center;">{heading}</th>{/heading_title_cell}
-			{heading_next_cell}<th style = "text-align:center;"><a href="{next_url}">Next &gt;&gt;</a></th>{/heading_next_cell}
-
-			{heading_row_end}</tr>{/heading_row_end}
-
-			    {week_day_cell}<th class="day_header">{week_day}</th>{/week_day_cell}
-			    {cal_cell_content}<span class="day_listing">{day}</span> {content}&nbsp;{/cal_cell_content}
-			    {cal_cell_content_today}<div class="today"><span class="day_listing">{day}</span> {content}</div>{/cal_cell_content_today}
-			    {cal_cell_no_content}<span class="day_listing">{day}</span>&nbsp;{/cal_cell_no_content}
-			    {cal_cell_no_content_today}<div class="today"><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
-		';
-
-		$this->load->library('calendar', $prefs);
-		$datas = $this->mcal->get_all_events($year,$month,$this->get_student_class());
-
-		$current_url = 'calendar-of--Events'.$year.'-'.$month;
-
-		$years = date('Y');
-		$months = date('m');
-
-		$this->view_data['current'] = $mm = date('F').'  '.$yy = date('Y');
-		$type = "web";
-		$this->view_data['cal'] = $this->calendar->generate_event_calendar($year,$month,$datas,$current_url,$type);
-		$this->view_data['links'] = $this->calendar->generate($this->uri->segment(3), $this->uri->segment(4));
-		$this->view_data['events'] = $this->mcal->get_all_event_for($months,$years);
+		$this->view_data['classes'] = $this->mcl->get_all_classes();
+		$this->view_data['myclasses'] = $this->mcl->get_all_my_class($this->session->userdata('userid'));
 	}
 
 	public function materials()

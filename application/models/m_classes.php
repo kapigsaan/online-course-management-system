@@ -24,6 +24,19 @@ class M_classes Extends CI_Model
     return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
   }
 
+  public function get_all_my_class($id = FALSE)
+  {
+    $query = "SELECT *
+          FROM students_in_class s
+          LEFT JOIN classes c ON s.class_id = s.id
+          WHERE s.stud_id = ?
+          ORDER BY 
+          class";
+    $q = $this->db->query($query, [$id]);
+    
+    return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
   public function get_all_classes_where($id = FALSE)
   {
     $query = "SELECT *
