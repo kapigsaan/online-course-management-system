@@ -40,7 +40,7 @@ class M_classes Extends CI_Model
 
       foreach ($q->result() as $key => $v) {
         $namefull = $v->l_name.' '.$v->f_name.' '.$v->m_name;
-        $data[$namefull] = $this->get_my_classes($v->id);
+        $data[$namefull] = $this->get_my_classes($v->acid);
       }
 
       return $data;
