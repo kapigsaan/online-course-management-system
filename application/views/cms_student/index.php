@@ -59,10 +59,10 @@
                                                         <a class="btn btn-success" href="<?=site_url('cms_student/use_class/'.$v->id)?>">Use Class</a> |
                                                     <?php endif ?>
                                                 <? else: ?>
-                                                    <a class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</a>
+                                                    <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</a>
                                                 <?php endif ?>
                                             <?else:?>
-                                                <a class="btn btn-primary" href="javascript:;" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</a>
+                                                <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</a>
                                             <?php endif ?>
 
                                         </td>
