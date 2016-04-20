@@ -58,9 +58,10 @@ class M_students Extends CI_Model
   {
   	if ($id) {
   		$query = "SELECT s.class_id
-          FROM students s
-          LEFT JOIN useraccounts u ON s.acc_id = u.acid
+          FROM students_in_class s
+          LEFT JOIN useraccounts u ON s.stud_id = u.acid
           WHERE u.acid = ?
+          AND s.status = 'active'
           ";
 	    $q = $this->db->query($query,array($id));
 	    return $q->num_rows() >= 1 ? $q->row()->class_id : FALSE; //returns result if none retrieved, returns FALSE

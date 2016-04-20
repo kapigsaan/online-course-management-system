@@ -47,7 +47,7 @@
                                         </td>
                                         <td>
                                             <?php if ($cls): ?>
-                                                <?php if ($cls->status == 'active'): ?>
+                                                <?php if ($cls->status == 'inactive'): ?>
                                                     <i class = "fa fa-check">Class in Use</i>
                                                 <?php endif ?>
                                             <?php endif ?>
