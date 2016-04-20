@@ -25,6 +25,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li><a href="<?=site_url('obcms-login')?>">Login</a></li>
 <?= $data['image']; ?>
+<?= $data['word']; ?>
 <!-- <li><a href="<?=site_url('obcms-register')?>">Register</a></li> -->
 </ul>
 </div>
