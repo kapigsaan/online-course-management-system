@@ -215,16 +215,16 @@
                                 <a href="#"><i class="fa fa-print fa-fw"></i> Printables <span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="<?=site_url('Printables/print_instructors')?>"><i class="fa fa-hand-o-right"> Instructors</i></a>
+                                        <a href="<?=site_url('printables/print_instructors')?>"><i class="fa fa-hand-o-right"> Instructors</i></a>
                                     </li>
                                     <li>
-                                        <a href="<?=site_url('Printables/print_students')?>"><i class="fa fa-hand-o-right"> Students</i></a>
+                                        <a href="<?=site_url('printables/print_students')?>"><i class="fa fa-hand-o-right"> Students</i></a>
                                     </li>
                                     <li>
-                                        <a href="<?=site_url('Printables/print_subjects')?>"><i class="fa fa-hand-o-right"> Subjects/Classes</i></a>
+                                        <a href="<?=site_url('printables/print_subjects')?>"><i class="fa fa-hand-o-right"> Subjects/Classes</i></a>
                                     </li>
                                     <li>
-                                        <a href="<?=site_url('Printables/print_student_by_class')?>"><i class="fa fa-hand-o-right"> Student by Class</i></a>
+                                        <a href="<?=site_url('printables/print_student_by_class')?>"><i class="fa fa-hand-o-right"> Student by Class</i></a>
                                     </li>
                                 </ul>
                             </li>
