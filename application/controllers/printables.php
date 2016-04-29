@@ -18,6 +18,8 @@ class Printables extends MY_AdminController
 		$data['Head'] = 'Instructors Lists';
 		$data['content'] = $instructors;
 		$data['classes'] = FAlSE;
+		$data['students_class'] = FAlSE;
+		$data['mystudent'] = FAlSE;
 
 		//load the view, pass the variable and do not show it but "save" the output into $html variable
 		$html = $this->load->view('printables/pdf_output', $data, true); 
@@ -44,7 +46,9 @@ class Printables extends MY_AdminController
 		$students = $this->mc->get_user_where('student');
 		$data['Head'] = 'Students Lists';
 		$data['content'] = $students;
+		$data['students_class'] = FAlSE;
 		$data['classes'] = FAlSE;
+		$data['mystudent'] = FAlSE;
 
 		//load the view, pass the variable and do not show it but "save" the output into $html variable
 		$html = $this->load->view('printables/pdf_output', $data, true); 
@@ -72,6 +76,8 @@ class Printables extends MY_AdminController
 		$data['Head'] = 'Classes Lists';
 		$data['classes'] = $Classes;
 		$data['content'] = FAlSE;
+		$data['students_class'] = FAlSE;
+		$data['mystudent'] = FAlSE;
 
 		//load the view, pass the variable and do not show it but "save" the output into $html variable
 		$html = $this->load->view('printables/pdf_output', $data, true); 
@@ -96,11 +102,11 @@ class Printables extends MY_AdminController
 	{
 		//this data will be passed on to the view
 		$Classes = $this->cl->get_all_classes_with_students();
-		vd($Classes);
-		$data['Head'] = 'Classes Lists';
+		$data['Head'] = 'Students By Class';
 		$data['students_class'] = $Classes;
 		$data['classes'] = FAlSE;
 		$data['content'] = FAlSE;
+		$data['mystudent'] = FAlSE;
 
 		//load the view, pass the variable and do not show it but "save" the output into $html variable
 		$html = $this->load->view('printables/pdf_output', $data, true); 
@@ -119,5 +125,40 @@ class Printables extends MY_AdminController
 
 		//browser
   		$pdf->Output();
+	}
+
+	public function print_my_student_by_class($class = FAlSE)
+	{
+		if ($class) {
+			//this data will be passed on to the view
+			$Classes = $this->cl->print_my_student_by_class($class);
+			$classs = $this->cl->get_class($class);
+			$data['Head'] = 'Students in '.$classs;
+			$data['students_class'] = FAlSE;
+			$data['classes'] = FAlSE;
+			$data['content'] = FAlSE;
+			$data['mystudent'] = $Classes;
+
+			//load the view, pass the variable and do not show it but "save" the output into $html variable
+			$html = $this->load->view('printables/pdf_output', $data, true); 
+
+			//this the the PDF filename that user will get to download
+			$pdfFilePath = "students_pdf.pdf";
+
+			//load mPDF library
+			$this->load->library('m_pdf');
+			//actually, you can pass mPDF parameter on this load() function
+			$pdf = $this->m_pdf->load();
+			//generate the PDF!
+			$pdf->WriteHTML($html);
+			//offer it to user via browser download! (The PDF won't be saved on your server HDD)
+			//$pdf->Output($pdfFilePath, "D");
+
+			//browser
+	  		$pdf->Output();
+		}else{
+			show_404();
+		}
+		
 	}
 }

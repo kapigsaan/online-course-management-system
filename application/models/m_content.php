@@ -99,6 +99,27 @@ class M_content Extends CI_Model
       return FALSE;
     }
   }
+
+  public function change_stud_status($status = FALSE, $id=FALSE){
+    if ($id) {
+      $q="UPDATE `students_in_class`
+              SET 
+              `status` = 'inactive'
+              ";
+      $res = $this->db->query($q); 
+
+      $query="UPDATE `students_in_class`
+              SET 
+              `join` = ?
+              WHERE `id` = ?
+              ";
+      $result = $this->db->query($query, array($status,$id));
+
+      return $this->db->affected_rows()>=1 ?TRUE:FALSE; 
+    }else{
+      return FALSE;
+    }
+  }
   
   /**
    * get_content

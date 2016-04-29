@@ -11,7 +11,7 @@
 
 <!-- /.row -->
 <div class="row">
-	<div class="col-md-12">
+    <div class="col-md-12">
         <div class="panel panel-green">
             <div class="panel-heading">
                 Content
@@ -30,19 +30,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                        	<?php if ($course_content): ?>
-                    			<?foreach ($course_content as $key => $v):?>
-                    				<tr>
-                    					<td><?=$v->caption?></td>
-                    					<td><?=$v->file?></td>
-                    					<td><?=$v->file_size?></td>
-                    					<td>
-		                        			<a href="<?php echo assets_url('downloads/content/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> View and Download </i></a>
-		                        			<!-- <a href="<?=site_url('cms_teacher/delete_outline/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a> -->
-		                        		</td>
-                    				</tr>
-                    			<?endforeach?>
-                    		<?php endif ?>
+                            <?php if ($course_content): ?>
+                                <?foreach ($course_content as $key => $v):?>
+                                    <tr>
+                                        <td><?=$v->caption?></td>
+                                        <td><?=$v->file?></td>
+                                        <td><?=$v->file_size?></td>
+                                        <td>
+                                            <a href="<?php echo assets_url('downloads/content/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-eye"> View </i></a> | 
+                                            <a href="<?=site_url('cms_student/download/content/'.$v->file)?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> Download </i></a>
+                                            <!-- <a href="<?=site_url('cms_teacher/delete_outline/'.$class.'/'.$v->id)?>"><i class = "fa fa-trash-o"> Delete </i></a> -->
+                                        </td>
+                                    </tr>
+                                <?endforeach?>
+                            <?php endif ?>
                         </tbody>
                     </table>
                 </div>

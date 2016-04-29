@@ -183,12 +183,11 @@ class M_students Extends CI_Model
 		return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
 	}
 
-	public function delete_student($post_id=FALSE, $account_id = FALSE)
+	public function delete_student($id=FALSE)
 	{
-		if ($post_id && $account_id) {
-			$this->db->delete('useraccounts', array('acid' => $account_id)); 
-
-			$this->db->delete('students', array('id' => $post_id)); 
+		if ($id) {
+      $this->db->where('id', $id);
+			$this->db->delete('students_in_class'); 
 
 			return $this->db->affected_rows() >= 1 ? TRUE : FALSE;	
 		}else{
@@ -198,7 +197,7 @@ class M_students Extends CI_Model
 
 	public function get_students_in_class($id=FALSE)
 	{
-		$query = "SELECT s.*, u.username, u.userStatus, u.acid
+		$query = "SELECT s.*, u.username, u.acid, sc.id as sc_id , sc.join as status
 				  FROM students s
           LEFT JOIN useraccounts u ON s.acc_id = u.acid
 				  LEFT JOIN students_in_class sc ON u.acid = sc.stud_id

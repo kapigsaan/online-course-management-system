@@ -42,12 +42,19 @@
                         <?php if ($classes): ?>
                             <? foreach ($classes as $key => $v): ?> 
                                 <tr class="gradeC">
-                                    <td><?=$v->class?></td>
+                                    <td><?=$v->class?>
+                                        <?if($v->status == "active"):?>
+                                            <a href="<?=site_url('cms_teacher/activenot/classes/inactive/'.$v->id)?>"><i style = "float:right;" class = "fa fa-lock"></i></a>
+                                        <?else:?>
+                                            <a href="<?=site_url('cms_teacher/activenot/classes/active/'.$v->id)?>"><i style = "float:right;" class = "fa fa-unlock"></i></a>
+                                        <?endif;?>
+                                    </td>
                                     <td>
                                         <a href="<?=site_url('cms_teacher/students/'.$v->id)?>"><i class = "fa fa-group"> Students </i></a> | 
                                         <a href="<?=site_url('cms_teacher/forums/'.$v->id)?>"><i class = "fa fa-file-text"> Forums </i></a> | 
                                         <a href="<?=site_url('cms_teacher/materials/'.$v->id)?>"><i class = "fa fa-folder-open"> Course Materials </i></a> | 
-                                        <a href="<?=site_url('calendars/index/'.$v->id)?>"><i class = "fa fa-newspaper-o"> News Bulletin </i></a>
+                                        <a href="<?=site_url('calendars/index/'.$v->id)?>"><i class = "fa fa-newspaper-o"> News Bulletin </i></a> | 
+                                        <a href="<?=site_url('printables/print_my_student_by_class/'.$v->id)?>" target = "_blank"><i class = "fa fa-print"> Print </i></a>
                                     </td>
                                     <td><?=$v->code?></td>
                                     <td>

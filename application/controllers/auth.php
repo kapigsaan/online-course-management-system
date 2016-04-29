@@ -33,7 +33,7 @@ class Auth extends MY_AdminController
 			'word'	 	 => str_replace('0','', substr(md5(rand(1,100).$system_counted_hash),3,rand(2,5))),
 			'img_path'	 => './captcha/',
 			'img_url'	 => base_url().'auth/captcha',
-			'font_path'	 => './assets/_fonts/4.ttf',
+			'font_path'	 => './assets/_fonts/asd.ttf',
 			'img_width'	 => 300,
 			'img_height' => 55,
 			'expiration' => 7200
@@ -50,7 +50,6 @@ class Auth extends MY_AdminController
 	public function check_captcha($result)
 	{      	
 		$the_word = $this->session->userdata('captchaWord');
-			
 		if(strcasecmp($result, $the_word) == 0) {return TRUE;}
 		else{
 		$this->form_validation->set_message('check_captcha', 'Captcha did not match');
@@ -64,7 +63,6 @@ class Auth extends MY_AdminController
 		$this->load->helper('file');//load helper file
 		//delete_files('./captcha');// delete all images in captcha folder
 		//$captcha = $this->_captcha(); //generate captcha
-		$this->captcha_setting();	
 		//$this->session->set_flashdata('image_url',$captcha->link); // save path of generated captcha to session
 		$this->view_data['form_token'] = $this->token->get_token();//generate form token
 		$this->load->library('form_validation');
@@ -72,7 +70,7 @@ class Auth extends MY_AdminController
 		$this->form_validation->set_rules('password', 'password', 'required|trim|htmlspecialchars');
 		// $this->form_validation->set_rules('type', 'type', 'required|trim|htmlspecialchars');
 		$this->form_validation->set_rules('fit', ' ', 'required|trim|htmlspecialchars');
-		$this->form_validation->set_rules('captcha', "Captcha", 'trim|required');
+		$this->form_validation->set_rules('captcha', "Captcha", 'trim|required|callback_check_captcha');
 		//$this->form_validation->set_rules('captcha_text', 'captcha', 'required|trim|htmlspecialchars');
 
 		//$this->view_data['captcha_image'] = $captcha->image;
@@ -93,7 +91,7 @@ class Auth extends MY_AdminController
 				{
 					$captcha_word = $this->session->userdata('captchaWord');
 					$sent_captcha_text = $this->input->post('captcha');
-					// if (strcasecmp($captcha_word, $sent_captcha_text) == 0) {
+					if (strcasecmp($captcha_word, $sent_captcha_text) == 0) {
 					//hash the word
 					//$captcha_word = md5(strtolower($this->session->userdata('word')));
 					//$sent_captcha_text = md5(strtolower($this->input->post('captcha_text')));
@@ -113,6 +111,7 @@ class Auth extends MY_AdminController
 							$this->token->destroy_token();//destroy token
 							$this->session->set_userdata('word','');//destroy captcha from session
 							//unlink($captcha_image_link);//delete captcha image from file
+							$this->captcha_setting();
 							$this->_msgbootstrap('e','Invalid username/password combination.','auth/login/');// redirect failed
 						}
 					//}else{
@@ -122,14 +121,18 @@ class Auth extends MY_AdminController
 					//	unlink($captcha_image_link);
 					//	$this->_msgbootstrap('e','Wrong captcha code entered.','auth/login/');
 					//}
-					// }else{
-	    //             	$this->captcha_setting();
-					// }
+					}else{
+						$this->captcha_setting();
+						$this->_msgbootstrap('e','Wrong captcha code entered.','auth/login/');
+					}
+				}else{
+					$this->captcha_setting();
 				}
 			}else{
 				$this->logger('log','User: '.$username.' failed login attempt. Token expired.');
 				$this->token->destroy_token();
 				$this->session->set_userdata('word','');
+				$this->captcha_setting();
 				unlink($captcha_image_link);
 				$this->_msgbootstrap('e','Token Expired.','auth/login/');
 			}
@@ -207,7 +210,7 @@ class Auth extends MY_AdminController
 	        'word_length' => 4,
 	        'img_path' => './captcha/',
 	        'img_url' =>  base_url() .'captcha/',
-	        'font_path'  => base_url() . 'system/fonts/4.ttf',
+	        'font_path'  => FCPATH. 'system/fonts/asd.ttf',
 	        'img_width' => '250',
 	        'img_height' => 50,
 	        'expiration' => 3600,
@@ -217,6 +220,7 @@ class Auth extends MY_AdminController
 		// $_SESSION['captchaWord'] = $data['word'];
 		$d = $data['word'];
 		$this->session->set_userdata('captchaWord', $d) ;
+		$the_word = $this->session->userdata('captchaWord');
 		                 
 		// image will store in "$data['image']" index and its send on view page 
 		$this->view_data['data'] = $data;
@@ -229,7 +233,7 @@ class Auth extends MY_AdminController
 	        'word_length' => 4,
 	        'img_path' => './captcha/',
 	        'img_url' =>  base_url() .'captcha/',
-	        'font_path'  => base_url() . 'system/fonts/4.ttf',
+	        'font_path'  => FCPATH. 'system/fonts/asd.ttf',
 	        'img_width' => '250',
 	        'img_height' => 50,
 	        'expiration' => 3600,

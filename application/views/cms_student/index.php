@@ -10,7 +10,59 @@
     <?php endif ?>
 <p></p>
 
+<div class="row" id = "show-joinclass-form" hidden>
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Classes
+                <a href="javascript:;" id = "cancel-joinclass" class = "btn btn-danger btn-xs" style = "float:right"><i class = "fa fa-close"> Cancel</i></a>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover dataTables-accounts">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if ($classes): ?>
+                                <?php $cls = NULL ?>
+                                <?foreach ($classes as $key => $v):?>
+                                    <?php if ($myclasses): ?>
+                                        <?$cls = $myclasses($v->id)?>
+                                    <?php endif ?>
+                                    <?php if ($v->status == 'active'): ?>
+                                        <?php if (!$cls): ?>
+                                            <tr>
+                                                <td><?=$v->class?></td>
+                                                <td>
+                                                    <button class="btn btn-primary" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</button>
+                                                </td>
+                                            </tr>
+                                        <?php endif ?>
+                                    <?php endif ?>
+                                <?endforeach?>
+                            <?php endif ?>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+</div>
+
  <div class="row">
+    <div class = "col-lg-12">
+        <p></p>
+        <a href="javascript:;" id = "show-joinclass" class = "btn btn-primary">Join Class</a>
+        <p></p>
+    </div>
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -24,7 +76,6 @@
                         <thead>
                             <tr>
                                 <th>Class</th>
-                                <th>Status</th>
                                 <th>Is Active</th>
                                 <th>Action</th>
                             </tr>
@@ -36,36 +87,36 @@
                                     <?php if ($myclasses): ?>
                                         <?$cls = $myclasses($v->id)?>
                                     <?php endif ?>
-                                    <tr>
-                                        <td><?=$v->class?></td>
-                                        <td>
-                                            <?php if ($cls): ?>
-                                                <?php if ($cls->join): ?>
-                                                    Joined
-                                                <?php endif ?>
-                                            <?php endif ?>
-                                        </td>
-                                        <td>
-                                            <?php if ($cls): ?>
-                                                <?php if ($cls->status == 'active'): ?>
-                                                    <i class = "fa fa-check">Class in Use</i>
-                                                <?php endif ?>
-                                            <?php endif ?>
-                                        </td>
-                                        <td>
-                                            <?php if ($cls): ?>
-                                                <?php if ($cls->join): ?>
-                                                    <?php if ($cls->status == 'inactive'): ?>
-                                                        <a class="btn btn-success" href="<?=site_url('cms_student/use_class/'.$v->id)?>">Use Class</a>
+                                    <?php if ($cls): ?>
+                                        
+                                        <tr>
+                                            <td><?=$v->class?></td>
+                                            <td>
+                                                <?php if ($cls): ?>
+                                                    <?php if ($cls->status == 'active'): ?>
+                                                        <i class = "fa fa-check">Class in Use</i>
                                                     <?php endif ?>
-                                                <? else: ?>
+                                                <?php endif ?>
+                                            </td>
+                                            <td>
+                                                <?php if ($cls): ?>
+                                                    <?php if ($cls->join): ?>
+                                                        <?php if ($cls->status == 'inactive'): ?>
+                                                            <?php if ($cls->join == "joined"): ?>
+                                                                <a class="btn btn-success" href="<?=site_url('cms_student/use_class/'.$v->id)?>">Use Class</a>
+                                                            <?php else: ?>
+                                                                Class is not yet ready to be used
+                                                            <?php endif ?>
+                                                        <?php endif ?>
+                                                    <? else: ?>
+                                                        <button class="btn btn-primary" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</button>
+                                                    <?php endif ?>
+                                                <?else:?>
                                                     <button class="btn btn-primary" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</button>
                                                 <?php endif ?>
-                                            <?else:?>
-                                                <button class="btn btn-primary" data-toggle="modal" data-target="#modal_<?=$v->id?>">Join Class</button>
-                                            <?php endif ?>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    <?php endif ?>
                                 <?endforeach?>
                             <?php endif ?>
                         </tbody>

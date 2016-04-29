@@ -46,9 +46,6 @@
     <div class="col-lg-12">
         <?php echo form_open_multipart('cms_teacher/homework/'.$class);?>
 			<div class="row">
-    			<div class="col-md-2 text-center">
-    				<h4><b>Upload File</b></h4>
-    			</div>
     			<div class="col-md-3 text-center">
     				<input type = "text" name="caption" class = "form-control" placeholder = "Caption" />
     			</div>
@@ -56,6 +53,9 @@
     				<input type = "file" name="file" class = "form-control" />
     			</div>
     			<div class="col-md-3 text-center">
+    				<input type = "text" name="deadline" class = "form-control datepick" placeholder = "Deadline" />
+    			</div>
+    			<div class="col-md-2 text-center">
     				<input type = "submit" name="submit-homework" Value = "Upload" class = "form-control btn btn-primary" />
     			</div>
     			<p></p>
@@ -81,6 +81,7 @@
 	                                <th>Caption</th>
 	                                <th>File Name</th>
 	                                <th>File Size</th>
+	                                <th>Dead Line</th>
 	                                <th>Action</th>
 	                            </tr>
 	                        </thead>
@@ -89,12 +90,20 @@
 	                    			<?foreach ($activities as $key => $v):?>
 	                    				<tr>
 	                    					<td><?=$v->caption?></td>
-	                    					<td><?=$v->file?></td>
+	                    					<td><?=$v->file?>
+	                    						<?if($v->status == "active"):?>
+		                                            <a href="<?=site_url('cms_teacher/activenot/homework/inactive/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-lock"></i></a>
+		                                        <?else:?>
+		                                            <a href="<?=site_url('cms_teacher/activenot/homework/active/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-unlock"></i></a>
+		                                        <?endif;?>
+	                    					</td>
 	                    					<td><?=$v->file_size?></td>
+	                    					<td><?=date('F d, Y', strtotime($v->updated_at))?></td>
 	                    					<td>
 			                        			<a href="<?=assets_url('downloads/homework/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> Download </i></a>
 			                        			<a class = "btn confirm" href="<?=site_url('cms_teacher/delete_homework/'.$v->id.'/'.$class)?>" title = "Click here to delete Homework"> <i class = "fa fa-trash-o"> Delete </i></a>
-			                        			<a href="<?=site_url('cms_teacher/view_answers/'.$v->id); ?>" ><i class = "fa fa-eye"> View Ansers </i></a>
+			                        			<a href="<?=site_url('cms_teacher/view_answers/homework/'.$v->id); ?>" ><i class = "fa fa-eye"> View Ansers </i></a> &nbsp;
+			                        			<a href="<?=site_url('cms_teacher/download_answers/homework/'.$v->id.'/'.$class); ?>" ><i class = "fa fa-download"> Download Answers </i></a>
 			                        		</td>
 	                    				</tr>
 	                    			<?endforeach?>

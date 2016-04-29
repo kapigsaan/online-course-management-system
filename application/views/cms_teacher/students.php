@@ -78,6 +78,7 @@
                                 <th>Username</th>
                                 <th>Full Name</th>
                                 <th>Status</th>
+                                <th>Last Login</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -87,17 +88,20 @@
                                 <tr class="gradeC">
                                     <td><?=$v->username?></td>
                                     <td><?=$v->l_name.', '.$v->f_name.'. '.$v->m_name?></td>
-                                    <td><?=$v->userStatus?> &nbsp;&nbsp;
-                                        <?if($v->userStatus == "active"):?>
-                                            <a href="<?=site_url('cms_teacher/change_status/inactive/'.$v->acid.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-lock"></i></a>
+                                    <td>
+                                        <?if($v->status == "joined"):?>
+                                            Active &nbsp;&nbsp;
+                                            <a href="<?=site_url('cms_teacher/change_status/unjoin/'.$v->sc_id.'/'.$class_id)?>"><i style = "float:right;" class = "fa fa-lock"></i></a>
                                         <?else:?>
-                                            <a href="<?=site_url('cms_teacher/change_status/active/'.$v->acid.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-unlock"></i></a>
+                                            Inactive &nbsp;&nbsp;
+                                            <a href="<?=site_url('cms_teacher/change_status/joined/'.$v->sc_id.'/'.$class_id)?>"><i style = "float:right;" class = "fa fa-unlock"></i></a>
                                         <?endif;?>
                                     </td>
+                                    <td><?=date('F d, Y', strtotime($v->updated_at))?></td>
                                     <td>
-                                        <a href="<?=site_url('cms_teacher/view_student/'.$v->class_id.'/'.$v->id)?>"><i class = "fa fa-eye"> View </i></a> | 
-                                        <a href="<?=site_url('cms_teacher/edit_student/'.$v->class_id.'/'.$v->id)?>"><i class = "fa fa-edit"> Edit </i></a> | 
-                                        <a class = "btn confirm" title = "Click here to delete Student" href="<?=site_url('cms_teacher/delete_student/'.$v->class_id.'/'.$v->id.'/'.$v->acc_id)?>"><i class = "fa fa-trash-o"> Delete </i></a>
+                                        <a href="<?=site_url('cms_teacher/view_student/'.$class_id.'/'.$v->id)?>"><i class = "fa fa-eye"> View </i></a> | 
+                                        <a href="<?=site_url('cms_teacher/edit_student/'.$class_id.'/'.$v->id)?>"><i class = "fa fa-edit"> Edit </i></a> | 
+                                        <a class = "btn confirm" title = "Click here to Remove Student" href="<?=site_url('cms_teacher/delete_student/'.$class_id.'/'.$v->sc_id)?>"><i class = "fa fa-trash-o"> Remove </i></a>
                                     </td>
                                 </tr>
                             <? endforeach ?>

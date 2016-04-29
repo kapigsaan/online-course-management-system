@@ -90,14 +90,21 @@
 	                    			<?foreach ($activities as $key => $v):?>
 	                    				<tr>
 	                    					<td><?=$v->caption?></td>
-	                    					<td><?=$v->file?></td>
+	                    					<td><?=$v->file?>
+	                    						<?if($v->status == "active"):?>
+		                                            <a href="<?=site_url('cms_teacher/activenot/activities/inactive/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-lock"></i></a>
+		                                        <?else:?>
+		                                            <a href="<?=site_url('cms_teacher/activenot/activities/active/'.$v->id.'/'.$v->class_id)?>"><i style = "float:right;" class = "fa fa-unlock"></i></a>
+		                                        <?endif;?>
+	                    					</td>
 	                    					<td><?=$v->file_size?></td>
 	                    					<td><?=date('F d, Y', strtotime($v->updated_at))?></td>
 
 	                    					<td>
 			                        			<a href="<?=assets_url('downloads/activities/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> Download </i></a>
 			                        			<a class = "btn confirm" href="<?=site_url('cms_teacher/delete_activity/'.$v->id.'/'.$class)?>" title = "Click here to delete Activity"> <i class = "fa fa-trash-o"> Delete </i></a>
-			                        			<a href="<?=site_url('cms_teacher/view_answers/'.$v->id); ?>" ><i class = "fa fa-eye"> View Ansers </i></a>
+			                        			<a href="<?=site_url('cms_teacher/view_answers/activity/'.$v->id); ?>" ><i class = "fa fa-eye"> View Answers </i></a> &nbsp;&nbsp;
+			                        			<a href="<?=site_url('cms_teacher/download_answers/activity/'.$v->id.'/'.$class); ?>" ><i class = "fa fa-download"> Download Answers </i></a>
 			                        		</td>
 	                    				</tr>
 	                    			<?endforeach?>

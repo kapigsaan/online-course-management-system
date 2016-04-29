@@ -9,6 +9,7 @@ class Migration_Insert_homework extends CI_Migration {
 		$this->dbforge->add_field("`class_id` bigint(20) unsigned NOT NULL");
     	$this->dbforge->add_field("`file` longtext DEFAULT NULL");
     	$this->dbforge->add_field("`file_size` varchar(255) DEFAULT NULL");
+    	$this->dbforge->add_field("`status` set('active','inactive') NOT NULL DEFAULT 'active'");
 		$this->dbforge->add_field("`created_at` datetime DEFAULT NULL");
 		$this->dbforge->add_field("`updated_at` datetime DEFAULT NULL");
 		$this->dbforge->add_key('`id`', TRUE);

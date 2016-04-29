@@ -78,35 +78,42 @@
         </div>
     </div>
 
-    <!-- jQuery Version 1.11.0 -->
-    <script src="<?=site_url('assets/jquery-1.11.0.js')?>"></script>
+     <script type='text/javascript' src="<?=site_url('assets/admin_js/jquery.min.js')?>"></script>
+    <script type='text/javascript' src="<?=site_url('assets/admin_js/jquery-ui.min.js')?>"></script> 
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="<?=site_url('assets/bootstrap.min.js')?>"></script>
+    <script type='text/javascript' src="<?=site_url('assets/admin_js/bootstrap.min.js')?>"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="<?=site_url('assets/plugins/metisMenu/metisMenu.min.js')?>"></script>
+    <script type='text/javascript' src="<?=site_url('assets/admin_js/plugins/metisMenu/metisMenu.min.js')?>"></script>
+
 
     <!-- Custom Theme JavaScript -->
-    <script src="<?=site_url('assets/sb-admin-2.js')?>"></script>
+    <script type='text/javascript' src="<?=site_url('assets/admin_js/sb-admin-2.js')?>"></script>
+
     <script type="text/javascript">
-        $("a.refresh").click(function() {
-    var url = $(this).attr('url');
-                    jQuery.ajax({
-                        type: "POST",
-                        url: url,
-                        success: function(res) {
-                            if (res)
-                            { 
-        $("div.c_image .the_im").empty();
-        $("div.c_image .the_im").append(res);
-                                  
-                            }  
-                        }
-                    });
-                });
+
+        $("#refresh").on('click', function() {
+            
+        var url = $(this).attr('url');
+        
+            jQuery.ajax({
+                type: "POST",
+                url: url,
+                success: function(res) {
+                    if (res)
+                    { 
+                    $("div.c_image .the_im").empty();
+                    $("div.c_image .the_im").append(res);
+                          
+                    }  
+                }
             });
+                        
+        });
     </script>
+
 </body>
+
 
 </html>

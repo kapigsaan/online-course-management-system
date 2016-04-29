@@ -63,6 +63,20 @@ class M_classes Extends CI_Model
     return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
   }
 
+  public function print_my_student_by_class($id = FALSE)
+  {
+    $query = "SELECT *,c.class
+            FROM useraccounts u
+            LEFT JOIN students_in_class st ON u.acid = st.stud_id
+            LEFT JOIN classes c ON st.class_id = c.id
+            WHERE st.class_id = ?
+            ORDER BY 
+            u.l_name";
+    $q = $this->db->query($query,[$id]);
+
+    return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
+  }
+
 
   public function get_all_classes_with_students()
   {
@@ -81,8 +95,9 @@ class M_classes Extends CI_Model
       foreach ($q->result() as $key => $v) {
         $namefull = $v->l_name.' '.$v->f_name.' '.$v->m_name;
         $class = $v->class; 
-        $data[$key][$class] = $class;
-        $data[$key][$namefull] = $this->get_my_classes_stud($v->id);
+        $data[$key]['class'] = $class;
+        $data[$key]['teacher'] = $namefull;
+        $data[$key]['students'] = $this->get_my_classes_stud($v->id);
       }
 
       return $data;
@@ -136,15 +151,16 @@ class M_classes Extends CI_Model
     return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
   }
 
-  public function get_all_answers($id = FALSE)
+  public function get_all_answers($id = FALSE, $status = FALSE)
   {
     $query = "SELECT a.*, u.l_name, u.f_name, a.created_at as subm
           FROM answers a
           LEFT JOIN useraccounts u ON a.stud_id = u.acid
           WHERE a.class_id = ?
+          AND a.status = ?
           ORDER BY u.l_name
           ";
-    $q = $this->db->query($query, [$id]);
+    $q = $this->db->query($query, [$id,$status]);
     
     return $q->num_rows() >= 1 ? $q->result() : FALSE; //returns result if none retrieved, returns FALSE
   }
@@ -354,10 +370,16 @@ class M_classes Extends CI_Model
     return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
   }
 
-  public function use_class($id)
+  public function use_class($id = FALSE, $stud_id = FALSE)
   {
+    $this->db->set('status', 'inactive'); 
+    $this->db->where('stud_id', $stud_id); 
+    $this->db->update('students_in_class'); 
+
+
     $this->db->set('status', 'active'); 
-    $this->db->where('id', $id); 
+    $this->db->where('class_id', $id);
+    $this->db->where('stud_id', $stud_id);
     $this->db->update('students_in_class'); 
     return $this->db->affected_rows() >= 1 ? TRUE : FALSE;
   }

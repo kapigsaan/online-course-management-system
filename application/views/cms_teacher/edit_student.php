@@ -44,7 +44,7 @@
                         <div class="col-md-6 text-right">
                         	<input type ="hidden" name = "account_id" value = "<?=$list->acid?>" />
                             <input type = "submit" class = "btn btn-primary" name = "edit-studentsubmit" value = "Update Student" />
-                            <a href="<?=site_url('cms_teacher/students/'.$list->class_id)?>" class = "btn btn-danger" >Cancel</a>
+                            <a href="<?=site_url('cms_teacher/students/'.$class_id)?>" class = "btn btn-danger" >Cancel</a>
                         </div>
                     </div>
                 <?php endif ?>

@@ -21,6 +21,7 @@ class Cms_student extends MY_AdminController {
 			$this->load->model('M_classes','mcl');
 			$this->load->library(array('form_validation','token'));
 			$this->load->helper(array('url','form'));
+			$this->load->helper('download');
 		}elseif ($this->session->userdata('userType') == 'instructor') {
 			redirect('cms_teacher');
 		}elseif ($this->session->userdata('userType') == 'admin') {
@@ -34,6 +35,12 @@ class Cms_student extends MY_AdminController {
 
 		return $this->ms->get_student_class($ac_id);
 
+	}
+
+	public function download($path = FALSE, $file = FALSE)
+	{
+		$data = file_get_contents(FCPATH.'/assets/downloads/'.$path.'/'.$file); // Read the file's contents
+        force_download($file, $data);
 	}
 	
 	public function index()
@@ -352,6 +359,7 @@ class Cms_student extends MY_AdminController {
 			$data['caption'] = $this->input->post('caption');
 			$data['class_id'] = $this->input->post('act_id');
 			$data['stud_id'] = $this->session->userdata('userid');
+			$data['status'] = 'activity';
 
 			$result = $this->ms->submit_avtivity($data);
 			if ($result) {
@@ -389,6 +397,7 @@ class Cms_student extends MY_AdminController {
 			$data['caption'] = $this->input->post('caption');
 			$data['class_id'] = $this->input->post('act_id');
 			$data['stud_id'] = $this->session->userdata('userid');
+			$data['status'] = 'homework';
 
 			$result = $this->ms->submit_avtivity($data);
 			if ($result) {
@@ -427,6 +436,7 @@ class Cms_student extends MY_AdminController {
 			$data['caption'] = $this->input->post('caption');
 			$data['class_id'] = $this->input->post('act_id');
 			$data['stud_id'] = $this->session->userdata('userid');
+			$data['status'] = 'quiz';
 
 			$result = $this->ms->submit_avtivity($data);
 			if ($result) {

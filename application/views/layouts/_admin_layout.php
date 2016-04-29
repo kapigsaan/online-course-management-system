@@ -223,9 +223,9 @@
                                     <li>
                                         <a href="<?=site_url('printables/print_subjects')?>" target = "_blank"><i class="fa fa-hand-o-right"> Subjects/Classes</i></a>
                                     </li>
-                                    <!-- <li>
+                                    <li>
                                         <a href="<?=site_url('printables/print_student_by_class')?>" target = "_blank"><i class="fa fa-hand-o-right"> Student by Class</i></a>
-                                    </li> -->
+                                    </li>
                                 </ul>
                             </li>
                         <?php elseif ($this->session->userdata('userType') == 'instructor'):?>
@@ -408,6 +408,14 @@
                 }
                     }
             });
+        });
+
+        $('#show-joinclass').click(function(){
+            $('#show-joinclass-form').toggle('slow');
+        });
+
+        $('#cancel-joinclass').click(function(){
+            $('#show-joinclass-form').toggle('slow');
         });
     });
     </script>

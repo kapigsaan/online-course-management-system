@@ -23,6 +23,8 @@ class Cms_teacher extends MY_AdminController {
 			$this->load->helper('string');
 			$this->load->library(array('form_validation','token'));
 			$this->load->helper(array('url','form'));
+			$this->load->helper('download');
+			$this->load->library('zip');
 		}elseif ($this->session->userdata('userType') == 'admin') {
 			redirect('cms_admin');
 		}elseif ($this->session->userdata('userType') == 'student') {
@@ -166,6 +168,7 @@ class Cms_teacher extends MY_AdminController {
 			}
 			
 			$this->view_data['list'] = $this->ms->get_students_in_class($id);
+			$this->view_data['class_id'] = $id;
 
 		}else{
 			show_404();
@@ -193,6 +196,7 @@ class Cms_teacher extends MY_AdminController {
 			}
 			
 			$this->view_data['list'] = $this->ms->get_student($id);
+			$this->view_data['class_id'] = $id;
 		}else{
 			show_404();
 		}
@@ -202,17 +206,18 @@ class Cms_teacher extends MY_AdminController {
 	{
 		if ($id) {
 			$this->view_data['list'] = $this->ms->get_student($id);
+			$this->view_data['class_id'] = $id;
 		}else{
 			show_404();
 		}
 	}
 
-	public function delete_student($class = FALSE, $id = FALSE, $account_id = FALSE)
+	public function delete_student($class = FALSE, $id = FALSE)
 	{
-		if ($id && $account_id) {
-			$res = $this->ms->delete_student($id, $account_id);
+		if ($id && $class) {
+			$res = $this->ms->delete_student($id);
 			if ($res) {
-					$this->_msg('s','Successfully Deleted Student.','cms_teacher/students/'.$class);
+					$this->_msg('s','Successfully Removed Student.','cms_teacher/students/'.$class);
 				}else{
 					$this->_msg('e','Failed.','cms_teacher/students/'.$class);
 				}
@@ -224,9 +229,9 @@ class Cms_teacher extends MY_AdminController {
 	public function change_status($status = FALSE, $id = FALSE, $class = FALSE)
 	{
 		if ($id) {
-			$res = $this->mu->change_status($status, $id);
+			$res = $this->mu->change_stud_status($status, $id);
 			if ($res) {
-				if ($status == "inactive") {
+				if ($status == "unjoin") {
 					$this->_msg('s','Account Successfully Deactivated.','cms_teacher/students/'.$class);	
 				}else{
 					$this->_msg('s','Account Successfully Activated.','cms_teacher/students/'.$class);
@@ -403,15 +408,47 @@ class Cms_teacher extends MY_AdminController {
 	{
 		if ($id) {
 			$res = $this->md->change_status($databse, $status, $id);
+
 			if ($res) {
 				if ($status == "inactive") {
-					$this->_msg('s','Account Successfully Deactivated.','cms_teacher/materials/'.$class);	
+					if ($databse == 'activities') {
+						$this->_msg('s','Successfully Deactivated Activity.','cms_teacher/activity/'.$class);	
+					}elseif($databse == 'homework'){
+						$this->_msg('s','Successfully Deactivated Homework.','cms_teacher/homework/'.$class);	
+					}elseif($databse == 'quizzes'){
+						$this->_msg('s','Successfully Deactivated Quiz.','cms_teacher/quizzes/'.$class);	
+					}elseif($databse == 'classes'){
+						$this->_msg('s','Successfully Deactivated Class.','cms_teacher/classes/'.$class);	
+					}else{
+						$this->_msg('s','Successfully Deactivated.','cms_teacher/materials/'.$class);	
+					}
 				}else{
-					$this->_msg('s','Account Successfully Activated.','cms_teacher/materials/'.$class);
+					if ($databse == 'activities') {
+						$this->_msg('s','Successfully Activated Activity.','cms_teacher/activity/'.$class);	
+					}elseif($databse == 'homework'){
+						$this->_msg('s','Successfully Activated Homework.','cms_teacher/homework/'.$class);	
+					}elseif($databse == 'quizzes'){
+						$this->_msg('s','Successfully Activated Quiz.','cms_teacher/quizzes/'.$class);	
+					}elseif($databse == 'classes'){
+						$this->_msg('s','Successfully Activated Class.','cms_teacher/classes/'.$class);	
+					}else{
+						$this->_msg('s','Successfully Activated.','cms_teacher/materials/'.$class);	
+					}
 				}
 			}else{
-				$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
-			}				
+				if ($databse == 'activities') {
+					$this->_msg('e','Failed.','cms_teacher/activity/'.$class);	
+				}elseif($databse == 'homework'){
+					$this->_msg('e','Failed.','cms_teacher/homework/'.$class);	
+				}elseif($databse == 'quizzes'){
+					$this->_msg('e','Failed.','cms_teacher/quizzes/'.$class);	
+				}elseif($databse == 'classes'){
+					$this->_msg('e','Failed.','cms_teacher/classes/'.$class);	
+				}else{
+					$this->_msg('e','Failed.','cms_teacher/materials/'.$class);
+				}
+			}
+
 		}else{
 			show_404();
 		}
@@ -775,12 +812,43 @@ class Cms_teacher extends MY_AdminController {
 		}
 	}
 
-	public function view_answers($id = FALSE)
+	public function view_answers($status = FALSE, $id = FALSE)
 	{
 		if ($id) {
-			$this->view_data['answers'] = $this->mc->get_all_answers($id);
+			$this->view_data['answers'] = $this->mc->get_all_answers($id, $status);
 		}else{
 			show_404();
+		}
+	}
+
+	public function download($path = FALSE, $file = FALSE)
+	{
+		$data = file_get_contents(FCPATH.'/assets/downloads/'.$path.'/'.$file); // Read the file's contents
+        force_download($file, $data);
+
+        return true;
+	}
+
+	public function download_answers($status = FALSE, $id = FALSE, $class = FALSE)
+	{
+		$ans = $this->mc->get_all_answers($id, $status);
+		if ($ans) {
+			$this->zip->clear_data();
+			foreach ($ans as $key => $v) {
+				// $this->download('answers', $v->file);
+
+        		$name = $v->file;
+				$data = file_get_contents(FCPATH.'/assets/downloads/answers/'.$v->file);
+
+				$this->zip->add_data($name, $data);
+			}
+
+			// Write the zip file to a folder on your server. Name it "my_backup.zip"
+			$this->zip->archive(FCPATH.'/assets/downloads/answers/tobedownloaded'); 
+			// Download the file to your desktop. Name it "my_backup.zip"
+			$this->zip->download('answers.zip');
+		}else{
+			$this->_msg('e','No Answers Available.','cms_teacher/activity/'.$class);
 		}
 	}
 
@@ -829,6 +897,7 @@ class Cms_teacher extends MY_AdminController {
 				}
 
 				$data['caption']=$this->input->post('caption');
+				$data['updated_at']=$this->input->post('deadline');
 				$data['class_id'] = $id;
 
 				$result = $this->mc->upload_homework($data);
@@ -905,6 +974,7 @@ class Cms_teacher extends MY_AdminController {
 				}
 
 				$data['caption']=$this->input->post('caption');
+				$data['updated_at']=$this->input->post('deadline');
 				$data['class_id'] = $id;
 
 				$result = $this->mc->upload_quizzes($data);

@@ -65,15 +65,21 @@
                         <tbody>
                         	<?php if ($quizzes): ?>
                     			<?foreach ($quizzes as $key => $v):?>
-                    				<tr>
-                    					<td><?=$v->caption?></td>
-                    					<td><?=$v->file?></td>
-                    					<td><?=$v->file_size?></td>
-                    					<td>
-		                        			<a href="<?php echo assets_url('downloads/quizzes/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> Download </i></a>
-		                        			<a href="javascript:;" url = "<?=$v->id?>" id = "upload-answer" ><i class = "fa fa-upload"> Upload Answer </i></a>
-		                        		</td>
-                    				</tr>
+                                    <?php if ($v->status == 'active'): ?>
+                        				<tr>
+                        					<td><?=$v->caption?></td>
+                        					<td><?=$v->file?></td>
+                        					<td><?=$v->file_size?></td>
+                        					<td>
+                                                <?php if (date('Y-m-d', strtotime($v->updated_at)) >= date('Y-m-d')): ?>
+                                                    <a href="<?php echo assets_url('downloads/quizzes/'.$v->file); ?>" title="<?=$v->caption;?>" target="_blank"><i class = "fa fa-download"> Download </i></a>
+                                                    <a href="javascript:;" url = "<?=$v->id?>" id = "upload-answer" ><i class = "fa fa-upload"> Upload Answer </i></a>
+                                                <?php else:?>
+                                                    Quiz already Passed Deadline
+                                                <?php endif ?>
+    		                        		</td>
+                        				</tr>
+                                    <?php endif ?>
                     			<?endforeach?>
                     		<?php endif ?>
                         </tbody>

@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-md-6"></div>
                     <div class="col-md-6 text-right">
-                        <a href="<?=site_url('cms_teacher/students/'.$list->class_id)?>" class = "btn btn-danger" >Back to List</a>
+                        <a href="<?=site_url('cms_teacher/students/'.$class_id)?>" class = "btn btn-danger" >Back to List</a>
                     </div>
                 </div>
             <?php endif ?>

@@ -8,6 +8,7 @@ class Migration_Insert_classes extends CI_Migration {
 		$this->dbforge->add_field("`created_by` bigint(20) unsigned NOT NULL");
     	$this->dbforge->add_field("`class` varchar(255) DEFAULT NULL");
     	$this->dbforge->add_field("`code` varchar(255) DEFAULT NULL");
+    	$this->dbforge->add_field("`status` set('active','inactive') NOT NULL DEFAULT 'active'");
 		$this->dbforge->add_field("`created_at` datetime DEFAULT NULL");
 		$this->dbforge->add_field("`updated_at` datetime DEFAULT NULL");
 		$this->dbforge->add_key('`id`', TRUE);
