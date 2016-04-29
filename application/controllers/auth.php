@@ -89,9 +89,9 @@ class Auth extends MY_AdminController
 				//run form validation
 				if($this->form_validation->run() !== FALSE)
 				{
-					$captcha_word = $this->session->userdata('captchaWord');
-					$sent_captcha_text = $this->input->post('captcha');
-					if (strcasecmp($captcha_word, $sent_captcha_text) == 0) {
+					// $captcha_word = $this->session->userdata('captchaWord');
+					// $sent_captcha_text = $this->input->post('captcha');
+					// if (strcasecmp($captcha_word, $sent_captcha_text) == 0) {
 					//hash the word
 					//$captcha_word = md5(strtolower($this->session->userdata('word')));
 					//$sent_captcha_text = md5(strtolower($this->input->post('captcha_text')));
@@ -121,10 +121,10 @@ class Auth extends MY_AdminController
 					//	unlink($captcha_image_link);
 					//	$this->_msgbootstrap('e','Wrong captcha code entered.','auth/login/');
 					//}
-					}else{
-						$this->captcha_setting();
-						$this->_msgbootstrap('e','Wrong captcha code entered.','auth/login/');
-					}
+					// }else{
+					// 	$this->captcha_setting();
+					// 	$this->_msgbootstrap('e','Wrong captcha code entered.','auth/login/');
+					// }
 				}else{
 					$this->captcha_setting();
 				}
